@@ -74,6 +74,8 @@ public class HttpJsonParser {
             is.close();
             json = sb.toString();
             Log.i("tagconvertstr", "["+json+"]");
+            Log.i("tagconvertstr", "["+encodedParams+"]");
+
             jObj = new JSONObject(json);
 
 
