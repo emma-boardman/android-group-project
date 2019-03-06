@@ -25,7 +25,7 @@ public class TempAddUserToDB extends AppCompatActivity {
     private static final String KEY_USER_NAME = "User_Name";
     private static final String KEY_EMAIL = "Email";
     private static final String KEY_PASSWORD = "Password";
-    private static final String BASE_URL = "http://40414669.wdd.napier.ac.uk/users";
+    private static final String BASE_URL = "http://40414669.wdd.napier.ac.uk/inc/";
     private EditText userNameEditText;
     private EditText userEmailEditText;
     private EditText userPasswordEditText;
@@ -84,11 +84,11 @@ public class TempAddUserToDB extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             //Display progress bar
-            pDialog = new ProgressDialog(TempAddUserToDB.this);
-            pDialog.setMessage("Adding User. Please wait...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(false);
-            pDialog.show();
+//            pDialog = new ProgressDialog(TempAddUserToDB.this);
+//            pDialog.setMessage("Adding User. Please wait...");
+//            pDialog.setIndeterminate(false);
+//            pDialog.setCancelable(false);
+//            pDialog.show();
         }
 
         @Override
@@ -110,7 +110,7 @@ public class TempAddUserToDB extends AppCompatActivity {
         }
 
         protected void onPostExecute(String result) {
-            pDialog.dismiss();
+//            pDialog.dismiss();
             runOnUiThread(new Runnable() {
                 public void run() {
                     if (success == 1) {
@@ -125,7 +125,7 @@ public class TempAddUserToDB extends AppCompatActivity {
 
                     } else {
                         Toast.makeText(TempAddUserToDB.this,
-                                "Some error occurred while adding movie",
+                                "Some error occurred while adding user",
                                 Toast.LENGTH_LONG).show();
 
                     }
