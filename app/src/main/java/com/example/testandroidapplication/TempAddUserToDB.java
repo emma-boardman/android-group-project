@@ -33,7 +33,6 @@ public class TempAddUserToDB extends AppCompatActivity {
     private String userEmail;
     private String userPassword;
     private int success;
-    private ProgressDialog pDialog;
 
 
 
@@ -83,12 +82,6 @@ public class TempAddUserToDB extends AppCompatActivity {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            //Display progress bar
-//            pDialog = new ProgressDialog(TempAddUserToDB.this);
-//            pDialog.setMessage("Adding User. Please wait...");
-//            pDialog.setIndeterminate(false);
-//            pDialog.setCancelable(false);
-//            pDialog.show();
         }
 
         @Override
