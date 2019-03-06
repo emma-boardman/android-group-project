@@ -7,6 +7,7 @@
     <string name="user_name">User Name</string>
     <string name="user_email">User Email</string>
     <string name="user_password">User Password</string>
+    <string name="user_profile_welcome">You have logged in! Welcome to your profile.</string>
 
 
 </resources>

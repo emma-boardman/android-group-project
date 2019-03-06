@@ -127,10 +127,11 @@ public class MainActivity extends AppCompatActivity {
                         //Display success message
                         Toast.makeText(MainActivity.this,
                                 "User Validated", Toast.LENGTH_LONG).show();
-                        Intent i = getIntent();
-                        //send result code 20 to notify about movie update
-                        setResult(20, i);
-                        //Finish ths activity and go back to listing activity
+
+                        Intent i = new Intent(getApplicationContext(),
+                                ProfileActivity.class);
+                        startActivity(i);
+
                         finish();
 
                     } else {
