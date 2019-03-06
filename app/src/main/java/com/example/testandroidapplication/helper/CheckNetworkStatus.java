@@ -1,4 +1,4 @@
-package helper;
+package com.example.testandroidapplication.helper;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
