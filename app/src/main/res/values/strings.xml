@@ -1,12 +1,16 @@
 <resources>
     <string name="app_name">TestAndroidApplication</string>
 
-    <string name="load_add_user_activity">Load Add User Activity</string>
+    <string name="login_as_user">Login as an existing user</string>
+    <string name="load_add_user_activity">Register as a new user</string>
     <string name="add_new_user">Add New User</string>
     <string name="user_name">User Name</string>
     <string name="user_email">User Email</string>
     <string name="user_password">User Password</string>
+
     <string name="title_activity_messaging">Messaging</string>
+
+    <string name="user_profile_welcome">You have logged in! Welcome to your profile.</string>
 
 
 </resources>
