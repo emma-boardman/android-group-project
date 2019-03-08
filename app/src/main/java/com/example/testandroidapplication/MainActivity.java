@@ -19,6 +19,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button addNewBtn = findViewById(R.id.addNewBtn);
+        Button btn_messaging = findViewById(R.id.btn_messaging);
+
+        btn_messaging.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, Messaging.class);
+                startActivity(i);
+            }
+        });
 
         addNewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
