@@ -11,6 +11,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.testandroidapplication.helper.CheckNetworkStatus;
+
+import com.google.firebase.auth.FirebaseAuth;
+
 import com.example.testandroidapplication.helper.HttpJsonParser;
 
 import org.json.JSONException;
@@ -18,6 +21,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,10 +40,23 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
         userEmailEditText = findViewById(R.id.txtUserNameLogin);
         userPasswordEditText = findViewById(R.id.txtUserPasswordLogin);
         Button loginBtn = findViewById(R.id.loginBtn);
+
         Button addNewBtn = findViewById(R.id.addNewBtn);
+        Button btn_messaging = findViewById(R.id.btn_messaging);
+
+        btn_messaging.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, Messaging.class);
+                startActivity(i);
+            }
+        });
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,15 +80,13 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View view) {
                 //Check for network connectivity
                 if (CheckNetworkStatus.isNetworkAvailable(getApplicationContext())) {
-                    Intent i = new Intent(getApplicationContext(),
-                            TempAddUserToDB.class);
+                    Intent i = new Intent(getApplicationContext(), TempAddUserToDB.class);
                     startActivity(i);
                 } else {
                     //Display error message if not connected to internet
                     Toast.makeText(MainActivity.this,
                             "Unable to connect to internet",
                             Toast.LENGTH_LONG).show();
-
                 }
 
             }
