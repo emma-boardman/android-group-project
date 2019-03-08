@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.testandroidapplication.helper.CheckNetworkStatus;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Button addNewBtn = findViewById(R.id.addNewBtn);
 
         addNewBtn.setOnClickListener(new View.OnClickListener() {
@@ -23,15 +25,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //Check for network connectivity
                 if (CheckNetworkStatus.isNetworkAvailable(getApplicationContext())) {
-                    Intent i = new Intent(getApplicationContext(),
-                            TempAddUserToDB.class);
+                    Intent i = new Intent(getApplicationContext(), TempAddUserToDB.class);
                     startActivity(i);
                 } else {
                     //Display error message if not connected to internet
                     Toast.makeText(MainActivity.this,
                             "Unable to connect to internet",
                             Toast.LENGTH_LONG).show();
-
                 }
 
             }
