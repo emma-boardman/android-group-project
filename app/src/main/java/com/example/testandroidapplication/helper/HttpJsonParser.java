@@ -79,6 +79,8 @@ public class HttpJsonParser {
             jObj = new JSONObject(json);
 
 
+
+
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (ProtocolException e) {
@@ -93,6 +95,7 @@ public class HttpJsonParser {
 
         // return JSON String
         return jObj;
+
 
     }
 }

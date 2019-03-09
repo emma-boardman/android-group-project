@@ -84,6 +84,13 @@
         android:layout_height="wrap_content"
         android:text="@string/add_new_user" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/getUserBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="get user" />
+
+
+    </LinearLayout>
 
 </ScrollView>
