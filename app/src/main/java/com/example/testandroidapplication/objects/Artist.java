@@ -18,14 +18,13 @@ public class Artist extends User {
     }
 
 // Questions:
-// What happens when any of these are passed in as null
 // Should the tags be an array?
 // Should the comments be an array?
 
     public static Artist fromJson(JSONObject jsonObject) {
 
-        Artist artist = new Artist();//        Artist artist = new Artist(name, email, password, tagLine, searchTags, description, facebookLink, twitterLink, webPageLink, location, userID, overallRating, profileImage, comments, soundCloudLink);
-        // Deserialize json into object fields
+        Artist artist = new Artist();
+        
         try {
             artist.name = jsonObject.getString("User_Name");
             artist.tagLine = jsonObject.getString("Tagline");
@@ -34,12 +33,12 @@ public class Artist extends User {
             artist.facebookLink = jsonObject.getString("Facebook");
             artist.twitterLink = jsonObject.getString("Twitter");
             artist.webPageLink = jsonObject.getString("Website");
-//            artist.location = jsonObject.getString("Location");
+            artist.location = jsonObject.getString("Location");
             artist.userID = jsonObject.getInt("User_Id");
             artist.overallRating = 4;
             artist.profileImage = null;
             artist.comments = "comments";
-            artist.soundCloudLink = "link";
+            artist.soundCloudLink = jsonObject.getString("Soundcloud");
 
         } catch (JSONException e) {
             e.printStackTrace();
