@@ -1,7 +1,5 @@
 package com.example.testandroidapplication;
 
-import android.app.ProgressDialog;
-import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,49 +11,44 @@ import android.widget.Toast;
 import android.content.Intent;
 
 import com.example.testandroidapplication.helper.ArtistResult;
-import com.example.testandroidapplication.helper.HttpJsonParser;
 import com.example.testandroidapplication.helper.CheckNetworkStatus;
 import com.example.testandroidapplication.helper.WebClientMethods;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+public class ReferenceHttpAsyncTasksForUI extends AppCompatActivity {
 
-public class TempAddUserToDB extends AppCompatActivity {
-
-//    private static final String KEY_SUCCESS = "success";
-//    private static final String KEY_USER_NAME = "User_Name";
-//    private static final String KEY_EMAIL = "Email";
-//    private static final String KEY_PASSWORD = "Password";
-//    private static final String BASE_URL = "http://40414669.wdd.napier.ac.uk/inc/";
     private EditText userNameEditText;
     private EditText userEmailEditText;
     private EditText userPasswordEditText;
     private String userName;
     private String userEmail;
     private String userPassword;
-    private int success;
 
-
+    //  File Structure:
+    // 1. Buttons & Set-up
+    // 2. Methods
+    // 3. Async tasks
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temp_add_user_to_db);
+
+        // CREATE NEW USER ACCOUNT - button and onclick setup
         userNameEditText = findViewById(R.id.txtUserNameAdd);
         userEmailEditText =  findViewById(R.id.txtUserEmailAdd);
         userPasswordEditText = findViewById(R.id.txtUserPasswordAdd);
-        Button addButton = findViewById(R.id.addNewUserBtn);
-        addButton.setOnClickListener(new View.OnClickListener() {
+
+        Button createNewUserButton = findViewById(R.id.createNewUserBtn);
+
+        createNewUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (CheckNetworkStatus.isNetworkAvailable(getApplicationContext())) {
-                    addUser();
+                    createNewUser();
                 } else {
-                    Toast.makeText(TempAddUserToDB.this,
+                    Toast.makeText(ReferenceHttpAsyncTasksForUI.this,
                             "Unable to connect to internet",
                             Toast.LENGTH_LONG).show();
 
@@ -63,14 +56,19 @@ public class TempAddUserToDB extends AppCompatActivity {
 
             }
         });
+
+
+        // READ ARTIST PROFILE -  button and onclick setup
+        // Currently hardcoded to userId 5
         Button getButton = findViewById(R.id.getUserBtn);
+
         getButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (CheckNetworkStatus.isNetworkAvailable(getApplicationContext())) {
-                    getUser();
+                   readArtistProfile();
                 } else {
-                    Toast.makeText(TempAddUserToDB.this,
+                    Toast.makeText(ReferenceHttpAsyncTasksForUI.this,
                             "Unable to connect to internet",
                             Toast.LENGTH_LONG).show();
 
@@ -80,7 +78,9 @@ public class TempAddUserToDB extends AppCompatActivity {
         });
     }
 
-    private void addUser() {
+    // CREATE NEW USER ACCOUNT - method
+
+    private void createNewUser() {
 
         String STRING_EMPTY = "";
         if (!STRING_EMPTY.equals(userNameEditText.getText().toString()) &&
@@ -90,23 +90,24 @@ public class TempAddUserToDB extends AppCompatActivity {
             userName = userNameEditText.getText().toString();
             userEmail = userEmailEditText.getText().toString();
             userPassword = userPasswordEditText.getText().toString();
-            new AddUserAsyncTask().execute();
+            new CreateNewUserAsyncTask().execute();
         } else {
-            Toast.makeText(TempAddUserToDB.this,
+            Toast.makeText(ReferenceHttpAsyncTasksForUI.this,
                     "One or more fields left empty!",
                     Toast.LENGTH_LONG).show();
 
         }
     }
 
-    private void getUser() {
-       new GetProfileAsyncTask().execute();
+    private void readArtistProfile() {
+       new ReadArtistProfileAsyncTask().execute();
     }
 
 
 
+    // CREATE NEW USER ACCOUNT - Async Task
 
-    private class AddUserAsyncTask extends AsyncTask<String, String, String> {
+    private class CreateNewUserAsyncTask extends AsyncTask<String, String, String> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -114,42 +115,25 @@ public class TempAddUserToDB extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
-            new WebClientMethods().addUser(userName, userEmail, userPassword);
-            return null;
+           return new WebClientMethods().createUserAccount(userName, userEmail, userPassword);
+
         }
 
-//        @Override
-//        protected String doInBackground(String... params) {
-//            HttpJsonParser httpJsonParser = new HttpJsonParser();
-//            Map<String, String> httpParams = new HashMap<>();
-//            //Populating request parameters
-//            httpParams.put(KEY_USER_NAME, userName);
-//            httpParams.put(KEY_EMAIL, userEmail);
-//            httpParams.put(KEY_PASSWORD, userPassword);
-//            JSONObject jsonObject = httpJsonParser.makeHttpRequest(
-//                    BASE_URL + "addUser.php", "POST", httpParams);
-//            try {
-//                success = jsonObject.getInt(KEY_SUCCESS);
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//            return null;
-//        }
 
-        protected void onPostExecute(String result) {
-//            pDialog.dismiss();
+        protected void onPostExecute(final String result) {
+
             runOnUiThread(new Runnable() {
                 public void run() {
-                    if (success == 1) {
+                    if (result.equals("1")) {
                         //Display success message
-                        Toast.makeText(TempAddUserToDB.this,
+                        Toast.makeText(ReferenceHttpAsyncTasksForUI.this,
                                 "User Added", Toast.LENGTH_LONG).show();
-                        Intent i = getIntent();
+
                         //Finish ths activity
                         finish();
 
                     } else {
-                        Toast.makeText(TempAddUserToDB.this,
+                        Toast.makeText(ReferenceHttpAsyncTasksForUI.this,
                                 "Some error occurred while adding user",
                                 Toast.LENGTH_LONG).show();
 
@@ -160,7 +144,9 @@ public class TempAddUserToDB extends AppCompatActivity {
 
     }
 
-    private class GetProfileAsyncTask extends AsyncTask<String, String, ArtistResult> {
+    // READ ARTIST PROFILE - Async Task
+
+    private class ReadArtistProfileAsyncTask extends AsyncTask<String, String, ArtistResult> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -168,7 +154,7 @@ public class TempAddUserToDB extends AppCompatActivity {
 
         @Override
         protected ArtistResult doInBackground(String... params) {
-            return new WebClientMethods().getUser();
+            return new WebClientMethods().readArtistProfile();
 
         }
 
@@ -178,15 +164,15 @@ public class TempAddUserToDB extends AppCompatActivity {
                 public void run() {
                     if (result.isSuccess()) {
                         //Display success message
-                        Toast.makeText(TempAddUserToDB.this,
-                                "User Added", Toast.LENGTH_LONG).show();
-
+                        Toast.makeText(ReferenceHttpAsyncTasksForUI.this,
+                                "Artist profile return (see LogCat 'tagconvertstr')", Toast.LENGTH_LONG).show();
+                        Log.i("artist:", result.getArtist().getTagLine());
                         //Finish ths activity
                         finish();
 
                     } else {
-                        Toast.makeText(TempAddUserToDB.this,
-                                "Some error occurred while adding user",
+                        Toast.makeText(ReferenceHttpAsyncTasksForUI.this,
+                                "Artist profile could not be returned",
                                 Toast.LENGTH_LONG).show();
 
                     }

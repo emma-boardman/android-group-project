@@ -79,7 +79,7 @@
 
 
     <Button
-        android:id="@+id/addNewUserBtn"
+        android:id="@+id/createNewUserBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/add_new_user" />

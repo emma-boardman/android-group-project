@@ -28,15 +28,13 @@ public class Artist extends User {
         // Deserialize json into object fields
         try {
             artist.name = jsonObject.getString("User_Name");
-            artist.email = jsonObject.getString("Email");
-            artist.password = jsonObject.getString("Password");
-            artist.tagLine = "insert tagline here";
+            artist.tagLine = jsonObject.getString("Tagline");
             artist.searchTags = "tag tag tag";
-            artist.description = "description description";
+            artist.description = jsonObject.getString("Description");
             artist.facebookLink = jsonObject.getString("Facebook");
             artist.twitterLink = jsonObject.getString("Twitter");
             artist.webPageLink = jsonObject.getString("Website");
-            artist.location = jsonObject.getString("Location");
+//            artist.location = jsonObject.getString("Location");
             artist.userID = jsonObject.getInt("User_Id");
             artist.overallRating = 4;
             artist.profileImage = null;
