@@ -41,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         userEmailEditText = findViewById(R.id.txtUserNameLogin);
         userPasswordEditText = findViewById(R.id.txtUserPasswordLogin);
         Button loginBtn = findViewById(R.id.loginBtn);
@@ -55,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.this, Messaging.class);
                 startActivity(i);
+                finish();
             }
         });
 
