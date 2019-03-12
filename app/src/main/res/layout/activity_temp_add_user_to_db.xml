@@ -24,14 +24,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.25"
                 android:text="@string/user_name"
-                android:textSize="8sp" />
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/txtUserNameAdd"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.75"
-                android:ems="10" />
+                android:ems="10"
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -47,14 +48,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.25"
                 android:text="@string/user_email"
-                android:textSize="8sp" />
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/txtUserEmailAdd"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.75"
-                android:ems="10" />
+                android:ems="10"
+                android:textSize="14sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -70,45 +72,46 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.25"
                 android:text="@string/user_password"
-                android:textSize="8sp" />
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/txtUserPasswordAdd"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.75"
-                android:ems="10" />
+                android:ems="10"
+                android:textSize="14sp" />
         </LinearLayout>
 
 
         <Button
             android:id="@+id/createNewUserBtn"
             android:layout_width="match_parent"
-            android:layout_height="36dp"
+            android:layout_height="wrap_content"
             android:text="@string/add_new_user"
-            android:textSize="8sp" />
+            android:textSize="14sp" />
 
 
         <Button
             android:id="@+id/readArtistProfileBtn"
             android:layout_width="match_parent"
-            android:layout_height="33dp"
+            android:layout_height="wrap_content"
             android:text="read artist profile"
-            android:textSize="8sp" />
+            android:textSize="14sp" />
 
         <Button
             android:id="@+id/readVenueProfileBtn"
             android:layout_width="match_parent"
-            android:layout_height="34dp"
+            android:layout_height="wrap_content"
             android:text="read venue profile"
-            android:textSize="8sp" />
+            android:textSize="14sp" />
 
         <Button
             android:id="@+id/readGigInfoBtn"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
             android:text="read gig info"
-            android:textSize="8sp" />
+            android:textSize="14sp" />
 
 
 

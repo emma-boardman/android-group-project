@@ -45,16 +45,16 @@ public class Gig {
         try {
 
             String stringDate = jsonObject.getString("Gig_Date");
-            DateTimeFormatter formatterDate = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            DateTimeFormatter formatterDate = DateTimeFormatter.ISO_LOCAL_DATE;
             String stringStartTime = jsonObject.getString("Start_Time");
             String stringEndTime = jsonObject.getString("End_Time");
-            DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("k:m");
+            DateTimeFormatter formatterTime = DateTimeFormatter.ISO_LOCAL_TIME;
 
             gig.date = LocalDate.parse(stringDate, formatterDate);
             gig.userIDArtist = jsonObject.getInt("Artist_Id");
             gig.userIDVenue = jsonObject.getInt("Venue_Id");
             gig.startTime = LocalTime.parse(stringStartTime, formatterTime);
-            gig.endTime = LocalTime.parse(stringEndTime, formatterDate);
+            gig.endTime = LocalTime.parse(stringEndTime, formatterTime);
 
 
         } catch (JSONException e){
