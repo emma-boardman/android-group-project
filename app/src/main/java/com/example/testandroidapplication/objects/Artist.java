@@ -24,7 +24,7 @@ public class Artist extends User {
 
     public static Artist fromJson(JSONObject jsonObject) {
 
-        Artist artist = new Artist();//        Artist artist = new Artist(name, email, password, tagLine, searchTags, description, facebookLink, twitterLink, webPageLink, location, userID, overallRating, profileImage, comments, soundCloudLink);
+        Artist artist = new Artist();
         // Deserialize json into object fields
         try {
             artist.name = jsonObject.getString("User_Name");
