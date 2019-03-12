@@ -12,6 +12,7 @@ import android.content.Intent;
 
 import com.example.testandroidapplication.helper.ArtistResult;
 import com.example.testandroidapplication.helper.CheckNetworkStatus;
+import com.example.testandroidapplication.helper.VenueResult;
 import com.example.testandroidapplication.helper.WebClientMethods;
 
 import org.json.JSONException;
@@ -60,9 +61,9 @@ public class ReferenceHttpAsyncTasksForUI extends AppCompatActivity {
 
         // READ ARTIST PROFILE -  button and onclick setup
         // Currently hardcoded to userId 5
-        Button getButton = findViewById(R.id.getUserBtn);
+        Button readArtistProfileButton = findViewById(R.id.readArtistProfileBtn);
 
-        getButton.setOnClickListener(new View.OnClickListener() {
+        readArtistProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (CheckNetworkStatus.isNetworkAvailable(getApplicationContext())) {
@@ -76,7 +77,24 @@ public class ReferenceHttpAsyncTasksForUI extends AppCompatActivity {
 
             }
         });
+
+        // READ VENUE PROFILE - button and onclick setup
+        // Currently hardcoded to userId 29
+        Button readVenueProfileButton = findViewById(R.id.readVenueProfileBtn);
+
+        readVenueProfileButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                if (CheckNetworkStatus.isNetworkAvailable(getApplicationContext())){
+                    readVenueProfile();
+                } else {
+                    Toast.makeText(ReferenceHttpAsyncTasksForUI.this, "Unable to connect to internet", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
+
+
 
     // CREATE NEW USER ACCOUNT - method
 
@@ -99,10 +117,18 @@ public class ReferenceHttpAsyncTasksForUI extends AppCompatActivity {
         }
     }
 
+
+    // READ ARTIST PROFILE - method
+
     private void readArtistProfile() {
        new ReadArtistProfileAsyncTask().execute();
     }
 
+    // READ VENUE PROFILE - method
+
+    private void readVenueProfile() {
+        new ReadVenueProfileAsyncTask().execute();
+    }
 
 
     // CREATE NEW USER ACCOUNT - Async Task
@@ -165,14 +191,49 @@ public class ReferenceHttpAsyncTasksForUI extends AppCompatActivity {
                     if (result.isSuccess()) {
                         //Display success message
                         Toast.makeText(ReferenceHttpAsyncTasksForUI.this,
-                                "Artist profile return (see LogCat 'tagconvertstr')", Toast.LENGTH_LONG).show();
-                        Log.i("artist:", result.getArtist().toString());
+                                "Artist profile returned (see LogCat 'tagreceiveddata')", Toast.LENGTH_LONG).show();
+                        Log.i("artist:", result.getArtist().getTagLine());
                         //Finish ths activity
                         finish();
 
                     } else {
                         Toast.makeText(ReferenceHttpAsyncTasksForUI.this,
                                 "Artist profile could not be returned",
+                                Toast.LENGTH_LONG).show();
+
+                    }
+                }
+            });
+        }
+
+    }
+
+    private class ReadVenueProfileAsyncTask extends AsyncTask<String, String, VenueResult> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected VenueResult doInBackground(String... params) {
+            return new WebClientMethods().readVenueProfile();
+
+        }
+
+        protected void onPostExecute(final VenueResult result) {
+
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    if (result.isSuccess()) {
+                        //Display success message
+                        Toast.makeText(ReferenceHttpAsyncTasksForUI.this,
+                                "Venue profile returned (see LogCat 'tagreceiveddata')", Toast.LENGTH_LONG).show();
+                        //Finish ths activity
+                        finish();
+
+                    } else {
+                        Toast.makeText(ReferenceHttpAsyncTasksForUI.this,
+                                "Venue profile could not be returned",
                                 Toast.LENGTH_LONG).show();
 
                     }

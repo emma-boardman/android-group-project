@@ -84,12 +84,18 @@
         android:layout_height="wrap_content"
         android:text="@string/add_new_user" />
 
+
         <Button
-            android:id="@+id/getUserBtn"
+            android:id="@+id/readArtistProfileBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="get user" />
+            android:text="read artist profile" />
 
+        <Button
+            android:id="@+id/readVenueProfileBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="read venue profile" />
 
     </LinearLayout>
 
