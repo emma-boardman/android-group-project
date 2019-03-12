@@ -51,8 +51,8 @@ public class Gig {
             DateTimeFormatter formatterTime = DateTimeFormatter.ofPattern("k:m");
 
             gig.date = LocalDate.parse(stringDate, formatterDate);
-            gig.userIDArtist = jsonObject.getInt("User_Id_Artist");
-            gig.userIDVenue = jsonObject.getInt("User_Id_Artist");
+            gig.userIDArtist = jsonObject.getInt("Artist_Id");
+            gig.userIDVenue = jsonObject.getInt("Venue_Id");
             gig.startTime = LocalTime.parse(stringStartTime, formatterTime);
             gig.endTime = LocalTime.parse(stringEndTime, formatterDate);
 
