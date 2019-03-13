@@ -2,11 +2,11 @@ package com.example.testandroidapplication.objects;
 
 public abstract class User {
 
-    protected String name, email, password, tagLine, searchTags, description, facebookLink, twitterLink, webPageLink, location;
+    protected String name, email, password, tagLine, searchTags, description, facebookLink, instagramLink, twitterLink, webPageLink, location;
     protected int userID, overallRating;
     protected byte[] profileImage;
 
-    public User(String name, String email, String password, String tagLine, String searchTags, String description, String facebookLink, String twitterLink, String webPageLink, String location, int userID, int overallRating, byte[] profileImage) {
+    public User(String name, String email, String password, String tagLine, String searchTags, String description, String facebookLink, String instagramLink, String twitterLink, String webPageLink, String location, int userID, int overallRating, byte[] profileImage) {
         setName(name);
         setEmail(email);
         setPassword(password);
@@ -14,6 +14,7 @@ public abstract class User {
         setSearchTags(searchTags);
         setDescription(description);
         setFacebookLink(facebookLink);
+        setInstagramLink(instagramLink);
         setTwitterLink(twitterLink);
         setWebPageLink(webPageLink);
         setLocation(location);
@@ -80,6 +81,14 @@ public abstract class User {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getInstagramLink() {
+        return instagramLink;
+    }
+
+    public void setInstagramLink(String instagramLink) {
+        this.instagramLink = instagramLink;
     }
 
     public String getFacebookLink() {
