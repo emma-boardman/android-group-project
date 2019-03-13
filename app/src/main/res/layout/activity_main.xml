@@ -1,97 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:contentDescription="@string/login_header">
 
+    <ImageView
+        android:id="@+id/imageview"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:contentDescription="@string/login_header"
+        android:scaleType="centerCrop"
+        android:src="@drawable/login_header" />
 
-    <LinearLayout
-        android:layout_width="fill_parent"
+    <TextView
+        android:id="@+id/content_title"
+        android:layout_below="@id/imageview"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginTop="10dp"
+        android:text="@string/login_as_user"
+        android:fontFamily="@font/arvo"
+        android:textSize="18sp"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        />
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingStart="10sp"
-            android:paddingLeft="10sp"
-            android:paddingRight="10sp">
-
+    <RelativeLayout
+        android:id="@+id/username_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/content_title"
+        android:layout_centerInParent="true">
 
         <TextView
-            android:layout_width="0dp"
+            android:id="@+id/username_title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.25"
-            android:text="@string/login_as_user" />
-        </LinearLayout>
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/colorAccent"
+            android:fontFamily="@font/arvo"
+            android:textSize="18sp"
+            android:text="@string/user_name" />
 
-        <LinearLayout
-            android:layout_width="fill_parent"
+        <EditText
+            android:id="@+id/txtUserNameLogin"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingStart="10sp"
-            android:paddingLeft="10sp"
-            android:paddingRight="10sp">
+            android:layout_marginStart="120dp"
+            android:inputType="text"
+            android:textColor="@color/colorAccent"
+            android:ems="10" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:text="@string/user_name" />
+    </RelativeLayout>
 
-            <EditText
-                android:id="@+id/txtUserNameLogin"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.75"
-                android:ems="10" />
-        </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/password_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/username_container"
+        android:layout_centerInParent="true">
 
-        <LinearLayout
-            android:layout_width="fill_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingStart="10sp"
-            android:paddingLeft="10sp"
-            android:paddingRight="10sp">
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp"
+            android:fontFamily="@font/arvo"
+            android:text="@string/user_password" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:text="@string/user_password" />
-
-            <EditText
-                android:id="@+id/txtUserPasswordLogin"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.75"
-                android:ems="10" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
+        <EditText
+            android:id="@+id/txtUserPasswordLogin"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingStart="10sp"
-            android:paddingLeft="10sp"
-            android:paddingRight="10sp">
+            android:layout_marginStart="120dp"
+            android:inputType="textPassword"
+            android:textColor="@color/colorAccent"
+            android:ems="10" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/button_container"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/password_container"
+        android:layout_centerInParent="true">
 
         <Button
             android:id="@+id/loginBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/arvo"
+            android:textColor="@color/colorAccent"
+            android:background="@color/colorPrimaryDark"
+            android:textStyle="bold"
             android:text="@string/login_as_user" />
-        </LinearLayout>
 
-    <Button
-        android:id="@+id/addNewBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/load_add_user_activity" />
+        <Button
+            android:id="@+id/addNewBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:fontFamily="@font/arvo"
+            android:textColor="@color/colorAccent"
+            android:background="@color/colorPrimaryDark"
+            android:textStyle="bold"
+            android:text="@string/load_add_user_activity" />
 
-</LinearLayout>
+    </RelativeLayout>
 
-</ScrollView>
+</RelativeLayout>
