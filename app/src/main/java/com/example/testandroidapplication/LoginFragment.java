@@ -34,6 +34,7 @@ public class LoginFragment extends Fragment {
     private String userEmail;
     private String userPassword;
     private int success;
+    private RegisterFragmentVOrA registerVOrA = new RegisterFragmentVOrA();
 
     @Nullable
     @Override
@@ -67,9 +68,12 @@ public class LoginFragment extends Fragment {
             public void onClick(View view) {
                 //Check for network connectivity
                 if (CheckNetworkStatus.isNetworkAvailable(getActivity().getApplicationContext())) {
-                    Intent i = new Intent(getActivity().getApplicationContext(),
+
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
+                            registerVOrA).commit();
+                    /*Intent i = new Intent(getActivity().getApplicationContext(),
                             ReferenceHttpAsyncTasksForUI.class);
-                    startActivity(i);
+                    startActivity(i);*/
                 } else {
                     //Display error message if not connected to internet
                     Toast.makeText(getActivity(),
