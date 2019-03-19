@@ -1,5 +1,6 @@
 package com.example.testandroidapplication;
 
+import android.annotation.TargetApi;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -38,6 +39,7 @@ public class LoginFragment extends Fragment {
 
     @Nullable
     @Override
+    @TargetApi(26)
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_main,container, false);
 
@@ -45,6 +47,15 @@ public class LoginFragment extends Fragment {
         userPasswordEditText = v.findViewById(R.id.txtUserPasswordLogin);
         Button loginBtn =  v.findViewById(R.id.loginBtn);
         Button addNewBtn = v.findViewById(R.id.addNewBtn);
+        Button btn_messaging = v.findViewById(R.id.btn_messaging);
+
+        btn_messaging.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), Messaging.class);
+                startActivity(i);
+            }
+        });
 
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override

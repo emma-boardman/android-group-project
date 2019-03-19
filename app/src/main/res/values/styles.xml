@@ -26,6 +26,7 @@
         <!-- Error message appearance here -->
         <item name="android:textColor">#ff0000</item>
         <item name="android:textSize">20sp</item>
+    </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
