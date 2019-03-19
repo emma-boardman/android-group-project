@@ -1,16 +1,60 @@
 <resources>
-    <string name="app_name">TestAndroidApplication</string>
+    <string name="app_name">My Pocket Agent</string>
 
-    <string name="login_as_user">Login as an existing user</string>
-    <string name="load_add_user_activity">Register as a new user</string>
+    <string name="login_as_user">Login</string>
+    <string name="load_add_user_activity">Register</string>
     <string name="add_new_user">Add New User</string>
     <string name="user_name">User Name</string>
+
+    <string name="user_email">Email</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="user_password">Password</string>
+
     <string name="user_email">User Email</string>
     <string name="user_password">User Password</string>
 
     <string name="title_activity_messaging">Messaging</string>
 
+
     <string name="user_profile_welcome">You have logged in! Welcome to your profile.</string>
+    <string name="login_header">login_header.jpg</string>
+    <string name="venue">Venue</string>
+    <string name="artist">Artist</string>
+    <string name="welcome">Welcome!</string>
+    <string name="vOrA">Are you registering as an\nArtist or Venue?</string>
+    <string name="venue_registration">Venue Registration</string>
+    <string name="artist_registration">Artist Registration</string>
+    <string name="cancel">Cancel</string>
+    <string name="venue_profile_creation">Venue Profile Creation</string>
+    <string name="name">Name</string>
+    <string name="tag_line">Tagline</string>
+    <string name="tag_search">Select your Search Tags</string>
+    <string name="description">Description</string>
+    <string name="social_media">Social Media Links</string>
+    <string name="facebook_link">Facebook Link</string>
+    <string name="twitter_link">Twitter Link</string>
+    <string name="instagram_link">Instagram Link</string>
+    <string name="web_link">Website Link</string>
+    <string name="location">Location</string>
+    <string name="address">Address</string>
+    <string name="address_line_1">Line 1</string>
+    <string name="address_line_2">Line 2</string>
+    <string name="address_line_town">Town</string>
+    <string name="address_line_county">County</string>
+    <string name="address_line_postcode">Postcode</string>
+    <string name="venue_info">Profile Information</string>
+    <string name="create_profile">Create Profile</string>
+
+    <string name="current_date">June, 2016</string>
+    <string name="add_event">ADD CALENDAR EVENT</string>
+    <string name="sun">SUN</string>
+    <string name="mon">MON</string>
+    <string name="tue">TUE</string>
+    <string name="wed">WED</string>
+    <string name="thu">THU</string>
+    <string name="fri">FRI</string>
+    <string name="sat">SAT</string>
+    <string name="last_date">30</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

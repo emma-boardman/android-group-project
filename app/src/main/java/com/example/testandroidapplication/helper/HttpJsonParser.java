@@ -73,10 +73,12 @@ public class HttpJsonParser {
             }
             is.close();
             json = sb.toString();
-            Log.i("tagconvertstr", "["+json+"]");
-            Log.i("tagconvertstr", "["+encodedParams+"]");
+            Log.i("tagreceiveddata", "["+json+"]");
+            Log.i("tagsentparams", "["+encodedParams+"]");
 
             jObj = new JSONObject(json);
+
+
 
 
         } catch (UnsupportedEncodingException e) {
@@ -93,6 +95,7 @@ public class HttpJsonParser {
 
         // return JSON String
         return jObj;
+
 
     }
 }
