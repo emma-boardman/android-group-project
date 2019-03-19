@@ -48,7 +48,8 @@ public class ActualMessaging extends AppCompatActivity {
     ImageButton btn_send;
     EditText text_send;
 
-
+    Intent intent;
+    String userid;
 
     MessageAdapter messageAdapter;
     List<Chat> mchat;
@@ -86,9 +87,9 @@ public class ActualMessaging extends AppCompatActivity {
         btn_send = findViewById(R.id.btn_send);
         text_send = findViewById(R.id.text_send);
 
-        Intent intent = getIntent();
+        intent = getIntent();
 
-        final String userid = intent.getStringExtra("userid");
+        userid = intent.getStringExtra("userid");
 
         fuser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -155,7 +156,7 @@ public class ActualMessaging extends AppCompatActivity {
         });
     }
 
-    private void sendMessage(String sender, String receiver, String message) {
+    private void sendMessage(String sender, final String receiver, String message) {
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
@@ -168,6 +169,24 @@ public class ActualMessaging extends AppCompatActivity {
 
         reference.child("Chats").push().setValue(hashMap);
 
+        //adding user to the chat fragment
+        final DatabaseReference chatReference = FirebaseDatabase.getInstance().getReference("Chatlist")
+                .child(fuser.getUid())
+                .child(userid);
+
+        chatReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()){
+                    chatReference.child("id").setValue(userid);
+                   // chatReference.child("id").setValue(receiver);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
     }
 
     private void readMessages(final String myid, final String userid, final String imageurl){
