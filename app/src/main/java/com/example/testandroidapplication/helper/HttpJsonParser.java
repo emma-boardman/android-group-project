@@ -145,8 +145,8 @@ public class HttpJsonParser {
         OutputStream os = conn.getOutputStream();
         OutputStreamWriter osw = new OutputStreamWriter(os);
         osw.write(jsonObject.toString());
-//        osw.flush();
-//        osw.close();
+        osw.flush();
+        osw.close();
 
         is = conn.getInputStream();
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
