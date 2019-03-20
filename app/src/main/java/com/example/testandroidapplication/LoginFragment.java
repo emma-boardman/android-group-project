@@ -48,11 +48,20 @@ public class LoginFragment extends Fragment {
         Button loginBtn =  v.findViewById(R.id.loginBtn);
         Button addNewBtn = v.findViewById(R.id.addNewBtn);
         Button btn_messaging = v.findViewById(R.id.btn_messaging);
+        Button testBtn = v.findViewById(R.id.button);
 
         btn_messaging.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), Messaging.class);
+                startActivity(i);
+            }
+        });
+
+        testBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), ReferenceHttpAsyncTasksForUI.class);
                 startActivity(i);
             }
         });

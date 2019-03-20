@@ -10,16 +10,12 @@ public class Venue extends User {
     private String faq;
     private int phoneNumber;
 
-    public Venue(String name, String email, String password, String tagLine, String searchTags, String description, String facebookLink, String instagramLink, String twitterLink, String webPageLink, String location, int userID, int overallRating, byte[] profileImage, String faq, String address1, String postcode, int phoneNumber) {
+    public Venue(String userID, String name, String email, String password, String tagLine, String searchTags, String description, String facebookLink, String instagramLink, String twitterLink, String webPageLink, String location, int overallRating, String profileImage, String faq, String address1, String postcode, int phoneNumber) {
         super(name, email, password, tagLine, searchTags, description, facebookLink, instagramLink, twitterLink, webPageLink, location, userID, overallRating, profileImage);
         setAddress1(address1);
         setPostcode(postcode);
         setFaq(faq);
         setPhoneNumber(phoneNumber);
-    }
-
-    public Venue(){
-
     }
 
     // Questions:
@@ -31,24 +27,47 @@ public class Venue extends User {
 
     public static Venue fromJson(JSONObject jsonObject) {
 
-        Venue venue = new Venue();
-        // Deserialize json into object fields
+        Venue venue;
+
         try {
-//            venue.userID = jsonObject.getInt("User_Id");
-            venue.name = jsonObject.getString("User_Name");
-            venue.tagLine = jsonObject.getString("Tagline");
-            venue.searchTags = "tag tag tag";
-            venue.description = jsonObject.getString("Description");
-            venue.facebookLink = jsonObject.getString("Facebook");
-            venue.instagramLink = jsonObject.getString("Instagram");
-            venue.twitterLink = jsonObject.getString("Twitter");
-            venue.webPageLink = jsonObject.getString("Website");
-//            venue.location = jsonObject.getString("Location");
-            venue.overallRating = 4;
-            venue.profileImage = null;
-            venue.address1 = jsonObject.getString("Address1");
-            venue.postcode = jsonObject.getString("PostCode");
-            venue.phoneNumber = jsonObject.getInt("Phone_Number");
+
+            String venueUserID = jsonObject.getString("User_Id");
+            String venueName = jsonObject.getString("User_Name");
+            String venueEmail = jsonObject.getString("Email");
+            String venuePassword = jsonObject.getString("Password");
+            String venueTagLine = jsonObject.getString("Tagline");
+            String venueSearchTags = "tag tag tag";
+            String venueDescription = jsonObject.getString("Description");
+            String venueFacebookLink = jsonObject.getString("Facebook");
+            String venueInstagramLink = jsonObject.getString("Instagram");
+            String venueTwitterLink = jsonObject.getString("Twitter");
+            String venueWebPageLink = jsonObject.getString("Website");
+            String venueLocation = jsonObject.getString("Location");
+            int venueOverallRating = 4;
+            String venueProfileImage = ".jpg";
+            String venueFAQ = "faq";
+            String venueAddress1 = jsonObject.getString("Address1");
+            String venuePostcode = jsonObject.getString("PostCode");
+            int venuePhoneNumber = jsonObject.getInt("Phone_Number");
+
+            venue = new Venue(venueUserID,
+                    venueName,
+                    venueEmail,
+                    venuePassword,
+                    venueTagLine,
+                    venueSearchTags,
+                    venueDescription,
+                    venueFacebookLink,
+                    venueInstagramLink,
+                    venueTwitterLink,
+                    venueWebPageLink,
+                    venueLocation,
+                    venueOverallRating,
+                    venueProfileImage,
+                    venueFAQ,
+                    venueAddress1,
+                    venuePostcode,
+                    venuePhoneNumber);
 
         } catch (JSONException e) {
             e.printStackTrace();

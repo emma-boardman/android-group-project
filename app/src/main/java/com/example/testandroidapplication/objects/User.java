@@ -2,11 +2,12 @@ package com.example.testandroidapplication.objects;
 
 public abstract class User {
 
-    protected String name, email, password, tagLine, searchTags, description, facebookLink, instagramLink, twitterLink, webPageLink, location;
-    protected int userID, overallRating;
-    protected byte[] profileImage;
+    protected String userID, name, email, password, tagLine, searchTags, description, facebookLink, instagramLink, twitterLink, webPageLink, location;
+    protected int overallRating;
+    protected String profileImage;
 
-    public User(String name, String email, String password, String tagLine, String searchTags, String description, String facebookLink, String instagramLink, String twitterLink, String webPageLink, String location, int userID, int overallRating, byte[] profileImage) {
+    public User(String userID, String name, String email, String password, String tagLine, String searchTags, String description, String facebookLink, String instagramLink, String twitterLink, String webPageLink, String location, int overallRating, String profileImage) {
+        setUserID(userID);
         setName(name);
         setEmail(email);
         setPassword(password);
@@ -18,7 +19,6 @@ public abstract class User {
         setTwitterLink(twitterLink);
         setWebPageLink(webPageLink);
         setLocation(location);
-        setUserID(userID);
         setOverallRating(overallRating);
         setProfileImage(profileImage);
     }
@@ -123,11 +123,9 @@ public abstract class User {
         this.location = location;
     }
 
-    public int getUserID() {
-        return userID;
-    }
+    public String getUserID() { return userID; }
 
-    public void setUserID(int userID) {
+    public void setUserID(String userID) {
         this.userID = userID;
     }
 
@@ -139,11 +137,11 @@ public abstract class User {
         this.overallRating = overallRating;
     }
 
-    public byte[] getProfileImage() {
+    public String getProfileImage() {
         return profileImage;
     }
 
-    public void setProfileImage(byte[] profileImage) {
+    public void setProfileImage(String profileImage) {
         this.profileImage = profileImage;
     }
 }

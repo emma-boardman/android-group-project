@@ -19,11 +19,14 @@ public class WebClientMethods {
     private static final String KEY_USER_NAME = "User_Name";
     private static final String KEY_EMAIL = "Email";
     private static final String KEY_PASSWORD = "Password";
+    private static final String KEY_TAGLINE = "Tagline";
+    private static final String KEY_DESCRIPTION = "Description";
     private static final String KEY_GIG_ID = "Gig_Id";
     private static final String KEY_DATA = "data";
 
     private static final String BASE_URL = "http://40414669.wdd.napier.ac.uk/inc/";
 
+    // CREATE
 
     public String createUserAccount(String userName, String userEmail, String userPassword) {
         HttpJsonParser httpJsonParser = new HttpJsonParser();
@@ -41,6 +44,26 @@ public class WebClientMethods {
 
         }
     }
+
+    public static String createVenueProfile(Venue venue) {
+        // write venue object to JSON string
+        HttpJsonParser httpJsonParser = new HttpJsonParser();
+        Map<String, String> httpParams = new HashMap<>();
+        httpParams.put(KEY_USER_NAME, "test");
+        httpParams.put(KEY_EMAIL, "test");
+        httpParams.put(KEY_PASSWORD, "test");
+        JSONObject jsonObject = httpJsonParser.makeHttpRequest(
+                BASE_URL + "createUser.php", "POST", httpParams);
+        try {
+            return jsonObject.getString("success");
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return e.getMessage();
+
+        }
+    }
+
+    // READ
 
 
      public ArtistResult readArtistProfile(){

@@ -7,14 +7,10 @@ public class Artist extends User {
 
     private String soundCloudLink, comments;
 
-    public Artist(String name, String email, String password, String tagLine, String searchTags, String description, String facebookLink, String instagramLink, String twitterLink, String webPageLink, String location, int userID, int overallRating, byte[] profileImage, String comments, String soundCloudLink) {
-        super(name, email, password, tagLine, searchTags, description, facebookLink, instagramLink, twitterLink, webPageLink, location, userID, overallRating, profileImage);
+    public Artist(String userID, String name, String email, String password, String tagLine, String searchTags, String description, String facebookLink, String instagramLink, String twitterLink, String webPageLink, String location, int overallRating, String profileImage, String comments, String soundCloudLink) {
+        super(userID, name, email, password, tagLine, searchTags, description, facebookLink, instagramLink, twitterLink, webPageLink, location, overallRating, profileImage);
         setComments(comments);
         setSoundCloudLink(soundCloudLink);
-    }
-
-    public Artist(){
-
     }
 
 // Questions:
@@ -23,23 +19,42 @@ public class Artist extends User {
 
     public static Artist fromJson(JSONObject jsonObject) {
 
-        Artist artist = new Artist();
+        Artist artist;
         // Deserialize json into object fields
         try {
-            artist.name = jsonObject.getString("User_Name");
-            artist.tagLine = jsonObject.getString("Tagline");
-            artist.searchTags = "tag tag tag";
-            artist.description = jsonObject.getString("Description");
-            artist.facebookLink = jsonObject.getString("Facebook");
-            artist.instagramLink = jsonObject.getString("Instagram");
-            artist.twitterLink = jsonObject.getString("Twitter");
-            artist.webPageLink = jsonObject.getString("Website");
-            artist.location = jsonObject.getString("Location");
-            artist.userID = jsonObject.getInt("User_Id");
-            artist.overallRating = 4;
-            artist.profileImage = null;
-            artist.comments = "comments";
-            artist.soundCloudLink = jsonObject.getString("Soundcloud");
+            String artistUserID = jsonObject.getString("User_Id");
+            String artistName = jsonObject.getString("User_Name");
+            String artistEmail = jsonObject.getString("Email");
+            String artistPassword = jsonObject.getString("Password");
+            String artistTagLine = jsonObject.getString("Tagline");
+            String artistSearchTags = "tag tag tag";
+            String artistDescription = jsonObject.getString("Description");
+            String artistFacebookLink = jsonObject.getString("Facebook");
+            String artistInstagramLink = jsonObject.getString("Instagram");
+            String artistTwitterLink = jsonObject.getString("Twitter");
+            String artistWebPageLink = jsonObject.getString("Website");
+            String artistLocation = jsonObject.getString("Location");
+            int artistOverallRating = 4;
+            String artistProfileImage = ".jpg";
+            String artistComments = "comments";
+            String artistSoundCloudLink = jsonObject.getString("Soundcloud");
+
+            artist = new Artist(artistUserID,
+                                artistName,
+                                artistEmail,
+                                artistPassword,
+                                artistTagLine,
+                                artistSearchTags,
+                                artistDescription,
+                                artistFacebookLink,
+                                artistInstagramLink,
+                                artistTwitterLink,
+                                artistWebPageLink,
+                                artistLocation,
+                                artistOverallRating,
+                                artistProfileImage,
+                                artistComments,
+                                artistSoundCloudLink);
 
         } catch (JSONException e) {
             e.printStackTrace();
