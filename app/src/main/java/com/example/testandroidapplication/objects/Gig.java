@@ -14,12 +14,12 @@ import java.time.format.DateTimeFormatter;
 //public abstract class Gig {
 
 public class Gig {
-    protected int gigID, userIDArtist, userIDVenue, artistReview, venueReview;
-    protected String notes, venueComment, artistComment;
+    protected int gigID, artistReview, venueReview;
+    protected String userIDArtist, userIDVenue, notes, venueComment, artistComment;
     protected LocalTime startTime, endTime;
     protected LocalDate date;
 
-    public Gig(int gigID, int userIDArtist, int userIDVenue, int artistReview, int venueReview, String notes, String venueComment, String artistComment, LocalTime startTime, LocalTime endTime, LocalDate date) {
+    public Gig(int gigID, String userIDArtist, String userIDVenue, LocalDate date, LocalTime startTime, LocalTime endTime, int artistReview, int venueReview, String notes, String venueComment, String artistComment) {
         setGigID(gigID);
         setUserIDArtist(userIDArtist);
         setUserIDVenue(userIDVenue);
@@ -33,14 +33,10 @@ public class Gig {
         setDate(date);
     }
 
-    public Gig(){
-
-    }
-
     @TargetApi(26)
     public static Gig fromJson(JSONObject jsonObject){
 
-        Gig gig = new Gig();
+        Gig gig;
 
         try {
 
@@ -50,11 +46,30 @@ public class Gig {
             String stringEndTime = jsonObject.getString("End_Time");
             DateTimeFormatter formatterTime = DateTimeFormatter.ISO_LOCAL_TIME;
 
-            gig.date = LocalDate.parse(stringDate, formatterDate);
-            gig.userIDArtist = jsonObject.getInt("Artist_Id");
-            gig.userIDVenue = jsonObject.getInt("Venue_Id");
-            gig.startTime = LocalTime.parse(stringStartTime, formatterTime);
-            gig.endTime = LocalTime.parse(stringEndTime, formatterTime);
+            int gigId = jsonObject.getInt("Gig_Id");
+            LocalDate gigDate = LocalDate.parse(stringDate, formatterDate);
+            String gigArtistID = jsonObject.getString("Artist_Id");
+            String gigVenueID = jsonObject.getString("Venue_Id");
+            LocalTime gigStartTime = LocalTime.parse(stringStartTime, formatterTime);
+            LocalTime gigEndTime = LocalTime.parse(stringEndTime, formatterTime);
+            String notes = jsonObject.getString("Notes");
+            int artistReview = 0;
+            int venueReview = 0;
+            String venueComment = jsonObject.getString("Comment_On_Venue");
+            String artistComment = jsonObject.getString("Comment_On_Artist");
+
+            gig = new Gig(gigId,
+                        gigArtistID,
+                        gigVenueID,
+                        gigDate,
+                        gigStartTime,
+                        gigEndTime,
+                        artistReview,
+                        venueReview,
+                        notes,
+                        venueComment,
+                        artistComment
+                    );
 
 
         } catch (JSONException e){
@@ -89,19 +104,19 @@ public class Gig {
         this.gigID = gigID;
     }
 
-    public int getUserIDArtist() {
+    public String getUserIDArtist() {
         return userIDArtist;
     }
 
-    public void setUserIDArtist(int userIDArtist) {
+    public void setUserIDArtist(String userIDArtist) {
         this.userIDArtist = userIDArtist;
     }
 
-    public int getUserIDVenue() {
+    public String getUserIDVenue() {
         return userIDVenue;
     }
 
-    public void setUserIDVenue(int userIDVenue) {
+    public void setUserIDVenue(String userIDVenue) {
         this.userIDVenue = userIDVenue;
     }
 

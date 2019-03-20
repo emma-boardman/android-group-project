@@ -120,7 +120,9 @@ public class WebClientMethods {
 
         try {
             JSONObject gigInfo = jsonObject.getJSONObject(KEY_DATA);
-            Gig gig = Gig.fromJson(gigInfo);
+            validator = new Validator();
+            JSONObject gigWithoutNulls = validator.objectNullToString(gigInfo);
+            Gig gig = Gig.fromJson(gigWithoutNulls);
             return GigResult.success(gig);
 
 
