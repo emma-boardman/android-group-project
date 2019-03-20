@@ -216,7 +216,7 @@ public class ReferenceHttpAsyncTasksForUI extends AppCompatActivity {
                         //Display success message
                         Toast.makeText(ReferenceHttpAsyncTasksForUI.this,
                                 "Artist profile returned (see LogCat 'tagreceiveddata')", Toast.LENGTH_LONG).show();
-                        Log.i("artist:", result.getArtist().getTagLine());
+                        Log.i("artist:", result.getArtist().getName());
                         //Finish ths activity
                         finish();
 

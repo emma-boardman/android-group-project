@@ -26,6 +26,8 @@ public class WebClientMethods {
 
     private static final String BASE_URL = "http://40414669.wdd.napier.ac.uk/inc/";
 
+    private Validator validator;
+
     // CREATE
 
     public String createUserAccount(String userName, String userEmail, String userPassword) {
@@ -76,7 +78,9 @@ public class WebClientMethods {
 
          try {
             JSONObject user = jsonObject.getJSONObject(KEY_DATA);
-            Artist artist = Artist.fromJson(user);
+            validator = new Validator();
+            JSONObject userWithoutNulls = validator.artistNullToString(user);
+            Artist artist = Artist.fromJson(userWithoutNulls);
             return ArtistResult.success(artist);
 
 

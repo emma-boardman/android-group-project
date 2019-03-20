@@ -24,7 +24,7 @@ public class Artist extends User {
         try {
             String artistUserID = jsonObject.getString("User_Id");
             String artistName = jsonObject.getString("User_Name");
-            String artistEmail = jsonObject.getString("Email");
+            String artistEmail = jsonObject.getString("User_Email");
             String artistPassword = jsonObject.getString("Password");
             String artistTagLine = jsonObject.getString("Tagline");
             String artistSearchTags = "tag tag tag";
