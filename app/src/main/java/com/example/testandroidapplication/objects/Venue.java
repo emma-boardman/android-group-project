@@ -18,6 +18,7 @@ public class Venue extends User {
         setPhoneNumber(phoneNumber);
     }
 
+    public Venue(){}
     // Questions:
         // What happens when any of these are passed in as null
         // Should the faq be an array?

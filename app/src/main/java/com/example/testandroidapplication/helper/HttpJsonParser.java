@@ -7,9 +7,13 @@ package com.example.testandroidapplication.helper;
 
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
@@ -18,8 +22,13 @@ import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONStringer;
+import android.util.JsonWriter;
+
 import android.net.Uri;
 import android.util.Log;
+
+import com.example.testandroidapplication.objects.Venue;
 
 public class HttpJsonParser {
 
@@ -27,6 +36,7 @@ public class HttpJsonParser {
     static JSONObject jObj = null;
     static String json = "";
     HttpURLConnection urlConnection = null;
+    JsonWriter writer;
 
     // function get json from url
     // by making HTTP POST or GET method
@@ -98,4 +108,75 @@ public class HttpJsonParser {
 
 
     }
+
+    public String toJSONObject(Venue venue) throws IOException {
+        StringWriter out = new StringWriter();
+        writer = new JsonWriter(out);
+
+        writer.beginObject()
+                .name("User_Id").value(venue.getUserID())
+                .name("User_Name").value(venue.getName())
+                .name("Email").value(venue.getEmail())
+                .name("Password").value(venue.getPassword())
+                .name("Profile_Picture").value(venue.getProfileImage())
+                .name("Facebook").value(venue.getFacebookLink())
+                .name("Instagram").value(venue.getInstagramLink())
+                .name("Twitter").value(venue.getTwitterLink())
+                .name("Website").value(venue.getWebPageLink())
+                .name("Tagline").value(venue.getTagLine())
+                .name("Description").value(venue.getDescription())
+                .endObject()
+                .close();
+
+        return out.toString();
+    }
+
+
+
+    public JSONObject makeHttpPost(String url, JSONObject jsonObject) throws IOException, JSONException {
+
+        URL urlObj = new URL(url);
+
+        HttpURLConnection conn = (HttpURLConnection) urlObj.openConnection();
+        conn.setRequestMethod("POST");
+        conn.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+        conn.connect();
+
+        OutputStream os = conn.getOutputStream();
+        OutputStreamWriter osw = new OutputStreamWriter(os);
+        osw.write(jsonObject.toString());
+//        osw.flush();
+//        osw.close();
+
+        is = conn.getInputStream();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line + "\n");
+        }
+        is.close();
+        json = sb.toString();
+        Log.i("tagreceiveddata", "["+json+"]");
+        Log.i("tagsentparams", "["+jsonObject.toString()+"]");
+
+        jObj = new JSONObject(json);
+
+        return jObj;
+
+    }
+
+
+    public JSONObject buildJsonObject(Venue venue) throws JSONException {
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.accumulate("User_Id", venue.getUserID());
+        jsonObject.accumulate("Email", venue.getEmail());
+
+        return jsonObject;
+    }
+
+
+
+
 }

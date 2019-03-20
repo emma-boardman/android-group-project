@@ -1,9 +1,11 @@
 package com.example.testandroidapplication;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +15,15 @@ import android.widget.Toast;
 
 import com.example.testandroidapplication.Presenter.VenueProfileCreationPresenter;
 import com.example.testandroidapplication.helper.CheckNetworkStatus;
+import com.example.testandroidapplication.helper.HttpJsonParser;
 import com.example.testandroidapplication.helper.Validator;
+import com.example.testandroidapplication.helper.WebClientMethods;
 import com.example.testandroidapplication.objects.Venue;
+
+import java.io.IOException;
 
 public class VenueProfileCreation extends Fragment {
 
-    private VenueProfileCreationPresenter presenter;
     private Venue venue;
     private EditText venueTaglineEditText;
     private EditText venueLocationEditText;
@@ -42,6 +47,7 @@ public class VenueProfileCreation extends Fragment {
         createProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 // if network is available, validate the user input
                 if (CheckNetworkStatus.isNetworkAvailable(getActivity().getApplicationContext())) {
 
@@ -82,8 +88,7 @@ public class VenueProfileCreation extends Fragment {
                             "hard-coded postcode",
                              456789);
 
-
-                    presenter.processVenueObject(venue);
+                    new CreateNewProfileAsyncTask().execute();
 
                 } else {
                     //Display error message if not connected to internet
@@ -96,6 +101,42 @@ public class VenueProfileCreation extends Fragment {
         });
 
         return v;
+
+    }
+
+    private class CreateNewProfileAsyncTask extends AsyncTask<String, String, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            return new WebClientMethods().createVenueProfile(venue);
+
+        }
+
+        protected void onPostExecute(final String result) {
+
+            getActivity().runOnUiThread(new Runnable() {
+                public void run() {
+                    if (result.equals("1")) {
+                        //Display success message
+                        Toast.makeText(getActivity(),
+                                "Profile Added", Toast.LENGTH_LONG).show();
+
+                        //Finish ths activity
+                        getActivity().finish();
+
+                    } else {
+                        Toast.makeText(getActivity(),
+                                "Some error occurred while adding user",
+                                Toast.LENGTH_LONG).show();
+
+                    }
+                }
+            });
+        }
 
     }
 }

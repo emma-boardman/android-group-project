@@ -10,6 +10,7 @@ import com.example.testandroidapplication.objects.Artist;
 import com.example.testandroidapplication.objects.Gig;
 import com.example.testandroidapplication.objects.Venue;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,12 +51,24 @@ public class WebClientMethods {
     public static String createVenueProfile(Venue venue) {
         // write venue object to JSON string
         HttpJsonParser httpJsonParser = new HttpJsonParser();
-        Map<String, String> httpParams = new HashMap<>();
-        httpParams.put(KEY_USER_NAME, "test");
-        httpParams.put(KEY_EMAIL, "test");
-        httpParams.put(KEY_PASSWORD, "test");
-        JSONObject jsonObject = httpJsonParser.makeHttpRequest(
-                BASE_URL + "createUser.php", "POST", httpParams);
+
+        JSONObject jsonObject = null;
+        JSONObject jsonVenue = null;
+        try {
+            jsonVenue = httpJsonParser.buildJsonObject(venue);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            jsonObject = httpJsonParser.makeHttpPost(
+                    BASE_URL + "createVenueProfile.php",  jsonVenue);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         try {
             return jsonObject.getString("success");
         } catch (JSONException e) {

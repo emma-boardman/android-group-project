@@ -194,6 +194,9 @@ public class ReferenceHttpAsyncTasksForUI extends AppCompatActivity {
 
     }
 
+
+
+
     // READ ARTIST PROFILE - Async Task
 
     private class ReadArtistProfileAsyncTask extends AsyncTask<String, String, ArtistResult> {
