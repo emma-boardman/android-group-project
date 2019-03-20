@@ -79,7 +79,7 @@ public class WebClientMethods {
          try {
             JSONObject user = jsonObject.getJSONObject(KEY_DATA);
             validator = new Validator();
-            JSONObject userWithoutNulls = validator.artistNullToString(user);
+            JSONObject userWithoutNulls = validator.objectNullToString(user);
             Artist artist = Artist.fromJson(userWithoutNulls);
             return ArtistResult.success(artist);
 
@@ -99,7 +99,9 @@ public class WebClientMethods {
 
         try {
             JSONObject user = jsonObject.getJSONObject(KEY_DATA);
-            Venue venue = Venue.fromJson(user);
+            validator = new Validator();
+            JSONObject userWithoutNulls = validator.objectNullToString(user);
+            Venue venue = Venue.fromJson(userWithoutNulls);
             return VenueResult.success(venue);
 
 

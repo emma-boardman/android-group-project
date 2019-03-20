@@ -17,15 +17,15 @@ public class Validator {
            return true;
     }
 
-    public JSONObject artistNullToString(JSONObject artist){
-        Iterator<String> keys = artist.keys();
+    public JSONObject objectNullToString(JSONObject object){
+        Iterator<String> keys = object.keys();
         while (keys.hasNext()) {
             String key = keys.next();
             try {
-                Object value = artist.get(key);
+                Object value = object.get(key);
                 Log.i("value: ", value.toString());
                 if (value.toString() == "null"){
-                    artist.put(key, "not populated");
+                    object.put(key, "not populated");
                 }
 
             } catch (JSONException e) {
@@ -33,7 +33,7 @@ public class Validator {
             }
         }
 
-      return artist;
+      return object;
     }
 
 }
