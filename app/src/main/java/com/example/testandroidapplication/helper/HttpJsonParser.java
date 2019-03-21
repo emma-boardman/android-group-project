@@ -171,6 +171,7 @@ public class HttpJsonParser {
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.accumulate("User_Id", venue.getUserID());
+        jsonObject.accumulate("User_Name", venue.getName());
         jsonObject.accumulate("Email", venue.getEmail());
 
         return jsonObject;

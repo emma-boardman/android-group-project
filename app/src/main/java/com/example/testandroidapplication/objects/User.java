@@ -2,9 +2,9 @@ package com.example.testandroidapplication.objects;
 
 public abstract class User {
 
-    protected String userID, name, email, password, tagLine, searchTags, description, facebookLink, instagramLink, twitterLink, webPageLink, location;
-    protected int overallRating;
-    protected String profileImage;
+    private String userID, name, email, password, tagLine, searchTags, description, facebookLink, instagramLink, twitterLink, webPageLink, location;
+    private int overallRating;
+    private String profileImage;
 
     public User(String userID, String name, String email, String password, String tagLine, String searchTags, String description, String facebookLink, String instagramLink, String twitterLink, String webPageLink, String location, int overallRating, String profileImage) {
         setUserID(userID);
@@ -21,9 +21,6 @@ public abstract class User {
         setLocation(location);
         setOverallRating(overallRating);
         setProfileImage(profileImage);
-    }
-
-    public User() {
     }
 
 
@@ -144,4 +141,72 @@ public abstract class User {
     public void setProfileImage(String profileImage) {
         this.profileImage = profileImage;
     }
+
+
+    public static class UserBuilder {
+
+        private String userID, name, email, password, tagLine, searchTags, description, facebookLink, instagramLink, twitterLink, webPageLink, location;
+        private int overallRating;
+        private String profileImage;
+
+        public UserBuilder(String userID, String name, String email, String password){
+            this.userID = userID;
+            this.name = name;
+            this.email = email;
+            this.password = password;
+        }
+
+        public UserBuilder withTagline(String email){
+            this.email = email;
+            return this;
+        }
+
+        public UserBuilder withSearchTags(String searchTags){
+            this.searchTags = searchTags;
+            return this;
+        }
+
+        public UserBuilder withDescription(String description){
+            this.description = description;
+            return this;
+        }
+
+        public UserBuilder withFacebookLink(String facebookLink){
+            this.facebookLink = facebookLink;
+            return this;
+        }
+
+        public UserBuilder withInstagramLink(String instagramLink){
+            this.instagramLink = instagramLink;
+            return this;
+        }
+
+        public UserBuilder withTwitterLink(String twitterLink){
+            this.twitterLink = twitterLink;
+            return this;
+        }
+
+        public UserBuilder withWebPageLink(String webPageLink){
+            this.webPageLink = webPageLink;
+            return this;
+        }
+
+        public UserBuilder withLocation(String location){
+            this.location = location;
+            return this;
+        }
+
+        public UserBuilder withOverallRating(int overallRating){
+            this.overallRating = overallRating;
+            return this;
+        }
+
+        public UserBuilder withProfileImage(String profileImage){
+            this.profileImage = profileImage;
+            return this;
+        }
+
+    }
+
+
 }
