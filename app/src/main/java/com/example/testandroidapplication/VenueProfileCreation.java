@@ -27,13 +27,27 @@ import java.io.IOException;
 public class VenueProfileCreation extends Fragment {
 
     private Venue venue;
+    private EditText venueNameEditText;
     private EditText venueTaglineEditText;
     private EditText venueLocationEditText;
     private EditText venueDescriptionEditText;
+    private EditText venueFacebookEditText;
+    private EditText venueTwitterEditText;
+    private EditText venueInstagramEditText;
+    private EditText venueWebsiteEditText;
+    private EditText venueAddress1EditText;
+    private EditText venuePostcodeEditText;
 
+    private String venueNameInput;
     private String venueTaglineInput;
     private String venueLocationInput;
     private String venueDescriptionInput;
+    private String venueFacebookInput;
+    private String venueTwitterInput;
+    private String venueInstagramInput;
+    private String venueWebsiteInput;
+    private String venueAddress1Input;
+    private String venuePostcodeInput;
 
     @Nullable
     @Override
@@ -41,9 +55,17 @@ public class VenueProfileCreation extends Fragment {
 
         final View v = inflater.inflate(R.layout.venue_profile_creation, container, false);
 
+        venueNameEditText = v.findViewById(R.id.venue_name);
         venueTaglineEditText = v.findViewById(R.id.venue_tagline);
         venueLocationEditText = v.findViewById(R.id.venue_location);
         venueDescriptionEditText = v.findViewById(R.id.venue_description);
+        venueFacebookEditText = v.findViewById(R.id.venue_facebook);
+        venueTwitterEditText = v.findViewById(R.id.venue_twitter);
+        venueInstagramEditText = v.findViewById(R.id.venue_instagram);
+        venueWebsiteEditText = v.findViewById(R.id.venue_webpage);
+        venueAddress1EditText = v.findViewById(R.id.venue_address_line_1);
+        venuePostcodeEditText = v.findViewById(R.id.venue_address_line_postcode);
+
         Button createProfileBtn = v.findViewById(R.id.venue_create_profile);
 
         createProfileBtn.setOnClickListener(new View.OnClickListener() {
@@ -53,19 +75,17 @@ public class VenueProfileCreation extends Fragment {
                 // if network is available, validate the user input
                 if (CheckNetworkStatus.isNetworkAvailable(getActivity().getApplicationContext())) {
 
-                    // iterate through optional fields & assign a variable for any filled in fields, assign to a variable dynamically created from hint
-//                    int[] optionalEditTextIds = new int[]{R.id.venue_tagline, R.id.venue_location, R.id.venue_description, R.id.venue_create_profile};
-//                    int i = 1;
-//                    for (int id : ids) {
-//                        EditText editText = v.findViewById(id);
-//                        String editText.getHint() = editText.getText().toString();
-//                    }
+                    venueNameInput = venueNameEditText.getText().toString();
+                    if (!venueNameInput.equals("")){
+                        // run some validation, let the user know if there is a problem
+                        Log.i("tag: ", "validation would be run here");
+                    }
 
 
-                    if (TextUtils.isEmpty(venueTaglineEditText.getText())){
-                        venueTaglineInput = venueTaglineEditText.getText().toString();
-                    } else {
-                        venueTaglineInput = "not populated";
+                    venueTaglineInput = venueTaglineEditText.getText().toString();
+                    if (!venueTaglineInput.equals("")){
+                        // run some validation, let the user know if there is a problem
+                        Log.i("tag: ", "validation would be run here");
                     }
 
                     venueLocationInput = venueLocationEditText.getText().toString();
@@ -80,21 +100,44 @@ public class VenueProfileCreation extends Fragment {
                         Log.i("tag: ", "validation would be run here");
                     }
 
-                    User newUser = new User
-                            .UserBuilder("1", "Stone Temple Pilots", "stone@temple.com", "123")
-                            .withTagline(venueTaglineInput)
-                            .withLocation(venueLocationInput)
-                            .withDescription(venueDescriptionInput)
-                            .build();
+                    venueFacebookInput = venueFacebookEditText.getText().toString();
+                    if (!venueFacebookInput.equals("")){
+                        // run some validation, let the user know if there is a problem
+                        Log.i("tag: ", "validation would be run here");
+                    }
 
-                    venue = new Venue(newUser,
-                            "an address",
-                            "postcode",
-                    "faq",
-                    123456);
+                    venueTwitterInput = venueTwitterEditText.getText().toString();
+                    if (!venueTwitterInput.equals("")){
+                        // run some validation, let the user know if there is a problem
+                        Log.i("tag: ", "validation would be run here");
+                    }
 
+                    venueInstagramInput = venueInstagramEditText.getText().toString();
+                    if (!venueInstagramInput.equals("")){
+                        // run some validation, let the user know if there is a problem
+                        Log.i("tag: ", "validation would be run here");
+                    }
 
-                    new CreateNewProfileAsyncTask().execute();
+                    venueWebsiteInput = venueWebsiteEditText.getText().toString();
+                    if (!venueWebsiteInput.equals("")){
+                        // run some validation, let the user know if there is a problem
+                        Log.i("tag: ", "validation would be run here");
+                    }
+
+                    venueAddress1Input = venueAddress1EditText.getText().toString();
+                    if (!venueAddress1Input.equals("")){
+                        // run some validation, let the user know if there is a problem
+                        Log.i("tag: ", "validation would be run here");
+                    }
+
+                    venuePostcodeInput = venuePostcodeEditText.getText().toString();
+                    if (!venuePostcodeInput.equals("")){
+                        // run some validation, let the user know if there is a problem
+                        Log.i("tag: ", "validation would be run here");
+                    }
+
+                    createVenueProfile();
+
 
                 } else {
                     //Display error message if not connected to internet
@@ -110,6 +153,30 @@ public class VenueProfileCreation extends Fragment {
 
     }
 
+    private void createVenueProfile(){
+
+        User newUser = new User
+                .UserBuilder("1", "Stone Temple Pilots", "stone@temple.com", "123")
+                .withTagline(venueTaglineInput)
+                .withLocation(venueLocationInput)
+                .withDescription(venueDescriptionInput)
+                .withFacebookLink(venueFacebookInput)
+                .withTwitterLink(venueTwitterInput)
+                .withInstagramLink(venueInstagramInput)
+                .withWebPageLink(venueWebsiteInput)
+                .build();
+        Log.i("USER:", String.valueOf(newUser));
+
+        venue = new Venue
+                .VenueBuilder(newUser)
+                .withAddress1(venueAddress1Input)
+                .withPostcode(venuePostcodeInput)
+                .build();
+
+        new CreateNewProfileAsyncTask().execute();
+    }
+
+
     private class CreateNewProfileAsyncTask extends AsyncTask<String, String, String> {
         @Override
         protected void onPreExecute() {
@@ -118,7 +185,8 @@ public class VenueProfileCreation extends Fragment {
 
         @Override
         protected String doInBackground(String... params) {
-            return new WebClientMethods().createVenueProfile(venue);
+            new WebClientMethods();
+            return WebClientMethods.createVenueProfile(venue);
 
         }
 

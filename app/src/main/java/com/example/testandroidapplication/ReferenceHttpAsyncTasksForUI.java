@@ -85,16 +85,16 @@ public class ReferenceHttpAsyncTasksForUI extends AppCompatActivity {
         // Currently hardcoded to userId 29
         Button readVenueProfileButton = findViewById(R.id.readVenueProfileBtn);
 
-//        readVenueProfileButton.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View view){
-//                if (CheckNetworkStatus.isNetworkAvailable(getApplicationContext())){
-//                    readVenueProfile();
-//                } else {
-//                    Toast.makeText(ReferenceHttpAsyncTasksForUI.this, "Unable to connect to internet", Toast.LENGTH_LONG).show();
-//                }
-//            }
-//        });
+        readVenueProfileButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                if (CheckNetworkStatus.isNetworkAvailable(getApplicationContext())){
+                    readVenueProfile();
+                } else {
+                    Toast.makeText(ReferenceHttpAsyncTasksForUI.this, "Unable to connect to internet", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
         // READ GIG INFORMATION - button and onclick setup
         // Currently hardcoded to gigId 1
@@ -144,9 +144,9 @@ public class ReferenceHttpAsyncTasksForUI extends AppCompatActivity {
 
     // READ VENUE PROFILE - method
 
-//    private void readVenueProfile() {
-//        new ReadVenueProfileAsyncTask().execute();
-//    }
+    private void readVenueProfile() {
+        new ReadVenueProfileAsyncTask().execute();
+    }
 
     // READ GIG INFORMATION - method
 
@@ -235,40 +235,40 @@ public class ReferenceHttpAsyncTasksForUI extends AppCompatActivity {
 
     }
 
-//    private class ReadVenueProfileAsyncTask extends AsyncTask<String, String, VenueResult> {
-//        @Override
-//        protected void onPreExecute() {
-//            super.onPreExecute();
-//        }
-//
-//        @Override
-//        protected VenueResult doInBackground(String... params) {
-//            return new WebClientMethods().readVenueProfile();
-//
-//        }
-//
-//        protected void onPostExecute(final VenueResult result) {
-//
-//            runOnUiThread(new Runnable() {
-//                public void run() {
-//                    if (result.isSuccess()) {
-//                        //Display success message
-//                        Toast.makeText(ReferenceHttpAsyncTasksForUI.this,
-//                                "Venue profile returned (see LogCat 'tagreceiveddata')", Toast.LENGTH_LONG).show();
-//                        //Finish ths activity
-//                        finish();
-//
-//                    } else {
-//                        Toast.makeText(ReferenceHttpAsyncTasksForUI.this,
-//                                "Venue profile could not be returned",
-//                                Toast.LENGTH_LONG).show();
-//
-//                    }
-//                }
-//            });
-//        }
-//
-//    }
+    private class ReadVenueProfileAsyncTask extends AsyncTask<String, String, VenueResult> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected VenueResult doInBackground(String... params) {
+            return new WebClientMethods().readVenueProfile();
+
+        }
+
+        protected void onPostExecute(final VenueResult result) {
+
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    if (result.isSuccess()) {
+                        //Display success message
+                        Toast.makeText(ReferenceHttpAsyncTasksForUI.this,
+                                "Venue profile returned (see LogCat 'tagreceiveddata')", Toast.LENGTH_LONG).show();
+                        //Finish ths activity
+                        finish();
+
+                    } else {
+                        Toast.makeText(ReferenceHttpAsyncTasksForUI.this,
+                                "Venue profile could not be returned",
+                                Toast.LENGTH_LONG).show();
+
+                    }
+                }
+            });
+        }
+
+    }
 
     private class ReadGigInformationAsyncTask extends AsyncTask<String, String, GigResult> {
         @Override

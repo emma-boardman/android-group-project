@@ -111,26 +111,26 @@ public class WebClientMethods {
          }
      }
 
-//    public VenueResult readVenueProfile(){
-//        HttpJsonParser httpJsonParser = new HttpJsonParser();
-//        Map<String, String> httpParams = new HashMap<>();
-//        httpParams.put(KEY_USER_ID, "29");
-//
-//        JSONObject jsonObject = httpJsonParser.makeHttpRequest(
-//                BASE_URL + "readVenueProfile.php", "GET", httpParams);
-//
-//        try {
-//            JSONObject user = jsonObject.getJSONObject(KEY_DATA);
-//            validator = new Validator();
-//            JSONObject userWithoutNulls = validator.objectNullToString(user);
-//            Venue venue = Venue.fromJson(userWithoutNulls);
-//            return VenueResult.success(venue);
-//
-//
-//        } catch (JSONException e) {
-//            return VenueResult.failure();
-//        }
-//    }
+    public VenueResult readVenueProfile(){
+        HttpJsonParser httpJsonParser = new HttpJsonParser();
+        Map<String, String> httpParams = new HashMap<>();
+        httpParams.put(KEY_USER_ID, "29");
+
+        JSONObject jsonObject = httpJsonParser.makeHttpRequest(
+                BASE_URL + "readVenueProfile.php", "GET", httpParams);
+
+        try {
+            JSONObject user = jsonObject.getJSONObject(KEY_DATA);
+            validator = new Validator();
+            JSONObject userWithoutNulls = validator.objectNullToString(user);
+            Venue venue = Venue.fromJson(userWithoutNulls);
+            return VenueResult.success(venue);
+
+
+        } catch (JSONException e) {
+            return VenueResult.failure();
+        }
+    }
 
     public GigResult readGigInformation(){
         HttpJsonParser httpJsonParser = new HttpJsonParser();

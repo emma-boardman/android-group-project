@@ -150,6 +150,18 @@ public class HttpJsonParser {
         jsonObject.accumulate("User_Name", venue.getUser().getName());
         jsonObject.accumulate("Email", venue.getUser().getEmail());
         jsonObject.accumulate("Password", venue.getUser().getPassword());
+        jsonObject.accumulate("Profile_Picture", venue.getUser().getProfileImage());
+        jsonObject.accumulate("Facebook", venue.getUser().getFacebookLink());
+        jsonObject.accumulate("Instagram", venue.getUser().getInstagramLink());
+        jsonObject.accumulate("Twitter", venue.getUser().getTwitterLink());
+        jsonObject.accumulate("Website", venue.getUser().getWebPageLink());
+        jsonObject.accumulate("Tagline", venue.getUser().getTagLine());
+        jsonObject.accumulate("Description", venue.getUser().getTagLine());
+        jsonObject.accumulate("Location", venue.getUser().getLocation());
+        jsonObject.accumulate("Address1", venue.getAddress1());
+        jsonObject.accumulate("PostCode", venue.getPostcode());
+        jsonObject.accumulate("Phone_Number", venue.getPhoneNumber());
+
 
         return jsonObject;
     }
