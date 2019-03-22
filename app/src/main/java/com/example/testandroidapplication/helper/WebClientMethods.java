@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import com.example.testandroidapplication.objects.Artist;
 import com.example.testandroidapplication.objects.Gig;
+import com.example.testandroidapplication.objects.User;
 import com.example.testandroidapplication.objects.Venue;
 
 import java.io.IOException;
@@ -91,9 +92,17 @@ public class WebClientMethods {
 
          try {
             JSONObject user = jsonObject.getJSONObject(KEY_DATA);
-            validator = new Validator();
-            JSONObject userWithoutNulls = validator.objectNullToString(user);
-            Artist artist = Artist.fromJson(userWithoutNulls);
+//            validator = new Validator();
+//            JSONObject userWithoutNulls = validator.objectNullToString(user);
+//            Artist artist = new Artist(User);
+
+             User newUser = new User
+                     .UserBuilder("", "", "", "")
+                     .build();
+
+             Artist artist = new Artist(newUser,
+                     "comment", "soundcloud");
+
             return ArtistResult.success(artist);
 
 
@@ -102,26 +111,26 @@ public class WebClientMethods {
          }
      }
 
-    public VenueResult readVenueProfile(){
-        HttpJsonParser httpJsonParser = new HttpJsonParser();
-        Map<String, String> httpParams = new HashMap<>();
-        httpParams.put(KEY_USER_ID, "29");
-
-        JSONObject jsonObject = httpJsonParser.makeHttpRequest(
-                BASE_URL + "readVenueProfile.php", "GET", httpParams);
-
-        try {
-            JSONObject user = jsonObject.getJSONObject(KEY_DATA);
-            validator = new Validator();
-            JSONObject userWithoutNulls = validator.objectNullToString(user);
-            Venue venue = Venue.fromJson(userWithoutNulls);
-            return VenueResult.success(venue);
-
-
-        } catch (JSONException e) {
-            return VenueResult.failure();
-        }
-    }
+//    public VenueResult readVenueProfile(){
+//        HttpJsonParser httpJsonParser = new HttpJsonParser();
+//        Map<String, String> httpParams = new HashMap<>();
+//        httpParams.put(KEY_USER_ID, "29");
+//
+//        JSONObject jsonObject = httpJsonParser.makeHttpRequest(
+//                BASE_URL + "readVenueProfile.php", "GET", httpParams);
+//
+//        try {
+//            JSONObject user = jsonObject.getJSONObject(KEY_DATA);
+//            validator = new Validator();
+//            JSONObject userWithoutNulls = validator.objectNullToString(user);
+//            Venue venue = Venue.fromJson(userWithoutNulls);
+//            return VenueResult.success(venue);
+//
+//
+//        } catch (JSONException e) {
+//            return VenueResult.failure();
+//        }
+//    }
 
     public GigResult readGigInformation(){
         HttpJsonParser httpJsonParser = new HttpJsonParser();

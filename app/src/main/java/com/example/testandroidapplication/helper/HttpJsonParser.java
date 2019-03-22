@@ -109,30 +109,6 @@ public class HttpJsonParser {
 
     }
 
-    public String toJSONObject(Venue venue) throws IOException {
-        StringWriter out = new StringWriter();
-        writer = new JsonWriter(out);
-
-        writer.beginObject()
-                .name("User_Id").value(venue.getUserID())
-                .name("User_Name").value(venue.getName())
-                .name("Email").value(venue.getEmail())
-                .name("Password").value(venue.getPassword())
-                .name("Profile_Picture").value(venue.getProfileImage())
-                .name("Facebook").value(venue.getFacebookLink())
-                .name("Instagram").value(venue.getInstagramLink())
-                .name("Twitter").value(venue.getTwitterLink())
-                .name("Website").value(venue.getWebPageLink())
-                .name("Tagline").value(venue.getTagLine())
-                .name("Description").value(venue.getDescription())
-                .endObject()
-                .close();
-
-        return out.toString();
-    }
-
-
-
     public JSONObject makeHttpPost(String url, JSONObject jsonObject) throws IOException, JSONException {
 
         URL urlObj = new URL(url);
@@ -170,9 +146,9 @@ public class HttpJsonParser {
     public JSONObject buildJsonObject(Venue venue) throws JSONException {
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.accumulate("User_Id", venue.getUserID());
-        jsonObject.accumulate("User_Name", venue.getName());
-        jsonObject.accumulate("Email", venue.getEmail());
+        jsonObject.accumulate("User_Id", venue.getUser().getUserID());
+        jsonObject.accumulate("User_Name", venue.getUser().getName());
+        jsonObject.accumulate("Email", venue.getUser().getEmail());
 
         return jsonObject;
     }

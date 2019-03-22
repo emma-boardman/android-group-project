@@ -3,12 +3,13 @@ package com.example.testandroidapplication.objects;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Artist extends User {
+public class Artist {
 
+    private User user;
     private String soundCloudLink, comments;
 
-    public Artist(String userID, String name, String email, String password, String tagLine, String searchTags, String description, String facebookLink, String instagramLink, String twitterLink, String webPageLink, String location, int overallRating, String profileImage, String comments, String soundCloudLink) {
-        super(userID, name, email, password, tagLine, searchTags, description, facebookLink, instagramLink, twitterLink, webPageLink, location, overallRating, profileImage);
+    public Artist(User user, String comments, String soundCloudLink) {
+        this.user = user;
         setComments(comments);
         setSoundCloudLink(soundCloudLink);
     }
@@ -39,22 +40,16 @@ public class Artist extends User {
             String artistComments = "comments";
             String artistSoundCloudLink = jsonObject.getString("Soundcloud");
 
-            artist = new Artist(artistUserID,
-                                artistName,
-                                artistEmail,
-                                artistPassword,
-                                artistTagLine,
-                                artistSearchTags,
-                                artistDescription,
-                                artistFacebookLink,
-                                artistInstagramLink,
-                                artistTwitterLink,
-                                artistWebPageLink,
-                                artistLocation,
-                                artistOverallRating,
-                                artistProfileImage,
-                                artistComments,
-                                artistSoundCloudLink);
+
+
+            User newUser = new User
+                    .UserBuilder(artistUserID, artistName, artistEmail, artistPassword)
+                    .withTagline(artistTagLine)
+                    .build();
+
+            artist = new Artist(newUser,
+                    "comment", "soundcloud");
+
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -64,14 +59,6 @@ public class Artist extends User {
         return artist;
     }
 
-
-    public String toString() {
-        String output;
-
-        output = "" + this.name + " , " + this.userID;
-
-        return output;
-    }
 
     public String getSoundCloudLink() {
         return soundCloudLink;

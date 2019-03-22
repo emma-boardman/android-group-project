@@ -1,26 +1,16 @@
 package com.example.testandroidapplication.objects;
 
-public abstract class User {
+public class User {
 
     private String userID, name, email, password, tagLine, searchTags, description, facebookLink, instagramLink, twitterLink, webPageLink, location;
     private int overallRating;
     private String profileImage;
 
-    public User(String userID, String name, String email, String password, String tagLine, String searchTags, String description, String facebookLink, String instagramLink, String twitterLink, String webPageLink, String location, int overallRating, String profileImage) {
-        setUserID(userID);
-        setName(name);
-        setEmail(email);
-        setPassword(password);
-        setTagLine(tagLine);
-        setSearchTags(searchTags);
-        setDescription(description);
-        setFacebookLink(facebookLink);
-        setInstagramLink(instagramLink);
-        setTwitterLink(twitterLink);
-        setWebPageLink(webPageLink);
-        setLocation(location);
-        setOverallRating(overallRating);
-        setProfileImage(profileImage);
+    public User(UserBuilder builder){
+        this.userID = builder.userID;
+        this.name = builder.name;
+        this.email = builder.email;
+        this.password = builder.password;
     }
 
 
@@ -56,13 +46,9 @@ public abstract class User {
         this.password = password;
     }
 
-    public String getTagLine() {
-        return tagLine;
-    }
+    public String getTagLine() {return tagLine;}
 
-    public void setTagLine(String tagLine) {
-        this.tagLine = tagLine;
-    }
+    public void setTagLine(String tagLine) {this.tagLine = tagLine; }
 
     public String getSearchTags() {
         return searchTags;
@@ -156,8 +142,8 @@ public abstract class User {
             this.password = password;
         }
 
-        public UserBuilder withTagline(String email){
-            this.email = email;
+        public UserBuilder withTagline(String tagLine){
+            this.tagLine = tagLine;
             return this;
         }
 
@@ -205,6 +191,11 @@ public abstract class User {
             this.profileImage = profileImage;
             return this;
         }
+
+        public User build() {
+            return new User(this);
+        }
+
 
     }
 

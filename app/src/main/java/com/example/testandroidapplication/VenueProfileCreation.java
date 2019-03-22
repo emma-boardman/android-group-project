@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.example.testandroidapplication.helper.CheckNetworkStatus;
 import com.example.testandroidapplication.helper.HttpJsonParser;
 import com.example.testandroidapplication.helper.Validator;
 import com.example.testandroidapplication.helper.WebClientMethods;
+import com.example.testandroidapplication.objects.User;
 import com.example.testandroidapplication.objects.Venue;
 
 import java.io.IOException;
@@ -37,7 +39,7 @@ public class VenueProfileCreation extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.venue_profile_creation, container, false);
+        final View v = inflater.inflate(R.layout.venue_profile_creation, container, false);
 
         venueTaglineEditText = v.findViewById(R.id.venue_tagline);
         venueLocationEditText = v.findViewById(R.id.venue_location);
@@ -51,42 +53,46 @@ public class VenueProfileCreation extends Fragment {
                 // if network is available, validate the user input
                 if (CheckNetworkStatus.isNetworkAvailable(getActivity().getApplicationContext())) {
 
-                    if (venueTaglineEditText.getText() != null){
+                    // iterate through optional fields & assign a variable for any filled in fields, assign to a variable dynamically created from hint
+//                    int[] optionalEditTextIds = new int[]{R.id.venue_tagline, R.id.venue_location, R.id.venue_description, R.id.venue_create_profile};
+//                    int i = 1;
+//                    for (int id : ids) {
+//                        EditText editText = v.findViewById(id);
+//                        String editText.getHint() = editText.getText().toString();
+//                    }
+
+
+                    if (TextUtils.isEmpty(venueTaglineEditText.getText())){
                         venueTaglineInput = venueTaglineEditText.getText().toString();
                     } else {
                         venueTaglineInput = "not populated";
                     }
 
-                    if (venueLocationEditText.getText() != null){
-                        venueLocationInput = venueLocationEditText.getText().toString();
-                    } else {
-                        venueLocationInput = "not populated";
+                    venueLocationInput = venueLocationEditText.getText().toString();
+                    if (!venueLocationInput.equals("")){
+                        // run some validation, let the user know if there is a problem
+                        Log.i("tag: ", "validation would be run here");
                     }
 
-                    if (venueDescriptionEditText.getText() != null){
-                        venueDescriptionInput = venueDescriptionEditText.getText().toString();
-                    } else {
-                        venueDescriptionInput = "not populated";
+                    venueDescriptionInput = venueDescriptionEditText.getText().toString();
+                    if (!venueLocationInput.equals("")){
+                        // run some validation, let the user know if there is a problem
+                        Log.i("tag: ", "validation would be run here");
                     }
 
-                    venue = new Venue("1",
-                            "Name populated from Firebase",
-                             "email populated from Firebase",
-                             "password populated from Firebase",
-                                    "hard-coded tagline",
-                                    "hard-coded tags",
-                            "hard-coded description",
-                            "hard-coded facebook link",
-                            "hard-coded instagram link",
-                            "hard-coded twitter link",
-                            "hard-coded web link",
-                            "hard-coded location",
-                            5,
-                    "hard-coded profile image",
-                           "hard-coded faq",
-                            "hard-coded address 1",
-                            "hard-coded postcode",
-                             456789);
+                    User newUser = new User
+                            .UserBuilder("123", "Stone Temple Pilots", "stone@temple.com", "123")
+                            .withTagline(venueTaglineInput)
+                            .withLocation(venueLocationInput)
+                            .withDescription(venueDescriptionInput)
+                            .build();
+
+                    venue = new Venue(newUser,
+                            "an address",
+                            "postcode",
+                    "faq",
+                    123456);
+
 
                     new CreateNewProfileAsyncTask().execute();
 
