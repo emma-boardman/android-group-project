@@ -81,7 +81,7 @@ public class VenueProfileCreation extends Fragment {
                     }
 
                     User newUser = new User
-                            .UserBuilder("123", "Stone Temple Pilots", "stone@temple.com", "123")
+                            .UserBuilder("1", "Stone Temple Pilots", "stone@temple.com", "123")
                             .withTagline(venueTaglineInput)
                             .withLocation(venueLocationInput)
                             .withDescription(venueDescriptionInput)
