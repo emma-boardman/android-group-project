@@ -1,5 +1,7 @@
 package com.example.testandroidapplication.objects;
 
+import com.example.testandroidapplication.R;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -59,43 +61,24 @@ public class Venue {
         return venue;
     }
 
-
     public User getUser(){
         return user;
     }
 
-    public void setUser(User user){ this.user = user; }
-
     public String getAddress1(){
         return address1;
-    }
-
-    public void setAddress1(String address1){
-        this.address1 = address1;
     }
 
     public String getPostcode(){
         return postcode;
     }
 
-    public void setPostcode(String postcode){
-        this.postcode = postcode;
-    }
-
     public String getFaq() {
         return faq;
     }
 
-    public void setFaq(String faq) {
-        this.faq = faq;
-    }
-
     public int getPhoneNumber() {
         return phoneNumber;
-    }
-
-    public void setPhoneNumber(int phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 
     public static class VenueBuilder  {
@@ -113,6 +96,11 @@ public class Venue {
 
         public VenueBuilder withFAQ(String faq){
             this.faq = faq;
+            return this;
+        }
+
+        public VenueBuilder updateUser(User user){
+            this.user = user;
             return this;
         }
 

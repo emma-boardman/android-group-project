@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,19 +13,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.testandroidapplication.Presenter.VenueProfileCreationPresenter;
+
 import com.example.testandroidapplication.helper.CheckNetworkStatus;
-import com.example.testandroidapplication.helper.HttpJsonParser;
-import com.example.testandroidapplication.helper.Validator;
 import com.example.testandroidapplication.helper.WebClientMethods;
 import com.example.testandroidapplication.objects.User;
 import com.example.testandroidapplication.objects.Venue;
 
-import java.io.IOException;
-
 public class VenueProfileCreation extends Fragment {
 
     private Venue venue;
+    private User user;
+    private User.UserBuilder userBuilder;
+
     private EditText venueNameEditText;
     private EditText venueTaglineEditText;
     private EditText venueLocationEditText;
@@ -71,63 +69,55 @@ public class VenueProfileCreation extends Fragment {
         createProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 // if network is available, validate the user input
                 if (CheckNetworkStatus.isNetworkAvailable(getActivity().getApplicationContext())) {
+
+                    userBuilder = new User.UserBuilder("1", "Stone Temple Pilots", "stone@temple.com", "123");
+                    user = userBuilder.build();
 
                     venueNameInput = venueNameEditText.getText().toString();
                     if (!venueNameInput.equals("")){
                         // run some validation, let the user know if there is a problem
-                        Log.i("tag: ", "validation would be run here");
                     }
-
 
                     venueTaglineInput = venueTaglineEditText.getText().toString();
                     if (!venueTaglineInput.equals("")){
                         // run some validation, let the user know if there is a problem
-                        Log.i("tag: ", "validation would be run here");
                     }
 
                     venueLocationInput = venueLocationEditText.getText().toString();
                     if (!venueLocationInput.equals("")){
                         // run some validation, let the user know if there is a problem
-                        Log.i("tag: ", "validation would be run here");
                     }
 
-                    venueDescriptionInput = venueDescriptionEditText.getText().toString();
+                    venueDescriptionInput = VenueProfileCreation.this.venueDescriptionEditText.getText().toString();
                     if (!venueLocationInput.equals("")){
                         // run some validation, let the user know if there is a problem
-                        Log.i("tag: ", "validation would be run here");
                     }
 
                     venueFacebookInput = venueFacebookEditText.getText().toString();
                     if (!venueFacebookInput.equals("")){
                         // run some validation, let the user know if there is a problem
-                        Log.i("tag: ", "validation would be run here");
                     }
 
                     venueTwitterInput = venueTwitterEditText.getText().toString();
                     if (!venueTwitterInput.equals("")){
                         // run some validation, let the user know if there is a problem
-                        Log.i("tag: ", "validation would be run here");
                     }
 
                     venueInstagramInput = venueInstagramEditText.getText().toString();
                     if (!venueInstagramInput.equals("")){
                         // run some validation, let the user know if there is a problem
-                        Log.i("tag: ", "validation would be run here");
                     }
 
                     venueWebsiteInput = venueWebsiteEditText.getText().toString();
                     if (!venueWebsiteInput.equals("")){
                         // run some validation, let the user know if there is a problem
-                        Log.i("tag: ", "validation would be run here");
                     }
 
                     venueAddress1Input = venueAddress1EditText.getText().toString();
                     if (!venueAddress1Input.equals("")){
                         // run some validation, let the user know if there is a problem
-                        Log.i("tag: ", "validation would be run here");
                     }
 
                     venuePostcodeInput = venuePostcodeEditText.getText().toString();
@@ -155,8 +145,8 @@ public class VenueProfileCreation extends Fragment {
 
     private void createVenueProfile(){
 
-        User newUser = new User
-                .UserBuilder("1", "Stone Temple Pilots", "stone@temple.com", "123")
+        user = userBuilder
+                .withName(venueNameInput)
                 .withTagline(venueTaglineInput)
                 .withLocation(venueLocationInput)
                 .withDescription(venueDescriptionInput)
@@ -165,10 +155,9 @@ public class VenueProfileCreation extends Fragment {
                 .withInstagramLink(venueInstagramInput)
                 .withWebPageLink(venueWebsiteInput)
                 .build();
-        Log.i("USER:", String.valueOf(newUser));
 
         venue = new Venue
-                .VenueBuilder(newUser)
+                .VenueBuilder(user)
                 .withAddress1(venueAddress1Input)
                 .withPostcode(venuePostcodeInput)
                 .build();
@@ -185,9 +174,7 @@ public class VenueProfileCreation extends Fragment {
 
         @Override
         protected String doInBackground(String... params) {
-            new WebClientMethods();
             return WebClientMethods.createVenueProfile(venue);
-
         }
 
         protected void onPostExecute(final String result) {

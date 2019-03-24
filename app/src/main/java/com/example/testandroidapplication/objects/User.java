@@ -86,6 +86,11 @@ public class User {
             this.password = password;
         }
 
+        public UserBuilder withName(String name){
+            this.name = name;
+            return this;
+        }
+
         public UserBuilder withTagline(String tagLine){
             this.tagLine = tagLine;
             return this;
