@@ -19,9 +19,9 @@ public class ArtistRegistration extends Fragment {
 
         Button venueRegister = v.findViewById(R.id.venue_register);
         Button venueCancel = v.findViewById(R.id.venue_cancel);
-        EditText venueEmail = v.findViewById(R.id.venue_email);
-        EditText venuePassword = v.findViewById(R.id.venue_password);
-        EditText venueConfirmPassword = v.findViewById(R.id.venue_confirm_password);
+        EditText venueEmail = v.findViewById(R.id.user_email);
+        EditText venuePassword = v.findViewById(R.id.user_password);
+        EditText venueConfirmPassword = v.findViewById(R.id.user_confirm_password);
         final RegisterFragmentVOrA registerFragmentVOrA = new RegisterFragmentVOrA();
 
         venueCancel.setOnClickListener(new View.OnClickListener() {

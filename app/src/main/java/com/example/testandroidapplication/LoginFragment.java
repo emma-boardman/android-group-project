@@ -35,7 +35,7 @@ public class LoginFragment extends Fragment {
     private String userEmail;
     private String userPassword;
     private int success;
-    private RegisterFragmentVOrA registerVOrA = new RegisterFragmentVOrA();
+    private RegisterFragment register = new RegisterFragment();
 
     @Nullable
     @Override
@@ -81,7 +81,7 @@ public class LoginFragment extends Fragment {
                 if (CheckNetworkStatus.isNetworkAvailable(getActivity().getApplicationContext())) {
 
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
-                            registerVOrA).commit();
+                            register, "registerFragment").commit();
                     /*Intent i = new Intent(getActivity().getApplicationContext(),
                             ReferenceHttpAsyncTasksForUI.class);
                     startActivity(i);*/
