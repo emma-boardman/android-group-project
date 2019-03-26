@@ -25,6 +25,7 @@
         <activity android:name=".ActualMessaging" />
         <activity android:name=".MessagingWindow" />
         <activity android:name=".Messaging" />
+        <activity android:name=".CalendarActivity"/>
 
         <activity
             android:name=".RegisterActivity"
