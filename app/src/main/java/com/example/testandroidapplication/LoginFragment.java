@@ -48,6 +48,7 @@ public class LoginFragment extends Fragment {
         Button loginBtn =  v.findViewById(R.id.loginBtn);
         Button addNewBtn = v.findViewById(R.id.addNewBtn);
         Button btn_messaging = v.findViewById(R.id.btn_messaging);
+        Button btn_calender = v.findViewById(R.id.btn_calender);
 
         btn_messaging.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +93,15 @@ public class LoginFragment extends Fragment {
                             Toast.LENGTH_LONG).show();
 
                 }
+            }
+        });
+
+        btn_calender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(getActivity(), CalendarActivity.class);
+                startActivity(i);
 
             }
         });

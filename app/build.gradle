@@ -42,6 +42,9 @@ dependencies {
 
 
     implementation 'com.google.firebase:firebase-messaging:17.4.0'
+
+    //Calendar - Ben
+    implementation 'com.android.support:recyclerview-v7:27.1.1'
 }
 
 apply plugin: 'com.google.gms.google-services'
