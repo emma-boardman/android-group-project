@@ -1,4 +1,4 @@
-package com.example.testandroidapplication;
+package com.example.testandroidapplication.Adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -9,11 +9,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.testandroidapplication.R;
 import com.example.testandroidapplication.objects.Gig;
 
 import java.util.ArrayList;
 
-public class CalendarAdapter extends AppCompatActivity {
+
 
 
     public class CustomAdapter extends RecyclerView.Adapter {
@@ -21,7 +22,7 @@ public class CalendarAdapter extends AppCompatActivity {
         ArrayList <Gig> gigArrayList = new ArrayList<>();
         Context context;
 
-        public CustomAdapter(Context context, ArrayList gig) {
+        public CustomAdapter(Context context, ArrayList gigArrayList) {
             this.context = context;
             this.gigArrayList = gigArrayList;
         }
@@ -71,4 +72,3 @@ public class CalendarAdapter extends AppCompatActivity {
             }
         }
     }
-}
