@@ -17,21 +17,20 @@ public class VenueRegistration extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.venue_registration, container, false);
+        View v = inflater.inflate(R.layout.user_registration, container, false);
 
         Button venueRegister = v.findViewById(R.id.venue_register);
         Button venueCancel = v.findViewById(R.id.venue_cancel);
-        EditText venueEmail = v.findViewById(R.id.venue_email);
-        final EditText venuePassword = v.findViewById(R.id.venue_password);
-        final EditText venueConfirmPassword = v.findViewById(R.id.venue_confirm_password);
+        EditText venueEmail = v.findViewById(R.id.user_email);
+        final EditText venuePassword = v.findViewById(R.id.user_password);
+        final EditText venueConfirmPassword = v.findViewById(R.id.user_confirm_password);
         final RegisterFragmentVOrA registerFragmentVOrA = new RegisterFragmentVOrA();
 
         venueCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
-                        registerFragmentVOrA).commit();
+                getActivity().getSupportFragmentManager().findFragmentByTag("loginFragment");
 
             }
         });

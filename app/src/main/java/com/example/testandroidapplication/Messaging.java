@@ -50,7 +50,7 @@ public class Messaging extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Messaging.this, RegisterActivity.class));
+                startActivity(new Intent(Messaging.this, LoginActivity.class));
             }
         });
     }
