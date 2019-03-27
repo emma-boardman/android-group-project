@@ -14,7 +14,7 @@
     <string name="artist">Artist</string>
     <string name="welcome">Welcome!</string>
     <string name="vOrA">Are you registering as an\nArtist or Venue?</string>
-    <string name="venue_registration">Venue Registration</string>
+    <string name="registration">Registration</string>
     <string name="artist_registration">Artist Registration</string>
     <string name="cancel">Cancel</string>
     <string name="venue_profile_creation">Venue Profile Creation</string>

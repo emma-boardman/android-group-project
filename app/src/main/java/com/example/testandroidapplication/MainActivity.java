@@ -13,7 +13,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.landr_toolbar);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container, loginView).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
+                loginView, "loginFragment").addToBackStack(null).commit();
 
     }
 }

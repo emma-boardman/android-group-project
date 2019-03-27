@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_gravity="center"
-        android:text="@string/venue_registration"
+        android:text="@string/registration"
         android:fontFamily="@font/arvo"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -29,7 +29,28 @@
         android:gravity="center">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/venue_email"
+            android:id="@+id/user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/user_name"
+            android:inputType="text"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:fontFamily="@font/arvo"
+        android:textColorHint="@color/colorAccent"
+        android:gravity="center">
+
+        <android.support.design.widget.TextInputEditText
+            android:id="@+id/user_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/user_email"
@@ -50,11 +71,11 @@
         android:gravity="center">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/venue_password"
+            android:id="@+id/user_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/user_password"
-            android:inputType="text"
+            android:inputType="textPassword"
             android:textColor="@color/colorAccent"
             android:textSize="18sp" />
 
@@ -71,11 +92,11 @@
         android:gravity="center">
 
         <android.support.design.widget.TextInputEditText
-            android:id="@+id/venue_confirm_password"
+            android:id="@+id/user_confirm_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/confirm_password"
-            android:inputType="text"
+            android:inputType="textPassword"
             android:textColor="@color/colorAccent"
             android:textSize="18sp" />
 
@@ -90,7 +111,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/venue_register"
+            android:id="@+id/btn_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark"
@@ -99,7 +120,7 @@
             android:textColor="@color/colorAccent" />
 
         <Button
-            android:id="@+id/venue_cancel"
+            android:id="@+id/user_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"

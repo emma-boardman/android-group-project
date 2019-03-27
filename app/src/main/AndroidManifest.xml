@@ -12,10 +12,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-
+        tools:ignore="GoogleAppIndexingWarning"
         android:theme="@style/AppTheme">
         <activity android:name=".ProfileActivity" />
         <activity android:name=".ReferenceHttpAsyncTasksForUI" />
+
 
         <activity
             android:name=".ResetPasswordActivity"
@@ -24,6 +25,7 @@
         <activity android:name=".ActualMessaging" />
         <activity android:name=".MessagingWindow" />
         <activity android:name=".Messaging" />
+        <activity android:name=".CalendarActivity"/>
 
         <activity
             android:name=".RegisterActivity"
@@ -32,6 +34,8 @@
         <activity
             android:name=".LoginActivity"
             android:parentActivityName=".Messaging" />
+
+        <activity android:name=".TempAddUserToDB" />
 
         <activity android:name=".MainActivity">
             <intent-filter>

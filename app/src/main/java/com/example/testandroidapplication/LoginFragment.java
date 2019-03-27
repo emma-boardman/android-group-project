@@ -35,7 +35,7 @@ public class LoginFragment extends Fragment {
     private String userEmail;
     private String userPassword;
     private int success;
-    private RegisterFragmentVOrA registerVOrA = new RegisterFragmentVOrA();
+    private RegisterFragment register = new RegisterFragment();
 
     @Nullable
     @Override
@@ -48,20 +48,12 @@ public class LoginFragment extends Fragment {
         Button loginBtn =  v.findViewById(R.id.loginBtn);
         Button addNewBtn = v.findViewById(R.id.addNewBtn);
         Button btn_messaging = v.findViewById(R.id.btn_messaging);
-        Button testBtn = v.findViewById(R.id.button);
+        Button btn_calender = v.findViewById(R.id.btn_calender);
 
         btn_messaging.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getActivity(), Messaging.class);
-                startActivity(i);
-            }
-        });
-
-        testBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getActivity(), ReferenceHttpAsyncTasksForUI.class);
                 startActivity(i);
             }
         });
@@ -90,7 +82,7 @@ public class LoginFragment extends Fragment {
                 if (CheckNetworkStatus.isNetworkAvailable(getActivity().getApplicationContext())) {
 
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
-                            registerVOrA).commit();
+                            register, "registerFragment").commit();
                     /*Intent i = new Intent(getActivity().getApplicationContext(),
                             ReferenceHttpAsyncTasksForUI.class);
                     startActivity(i);*/
@@ -101,6 +93,15 @@ public class LoginFragment extends Fragment {
                             Toast.LENGTH_LONG).show();
 
                 }
+            }
+        });
+
+        btn_calender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(getActivity(), CalendarActivity.class);
+                startActivity(i);
 
             }
         });
