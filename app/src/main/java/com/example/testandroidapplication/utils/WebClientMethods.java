@@ -1,4 +1,4 @@
-package com.example.testandroidapplication.helper;
+package com.example.testandroidapplication.utils;
 
 
 
@@ -30,16 +30,17 @@ public class WebClientMethods {
 
     private Validator validator;
 
+
     // CREATE
 
-    public String createUserAccount(String userName, String userEmail, String userPassword) {
+    public static String createUserAccount(String userID, String userName, String userEmail) {
         HttpJsonParser httpJsonParser = new HttpJsonParser();
         Map<String, String> httpParams = new HashMap<>();
+        httpParams.put(KEY_USER_ID, userID);
         httpParams.put(KEY_USER_NAME, userName);
         httpParams.put(KEY_EMAIL, userEmail);
-        httpParams.put(KEY_PASSWORD, userPassword);
         JSONObject jsonObject = httpJsonParser.makeHttpRequest(
-                BASE_URL + "createUser.php", "POST", httpParams);
+                BASE_URL + "createUser2.php", "POST", httpParams);
         try {
             return jsonObject.getString("success");
         } catch (JSONException e) {

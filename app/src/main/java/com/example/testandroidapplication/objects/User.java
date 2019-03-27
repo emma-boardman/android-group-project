@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class User {
 
-    private String userID, name, email, password, tagLine, searchTags, description, facebookLink, instagramLink, twitterLink, webPageLink, location;
+    private String userID, name, email, tagLine, searchTags, description, facebookLink, instagramLink, twitterLink, webPageLink, location;
     private int overallRating;
     private String profileImage;
     private ArrayList<String> reviews;
@@ -13,7 +13,6 @@ public class User {
         this.userID = builder.userID;
         this.name = builder.name;
         this.email = builder.email;
-        this.password = builder.password;
         this.tagLine = builder.tagLine;
         this.searchTags = builder.searchTags;
         this.description = builder.description;
@@ -31,10 +30,6 @@ public class User {
 
     public String getEmail() {
         return email;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public String getTagLine() {return tagLine;}
@@ -81,16 +76,15 @@ public class User {
 
     public static class UserBuilder {
 
-        private String userID, name, email, password, tagLine, searchTags, description, facebookLink, instagramLink, twitterLink, webPageLink, location;
+        private String userID, name, email, tagLine, searchTags, description, facebookLink, instagramLink, twitterLink, webPageLink, location;
         private int overallRating;
         private String profileImage;
         private ArrayList<String> reviews;
 
-        public UserBuilder(String userID, String name, String email, String password){
+        public UserBuilder(String userID, String name, String email){
             this.userID = userID;
             this.name = name;
             this.email = email;
-            this.password = password;
         }
 
         public UserBuilder withName(String name){

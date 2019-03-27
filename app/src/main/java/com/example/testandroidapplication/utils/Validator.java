@@ -1,11 +1,9 @@
-package com.example.testandroidapplication.helper;
+package com.example.testandroidapplication.utils;
 
 import android.util.Log;
 
-import com.example.testandroidapplication.objects.Artist;
 import com.example.testandroidapplication.objects.Venue;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 

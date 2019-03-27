@@ -1,4 +1,4 @@
-package com.example.testandroidapplication.View.register;
+package com.example.testandroidapplication.View.createProfile;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

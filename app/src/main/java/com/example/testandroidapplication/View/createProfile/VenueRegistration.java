@@ -1,4 +1,4 @@
-package com.example.testandroidapplication.View.register;
+package com.example.testandroidapplication.View.createProfile;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,27 +12,37 @@ import android.widget.EditText;
 
 import com.example.testandroidapplication.R;
 
-public class ArtistRegistration extends Fragment {
+public class VenueRegistration extends Fragment {
+
+    private VenueProfileCreation venueProfileCreation = new VenueProfileCreation();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.artist_registration, container, false);
+        View v = inflater.inflate(R.layout.user_registration, container, false);
 
         Button venueRegister = v.findViewById(R.id.venue_register);
         Button venueCancel = v.findViewById(R.id.venue_cancel);
         EditText venueEmail = v.findViewById(R.id.user_email);
-        EditText venuePassword = v.findViewById(R.id.user_password);
-        EditText venueConfirmPassword = v.findViewById(R.id.user_confirm_password);
+        final EditText venuePassword = v.findViewById(R.id.user_password);
+        final EditText venueConfirmPassword = v.findViewById(R.id.user_confirm_password);
         final RegisterFragmentVOrA registerFragmentVOrA = new RegisterFragmentVOrA();
 
-        venueCancel.setOnClickListener(new View.OnClickListener() {
+//        venueCancel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                getActivity().getSupportFragmentManager().findFragmentByTag("loginFragment");
+//
+//            }
+//        });
+
+        venueRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
-                        registerFragmentVOrA).commit();
-
+                        venueProfileCreation).commit();
             }
         });
 

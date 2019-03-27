@@ -1,4 +1,4 @@
-package com.example.testandroidapplication.helper;
+package com.example.testandroidapplication.utils;
 
 
 /**
@@ -7,13 +7,11 @@ package com.example.testandroidapplication.helper;
 
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
@@ -22,7 +20,7 @@ import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONStringer;
+
 import android.util.JsonWriter;
 
 import android.net.Uri;
@@ -149,7 +147,6 @@ public class HttpJsonParser {
         jsonObject.accumulate("User_Id", venue.getUser().getUserID());
         jsonObject.accumulate("User_Name", venue.getUser().getName());
         jsonObject.accumulate("Email", venue.getUser().getEmail());
-        jsonObject.accumulate("Password", venue.getUser().getPassword());
         jsonObject.accumulate("Profile_Picture", venue.getUser().getProfileImage());
         jsonObject.accumulate("Facebook", venue.getUser().getFacebookLink());
         jsonObject.accumulate("Instagram", venue.getUser().getInstagramLink());

@@ -1,4 +1,4 @@
-package com.example.testandroidapplication.View.register;
+package com.example.testandroidapplication.View.createProfile;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,10 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.testandroidapplication.Presenter.register.VenueProfileCreationPresenter;
-import com.example.testandroidapplication.Presenter.register.IVenueProfileCreationContract;
+import com.example.testandroidapplication.Presenter.createProfile.VenueProfileCreationPresenter;
+import com.example.testandroidapplication.Presenter.createProfile.IVenueProfileCreationContract;
 import com.example.testandroidapplication.R;
-import com.example.testandroidapplication.helper.CheckNetworkStatus;
+import com.example.testandroidapplication.utils.CheckNetworkStatus;
 import com.example.testandroidapplication.objects.User;
 import com.example.testandroidapplication.objects.Venue;
 
@@ -75,7 +75,7 @@ public class VenueProfileCreation extends Fragment implements IVenueProfileCreat
                 // if network is available, validate the user input
                 if (CheckNetworkStatus.isNetworkAvailable(getActivity().getApplicationContext())) {
 
-                    userBuilder = new User.UserBuilder("1", "Stone Temple Pilots", "stone@temple.com", "123");
+                    userBuilder = new User.UserBuilder("1", "Stone Temple Pilots", "stone@temple.com");
                     user = userBuilder.build();
 
                     venueNameInput = venueNameEditText.getText().toString();

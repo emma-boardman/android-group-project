@@ -36,8 +36,7 @@ public class Venue {
             User user = new User
                     .UserBuilder(jsonObject.getString("User_Id"),
                                  jsonObject.getString("User_Name"),
-                                 jsonObject.getString("Email"),
-                                 jsonObject.getString("Password"))
+                                 jsonObject.getString("Email"))
                     .withTagline(jsonObject.getString("Tagline"))
                     .withSearchTags("tag tag tag")
                     .withDescription(jsonObject.getString("Description"))

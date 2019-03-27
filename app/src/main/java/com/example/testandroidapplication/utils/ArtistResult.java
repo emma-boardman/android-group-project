@@ -1,4 +1,4 @@
-package com.example.testandroidapplication.helper;
+package com.example.testandroidapplication.utils;
 
 import com.example.testandroidapplication.objects.Artist;
 

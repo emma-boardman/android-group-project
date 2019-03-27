@@ -1,8 +1,8 @@
-package com.example.testandroidapplication.Presenter.register;
+package com.example.testandroidapplication.Presenter.createProfile;
 
 import android.os.AsyncTask;
 
-import com.example.testandroidapplication.helper.WebClientMethods;
+import com.example.testandroidapplication.utils.WebClientMethods;
 import com.example.testandroidapplication.objects.Venue;
 
 public class VenueProfileCreationPresenter implements IVenueProfileCreationContract.Presenter {

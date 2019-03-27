@@ -1,4 +1,4 @@
-package com.example.testandroidapplication.View.register;
+package com.example.testandroidapplication.View.registerUser;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,7 +13,12 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.testandroidapplication.LoginFragment;
+import com.example.testandroidapplication.Presenter.registerUser.IRegisterUserContract;
+import com.example.testandroidapplication.Presenter.registerUser.RegisterUserPresenter;
 import com.example.testandroidapplication.R;
+import com.example.testandroidapplication.View.createProfile.RegisterFragmentVOrA;
+import com.example.testandroidapplication.objects.User;
+import com.example.testandroidapplication.utils.WebClientMethods;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -24,10 +29,15 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
-public class RegisterFragment extends Fragment {
+public class RegisterFragment extends Fragment implements IRegisterUserContract.View {
+
+    private RegisterUserPresenter presenter;
 
     TextInputEditText username, email, password, confirm_password;
     Button btn_register, userCancel, btn_bypass_register;
+    // need variable userId to be accessible by the onComplete method, so id can be sent to database.
+    // to make it final (which is how it was originally declared in method), requires it to be initialised
+    String userid;
 
     FirebaseAuth auth;
     DatabaseReference reference;
@@ -36,6 +46,8 @@ public class RegisterFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.user_registration, container, false);
+
+        presenter = new RegisterUserPresenter(this);
 
         username = v.findViewById(R.id.user_name);
         email = v.findViewById(R.id.user_email);
@@ -95,7 +107,7 @@ public class RegisterFragment extends Fragment {
         return v;
     }
 
-    private void register(final String username, String email, String password) {
+    private void register(final String username, final String email, final String password) {
 
         auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -104,7 +116,7 @@ public class RegisterFragment extends Fragment {
                         if(task.isSuccessful()){
                             FirebaseUser firebaseUser = auth.getCurrentUser();
                             assert firebaseUser != null;
-                            String userid = firebaseUser.getUid();
+                            userid = firebaseUser.getUid();
 
                             reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
 
@@ -120,6 +132,10 @@ public class RegisterFragment extends Fragment {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
+
+                                        User user = new User.UserBuilder(userid, username, email).build();
+                                        presenter.processUserObject(user);
+
                                         RegisterFragmentVOrA registerFragmentVOrA = new RegisterFragmentVOrA();
 
                                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
