@@ -1,6 +1,5 @@
-package com.example.testandroidapplication;
+package com.example.testandroidapplication.View.register;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,17 +12,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-
+import com.example.testandroidapplication.Presenter.register.VenueProfileCreationPresenter;
+import com.example.testandroidapplication.Presenter.register.IVenueProfileCreationContract;
+import com.example.testandroidapplication.R;
 import com.example.testandroidapplication.helper.CheckNetworkStatus;
-import com.example.testandroidapplication.helper.WebClientMethods;
 import com.example.testandroidapplication.objects.User;
 import com.example.testandroidapplication.objects.Venue;
 
-public class VenueProfileCreation extends Fragment {
+public class VenueProfileCreation extends Fragment implements IVenueProfileCreationContract.View{
 
-    private Venue venue;
+
     private User user;
     private User.UserBuilder userBuilder;
+    private VenueProfileCreationPresenter presenter;
 
     private EditText venueNameEditText;
     private EditText venueTaglineEditText;
@@ -52,6 +53,8 @@ public class VenueProfileCreation extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         final View v = inflater.inflate(R.layout.venue_profile_creation, container, false);
+
+        presenter = new VenueProfileCreationPresenter(this);
 
         venueNameEditText = v.findViewById(R.id.venue_name);
         venueTaglineEditText = v.findViewById(R.id.venue_tagline);
@@ -126,7 +129,7 @@ public class VenueProfileCreation extends Fragment {
                         Log.i("tag: ", "validation would be run here");
                     }
 
-                    createVenueProfile();
+                    buildVenueObject();
 
 
                 } else {
@@ -143,7 +146,7 @@ public class VenueProfileCreation extends Fragment {
 
     }
 
-    private void createVenueProfile(){
+    public void buildVenueObject(){
 
         user = userBuilder
                 .withName(venueNameInput)
@@ -156,48 +159,23 @@ public class VenueProfileCreation extends Fragment {
                 .withWebPageLink(venueWebsiteInput)
                 .build();
 
-        venue = new Venue
+        Venue venue = new Venue
                 .VenueBuilder(user)
                 .withAddress1(venueAddress1Input)
                 .withPostcode(venuePostcodeInput)
                 .build();
 
-        new CreateNewProfileAsyncTask().execute();
+        presenter.processVenueObject(venue);
+    }
+
+    public void showToast(String msg){
+        Toast.makeText(getActivity(),
+                msg, Toast.LENGTH_LONG).show();
+    }
+
+    public void showError(String error){
+        // target edit text to display an error
     }
 
 
-    private class CreateNewProfileAsyncTask extends AsyncTask<String, String, String> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            return WebClientMethods.createVenueProfile(venue);
-        }
-
-        protected void onPostExecute(final String result) {
-
-            getActivity().runOnUiThread(new Runnable() {
-                public void run() {
-                    if (result.equals("1")) {
-                        //Display success message
-                        Toast.makeText(getActivity(),
-                                "Profile Added", Toast.LENGTH_LONG).show();
-
-                        //Finish ths activity
-                        getActivity().finish();
-
-                    } else {
-                        Toast.makeText(getActivity(),
-                                "Some error occurred while adding user",
-                                Toast.LENGTH_LONG).show();
-
-                    }
-                }
-            });
-        }
-
-    }
 }

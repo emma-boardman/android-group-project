@@ -130,6 +130,16 @@
             android:text="@string/cancel"
             android:textColor="@color/colorAccent" />
 
+        <Button
+            android:id="@+id/btn_bypass_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:fontFamily="@font/arvo"
+            android:text="bypass registration for testing"
+            android:textColor="@color/colorAccent" />
+
     </LinearLayout>
+
 
 </LinearLayout>

@@ -1,4 +1,4 @@
-package com.example.testandroidapplication;
+package com.example.testandroidapplication.View.register;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,37 +10,29 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class VenueRegistration extends Fragment {
+import com.example.testandroidapplication.R;
 
-    private VenueProfileCreation venueProfileCreation = new VenueProfileCreation();
+public class ArtistRegistration extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.user_registration, container, false);
+        View v = inflater.inflate(R.layout.artist_registration, container, false);
 
         Button venueRegister = v.findViewById(R.id.venue_register);
         Button venueCancel = v.findViewById(R.id.venue_cancel);
         EditText venueEmail = v.findViewById(R.id.user_email);
-        final EditText venuePassword = v.findViewById(R.id.user_password);
-        final EditText venueConfirmPassword = v.findViewById(R.id.user_confirm_password);
+        EditText venuePassword = v.findViewById(R.id.user_password);
+        EditText venueConfirmPassword = v.findViewById(R.id.user_confirm_password);
         final RegisterFragmentVOrA registerFragmentVOrA = new RegisterFragmentVOrA();
 
         venueCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                getActivity().getSupportFragmentManager().findFragmentByTag("loginFragment");
-
-            }
-        });
-
-        venueRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
-                        venueProfileCreation).commit();
+                        registerFragmentVOrA).commit();
+
             }
         });
 

@@ -14,23 +14,23 @@ import java.time.format.DateTimeFormatter;
 //public abstract class Gig {
 
 public class Gig {
-    protected int gigID, artistReview, venueReview;
-    protected String userIDArtist, userIDVenue, notes, venueComment, artistComment;
-    protected LocalTime startTime, endTime;
-    protected LocalDate date;
+    private int gigID, artistRating, venueRating;
+    private String userIDArtist, userIDVenue, notes, venueComment, artistComment;
+    private LocalTime startTime, endTime;
+    private LocalDate date;
 
-    public Gig(int gigID, String userIDArtist, String userIDVenue, LocalDate date, LocalTime startTime, LocalTime endTime, int artistReview, int venueReview, String notes, String venueComment, String artistComment) {
-        setGigID(gigID);
-        setUserIDArtist(userIDArtist);
-        setUserIDVenue(userIDVenue);
-        setArtistReview(artistReview);
-        setVenueReview(venueReview);
-        setNotes(notes);
-        setVenueComment(venueComment);
-        setArtistComment(artistComment);
-        setStartTime(startTime);
-        setEndTime(endTime);
-        setDate(date);
+    public Gig(GigBuilder builder){
+        this.gigID = builder.gigID;
+        this.userIDArtist = builder.userIDArtist;
+        this.userIDVenue = builder.userIDVenue;
+        this.date = builder.date;
+        this.startTime = builder.startTime;
+        this.endTime = builder.endTime;
+        this.artistRating = builder.artistRating;
+        this.venueRating = builder.venueRating;
+        this.notes = builder.notes;
+        this.venueComment = builder.venueComment;
+        this.artistComment = builder.artistComment;
     }
 
     @TargetApi(26)
@@ -46,31 +46,18 @@ public class Gig {
             String stringEndTime = jsonObject.getString("End_Time");
             DateTimeFormatter formatterTime = DateTimeFormatter.ISO_LOCAL_TIME;
 
-            int gigId = jsonObject.getInt("Gig_Id");
-            LocalDate gigDate = LocalDate.parse(stringDate, formatterDate);
-            String gigArtistID = jsonObject.getString("Artist_Id");
-            String gigVenueID = jsonObject.getString("Venue_Id");
-            LocalTime gigStartTime = LocalTime.parse(stringStartTime, formatterTime);
-            LocalTime gigEndTime = LocalTime.parse(stringEndTime, formatterTime);
-            String notes = jsonObject.getString("Notes");
-            int artistReview = 0;
-            int venueReview = 0;
-            String venueComment = jsonObject.getString("Comment_On_Venue");
-            String artistComment = jsonObject.getString("Comment_On_Artist");
-
-            gig = new Gig(gigId,
-                        gigArtistID,
-                        gigVenueID,
-                        gigDate,
-                        gigStartTime,
-                        gigEndTime,
-                        artistReview,
-                        venueReview,
-                        notes,
-                        venueComment,
-                        artistComment
-                    );
-
+            gig = new Gig.GigBuilder(jsonObject.getInt("Gig_Id"),
+                                     jsonObject.getString("Artist_Id"),
+                                     jsonObject.getString("Venue_Id"),
+                                     LocalDate.parse(stringDate, formatterDate),
+                                     LocalTime.parse(stringStartTime, formatterTime),
+                                     LocalTime.parse(stringEndTime, formatterTime))
+                                    .withNotes(jsonObject.getString("Notes"))
+                                    .withArtistRating(0)
+                                    .withVenueRating(0)
+                                    .withArtistComment(jsonObject.getString("Comment_On_Artist"))
+                                    .withVenueComment(jsonObject.getString("Comment_On_Venue"))
+                                    .build();
 
         } catch (JSONException e){
             e.printStackTrace();
@@ -80,99 +67,91 @@ public class Gig {
         return gig;
     }
 
-    public String toString() {
-        String output;
-
-        output = "" + this.gigID + " , " + this.date;
-
-        return output;
-    }
-
     public LocalDate getDate() {
         return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
     }
 
     public int getGigID() {
         return gigID;
     }
 
-    public void setGigID(int gigID) {
-        this.gigID = gigID;
-    }
-
     public String getUserIDArtist() {
         return userIDArtist;
-    }
-
-    public void setUserIDArtist(String userIDArtist) {
-        this.userIDArtist = userIDArtist;
     }
 
     public String getUserIDVenue() {
         return userIDVenue;
     }
 
-    public void setUserIDVenue(String userIDVenue) {
-        this.userIDVenue = userIDVenue;
-    }
+    public int getArtistRating() { return artistRating; }
 
-    public int getArtistReview() {
-        return artistReview;
-    }
-
-    public void setArtistReview(int artistReview) {
-        this.artistReview = artistReview;
-    }
-
-    public int getVenueReview() {
-        return venueReview;
-    }
-
-    public void setVenueReview(int venueReview) {
-        this.venueReview = venueReview;
+    public int getVenueRating() {
+        return venueRating;
     }
 
     public String getNotes() {
         return notes;
     }
 
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
-
     public String getVenueComment() {
         return venueComment;
-    }
-
-    public void setVenueComment(String venueComment) {
-        this.venueComment = venueComment;
     }
 
     public String getArtistComment() {
         return artistComment;
     }
 
-    public void setArtistComment(String artistComment) {
-        this.artistComment = artistComment;
-    }
-
     public LocalTime getStartTime() {
         return startTime;
-    }
-
-    public void setStartTime(LocalTime startTime) {
-        this.startTime = startTime;
     }
 
     public LocalTime getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalTime endTime) {
-        this.endTime = endTime;
+    public static class GigBuilder {
+
+        protected int gigID, artistRating, venueRating;
+        protected String userIDArtist, userIDVenue, notes, venueComment, artistComment;
+        protected LocalTime startTime, endTime;
+        protected LocalDate date;
+
+        public GigBuilder(int gigID, String userIDArtist, String userIDVenue, LocalDate date, LocalTime startTime, LocalTime endTime){
+            this.gigID = gigID;
+            this.userIDArtist = userIDArtist;
+            this.userIDVenue = userIDVenue;
+            this.date = date;
+            this.startTime = startTime;
+            this.endTime = endTime;
+        }
+
+        public GigBuilder withNotes(String notes){
+            this.notes = notes;
+            return this;
+        }
+
+        public GigBuilder withArtistRating(int artistRating){
+            this.artistRating = artistRating;
+            return this;
+        }
+
+        public GigBuilder withVenueRating(int venueRating){
+            this.venueRating = venueRating;
+            return this;
+        }
+
+        public GigBuilder withArtistComment(String artistComment){
+            this.artistComment = artistComment;
+            return this;
+        }
+
+        public GigBuilder withVenueComment(String venueComment){
+            this.venueComment = venueComment;
+            return this;
+        }
+
+        public Gig build(){
+            return new Gig(this);
+        }
     }
 }

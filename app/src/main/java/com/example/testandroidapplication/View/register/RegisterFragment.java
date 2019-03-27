@@ -1,6 +1,5 @@
-package com.example.testandroidapplication;
+package com.example.testandroidapplication.View.register;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -13,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.testandroidapplication.LoginFragment;
+import com.example.testandroidapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -26,7 +27,7 @@ import java.util.HashMap;
 public class RegisterFragment extends Fragment {
 
     TextInputEditText username, email, password, confirm_password;
-    Button btn_register, userCancel;
+    Button btn_register, userCancel, btn_bypass_register;
 
     FirebaseAuth auth;
     DatabaseReference reference;
@@ -41,6 +42,7 @@ public class RegisterFragment extends Fragment {
         password = v.findViewById(R.id.user_password);
         confirm_password = v.findViewById(R.id.user_confirm_password);
         btn_register = v.findViewById(R.id.btn_register);
+        btn_bypass_register = v.findViewById(R.id.btn_bypass_register);
         userCancel = v.findViewById(R.id.user_cancel);
 
         auth = FirebaseAuth.getInstance();
@@ -77,6 +79,16 @@ public class RegisterFragment extends Fragment {
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
                         loginView).commit();
 
+            }
+        });
+
+        btn_bypass_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RegisterFragmentVOrA registerFragmentVOrA = new RegisterFragmentVOrA();
+
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
+                        registerFragmentVOrA).commit();
             }
         });
 

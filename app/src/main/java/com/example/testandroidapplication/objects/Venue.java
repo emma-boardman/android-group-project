@@ -93,14 +93,13 @@ public class Venue {
                 this.user = user;
         }
 
-
-        public VenueBuilder withFAQ(String faq){
-            this.faq = faq;
+        public VenueBuilder updateUser(User user){
+            this.user = user;
             return this;
         }
 
-        public VenueBuilder updateUser(User user){
-            this.user = user;
+        public VenueBuilder withFAQ(String faq){
+            this.faq = faq;
             return this;
         }
 
@@ -122,7 +121,6 @@ public class Venue {
         public Venue build() {
             return new Venue(this);
         }
-
 
     }
 

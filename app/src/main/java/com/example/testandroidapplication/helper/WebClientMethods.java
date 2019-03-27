@@ -92,17 +92,9 @@ public class WebClientMethods {
 
          try {
             JSONObject user = jsonObject.getJSONObject(KEY_DATA);
-//            validator = new Validator();
-//            JSONObject userWithoutNulls = validator.objectNullToString(user);
-//            Artist artist = new Artist(User);
-
-             User newUser = new User
-                     .UserBuilder("", "", "", "")
-                     .build();
-
-             Artist artist = new Artist(newUser,
-                     "comment", "soundcloud");
-
+            validator = new Validator();
+            JSONObject userWithoutNulls = validator.objectNullToString(user);
+            Artist artist = Artist.fromJson(userWithoutNulls);
             return ArtistResult.success(artist);
 
 

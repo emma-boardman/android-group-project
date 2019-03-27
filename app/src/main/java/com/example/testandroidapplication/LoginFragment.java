@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.testandroidapplication.helper.CheckNetworkStatus;
 import com.example.testandroidapplication.helper.HttpJsonParser;
+import com.example.testandroidapplication.View.register.RegisterFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;

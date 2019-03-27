@@ -1,10 +1,13 @@
 package com.example.testandroidapplication.objects;
 
+import java.util.ArrayList;
+
 public class User {
 
     private String userID, name, email, password, tagLine, searchTags, description, facebookLink, instagramLink, twitterLink, webPageLink, location;
     private int overallRating;
     private String profileImage;
+    private ArrayList<String> reviews;
 
     public User(UserBuilder builder){
         this.userID = builder.userID;
@@ -19,6 +22,7 @@ public class User {
         this.twitterLink = builder.twitterLink;
         this.webPageLink = builder.webPageLink;
         this.location = builder.location;
+        this.reviews = builder.reviews;
     }
 
     public String getName() {
@@ -65,9 +69,11 @@ public class User {
 
     public String getUserID() { return userID; }
 
-    public int getOverallRating() {
+    public int getOverallRatingNum() {
         return overallRating;
     }
+
+    public ArrayList<String> getReviews() {return reviews; }
 
     public String getProfileImage() {
         return profileImage;
@@ -78,6 +84,7 @@ public class User {
         private String userID, name, email, password, tagLine, searchTags, description, facebookLink, instagramLink, twitterLink, webPageLink, location;
         private int overallRating;
         private String profileImage;
+        private ArrayList<String> reviews;
 
         public UserBuilder(String userID, String name, String email, String password){
             this.userID = userID;
@@ -133,6 +140,11 @@ public class User {
 
         public UserBuilder withOverallRating(int overallRating){
             this.overallRating = overallRating;
+            return this;
+        }
+
+        public UserBuilder withReviews(ArrayList<String> reviews){
+            this.reviews = reviews;
             return this;
         }
 
