@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class User {
 
-    private String userID, name, email, tagLine, searchTags, description, facebookLink, instagramLink, twitterLink, webPageLink, location;
-    private int overallRating;
+    private String userID, name, email, tagLine, description, searchTags, facebookLink, instagramLink, twitterLink, webPageLink, location;
+    private String overallRating;
     private String profileImage;
-    private ArrayList<String> reviews;
+    private ArrayList<Review> reviews;
 
     public User(UserBuilder builder){
         this.userID = builder.userID;
@@ -22,6 +22,7 @@ public class User {
         this.webPageLink = builder.webPageLink;
         this.location = builder.location;
         this.reviews = builder.reviews;
+        this.overallRating = builder.overallRating;
     }
 
     public String getName() {
@@ -64,11 +65,11 @@ public class User {
 
     public String getUserID() { return userID; }
 
-    public int getOverallRatingNum() {
+    public String getOverallRatingNum() {
         return overallRating;
     }
 
-    public ArrayList<String> getReviews() {return reviews; }
+    public ArrayList<Review> getReviews() {return reviews; }
 
     public String getProfileImage() {
         return profileImage;
@@ -77,9 +78,9 @@ public class User {
     public static class UserBuilder {
 
         private String userID, name, email, tagLine, searchTags, description, facebookLink, instagramLink, twitterLink, webPageLink, location;
-        private int overallRating;
+        private String overallRating;
         private String profileImage;
-        private ArrayList<String> reviews;
+        private ArrayList<Review> reviews;
 
         public UserBuilder(String userID, String name, String email){
             this.userID = userID;
@@ -132,12 +133,12 @@ public class User {
             return this;
         }
 
-        public UserBuilder withOverallRating(int overallRating){
+        public UserBuilder withOverallRating(String overallRating){
             this.overallRating = overallRating;
             return this;
         }
 
-        public UserBuilder withReviews(ArrayList<String> reviews){
+        public UserBuilder withReviews(ArrayList<Review> reviews){
             this.reviews = reviews;
             return this;
         }

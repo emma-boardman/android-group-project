@@ -5,11 +5,10 @@ import org.json.JSONObject;
 
 public class Artist {
 
-    private User user;
     private String soundCloudLink;
 
-    public Artist(ArtistBuilder builder) {
-        this.user = builder.user;
+    private Artist(ArtistBuilder builder) {
+        User user = builder.user;
         this.soundCloudLink = builder.soundCloudLink;
     }
 
@@ -21,13 +20,15 @@ public class Artist {
                 User user = new User
                         .UserBuilder(jsonObject.getString("User_Id"),
                         jsonObject.getString("User_Name"),
-                        jsonObject.getString("Email"))
+                        jsonObject.getString("User_Email"))
                         .withTagline(jsonObject.getString("Tagline"))
-                        .withSearchTags("tag tag tag")
+                        .withSearchTags("tags tags tags")
                         .withDescription(jsonObject.getString("Description"))
                         .withLocation(jsonObject.getString("Location"))
                         .withFacebookLink(jsonObject.getString("Facebook"))
                         .withWebPageLink(jsonObject.getString("Website"))
+                        .withOverallRating(jsonObject.getString("Overall_Rating"))
+                        .withReviews(Review.fromJson(jsonObject.getJSONArray("Reviews")))
                         .build();
 
                 artist = new Artist
@@ -43,7 +44,6 @@ public class Artist {
             return artist;
         }
 
-
         public String getSoundCloudLink() {
             return soundCloudLink;
         }
@@ -54,7 +54,7 @@ public static class ArtistBuilder {
     private User user;
     private String soundCloudLink;
 
-    public ArtistBuilder(User user) {
+    ArtistBuilder(User user) {
         this.user = user;
     }
 
@@ -63,12 +63,12 @@ public static class ArtistBuilder {
         return this;
     }
 
-    public ArtistBuilder withSoundcloudLink(String soundCloudLink) {
+    ArtistBuilder withSoundcloudLink(String soundCloudLink) {
         this.soundCloudLink = soundCloudLink;
         return this;
     }
 
-    public Artist build() {
+    Artist build() {
         return new Artist(this);
     }
 }

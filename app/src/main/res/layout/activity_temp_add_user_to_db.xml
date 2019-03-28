@@ -113,6 +113,13 @@
             android:text="read gig info"
             android:textSize="14sp" />
 
+        <Button
+            android:id="@+id/readTagsBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="read Tags"
+            android:textSize="14sp" />
+
 
     </LinearLayout>
 

@@ -57,6 +57,25 @@ public class ReferenceHttpAsyncTasksForUI extends AppCompatActivity {
             }
         });
 
+        // READ TAGS
+
+        Button readTagsButton = findViewById(R.id.readTagsBtn);
+
+        readTagsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (CheckNetworkStatus.isNetworkAvailable(getApplicationContext())) {
+//                    readTags();
+                        new ReadTagsAsyncTask().execute();
+                } else {
+                    Toast.makeText(ReferenceHttpAsyncTasksForUI.this,
+                            "Unable to connect to internet",
+                            Toast.LENGTH_LONG).show();
+
+                }
+
+            }
+        });
 
         // READ ARTIST PROFILE -  button and onclick setup
         // Currently hardcoded to userId 5
@@ -190,6 +209,43 @@ public class ReferenceHttpAsyncTasksForUI extends AppCompatActivity {
 
     }
 
+    // READ USER TAGS - Async Task
+
+    private class ReadTagsAsyncTask extends AsyncTask<String, String, String> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            return WebClientMethods.readTags();
+
+        }
+
+        protected void onPostExecute(final ArtistResult result) {
+
+            runOnUiThread(new Runnable() {
+                public void run() {
+                    if (result.isSuccess()) {
+                        //Display success message
+                        Toast.makeText(ReferenceHttpAsyncTasksForUI.this,
+                                "Artist profile returned (see LogCat 'tagreceiveddata')", Toast.LENGTH_LONG).show();
+//                        Log.i("artist:", result.getArtist().getName());
+                        //Finish ths activity
+                        finish();
+
+                    } else {
+                        Toast.makeText(ReferenceHttpAsyncTasksForUI.this,
+                                "Artist profile could not be returned",
+                                Toast.LENGTH_LONG).show();
+
+                    }
+                }
+            });
+        }
+
+    }
 
 
 

@@ -8,7 +8,6 @@ import org.json.JSONObject;
 
 import com.example.testandroidapplication.objects.Artist;
 import com.example.testandroidapplication.objects.Gig;
-import com.example.testandroidapplication.objects.User;
 import com.example.testandroidapplication.objects.Venue;
 
 import java.io.IOException;
@@ -40,13 +39,12 @@ public class WebClientMethods {
         httpParams.put(KEY_USER_NAME, userName);
         httpParams.put(KEY_EMAIL, userEmail);
         JSONObject jsonObject = httpJsonParser.makeHttpRequest(
-                BASE_URL + "createUser2.php", "POST", httpParams);
+                BASE_URL + "createUser.php", "POST", httpParams);
         try {
             return jsonObject.getString("success");
         } catch (JSONException e) {
             e.printStackTrace();
             return e.getMessage();
-
         }
     }
 
@@ -65,7 +63,7 @@ public class WebClientMethods {
 
         try {
             jsonObject = httpJsonParser.makeHttpPost(
-                    BASE_URL + "createVenueProfile.php",  jsonVenue);
+                    jsonVenue);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
@@ -86,23 +84,34 @@ public class WebClientMethods {
      public ArtistResult readArtistProfile(){
          HttpJsonParser httpJsonParser = new HttpJsonParser();
          Map<String, String> httpParams = new HashMap<>();
-         httpParams.put(KEY_USER_ID, "5");
+         httpParams.put(KEY_USER_ID, "test");
 
          JSONObject jsonObject = httpJsonParser.makeHttpRequest(
                  BASE_URL + "readArtistProfile.php", "GET", httpParams);
 
          try {
             JSONObject user = jsonObject.getJSONObject(KEY_DATA);
-            validator = new Validator();
-            JSONObject userWithoutNulls = validator.objectNullToString(user);
-            Artist artist = Artist.fromJson(userWithoutNulls);
+            Artist artist = Artist.fromJson(user);
             return ArtistResult.success(artist);
-
-
          } catch (JSONException e) {
             return ArtistResult.failure();
          }
      }
+
+    public static String readTags(){
+        HttpJsonParser httpJsonParser = new HttpJsonParser();
+        Map<String, String> httpParams = new HashMap<>();
+        httpParams.put(KEY_USER_ID, "test");
+
+        JSONObject jsonObject = httpJsonParser.makeHttpRequest(
+                BASE_URL + "readTags.php", "GET", httpParams);
+        try {
+            return jsonObject.getString("success");
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return e.getMessage();
+        }
+    }
 
     public VenueResult readVenueProfile(){
         HttpJsonParser httpJsonParser = new HttpJsonParser();

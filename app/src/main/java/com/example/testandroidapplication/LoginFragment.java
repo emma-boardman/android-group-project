@@ -50,6 +50,15 @@ public class LoginFragment extends Fragment {
         Button addNewBtn = v.findViewById(R.id.addNewBtn);
         Button btn_messaging = v.findViewById(R.id.btn_messaging);
         Button btn_calender = v.findViewById(R.id.btn_calender);
+        Button btn_test = v.findViewById(R.id.btn_test);
+
+        btn_test.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), ReferenceHttpAsyncTasksForUI.class);
+                startActivity(i);
+            }
+        });
 
         btn_messaging.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,11 +1,6 @@
 package com.example.testandroidapplication.utils;
 
 
-/**
- * Created by Abhi on 19 Jun 2017 019.
- */
-
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,12 +11,12 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import android.util.JsonWriter;
 
 import android.net.Uri;
 import android.util.Log;
@@ -30,11 +25,9 @@ import com.example.testandroidapplication.objects.Venue;
 
 public class HttpJsonParser {
 
-    static InputStream is = null;
-    static JSONObject jObj = null;
-    static String json = "";
-    HttpURLConnection urlConnection = null;
-    JsonWriter writer;
+    private static InputStream is = null;
+    private static JSONObject jObj = null;
+    private static String json = "";
 
     // function get json from url
     // by making HTTP POST or GET method
@@ -54,6 +47,7 @@ public class HttpJsonParser {
                 encodedParams =  builder.build().getEncodedQuery();
 
             }
+            HttpURLConnection urlConnection;
             if ("GET".equals(method)) {
                 url = url + "?" + encodedParams;
                 urlObj = new URL(url);
@@ -66,6 +60,7 @@ public class HttpJsonParser {
                 urlConnection = (HttpURLConnection) urlObj.openConnection();
                 urlConnection.setRequestMethod(method);
                 urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                assert encodedParams != null;
                 urlConnection.setRequestProperty("Content-Length", String.valueOf(encodedParams.getBytes().length));
                 urlConnection.getOutputStream().write(encodedParams.getBytes());
             }
@@ -77,17 +72,14 @@ public class HttpJsonParser {
             StringBuilder sb = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
-                sb.append(line + "\n");
+                sb.append(line).append("\n");
             }
             is.close();
             json = sb.toString();
-            Log.i("tagreceiveddata", "["+json+"]");
-            Log.i("tagsentparams", "["+encodedParams+"]");
+            Log.i("tag received data", "["+json+"]");
+            Log.i("tag sent params", "["+encodedParams+"]");
 
             jObj = new JSONObject(json);
-
-
-
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
@@ -101,15 +93,13 @@ public class HttpJsonParser {
             Log.e("Exception", "Error parsing data " + e.toString());
         }
 
-        // return JSON String
         return jObj;
-
 
     }
 
-    public JSONObject makeHttpPost(String url, JSONObject jsonObject) throws IOException, JSONException {
+    JSONObject makeHttpPost(JSONObject jsonObject) throws IOException, JSONException {
 
-        URL urlObj = new URL(url);
+        URL urlObj = new URL("http://40414669.wdd.napier.ac.uk/inc/createVenueProfile.php");
 
         HttpURLConnection conn = (HttpURLConnection) urlObj.openConnection();
         conn.setRequestMethod("POST");
@@ -127,12 +117,12 @@ public class HttpJsonParser {
         StringBuilder sb = new StringBuilder();
         String line;
         while ((line = reader.readLine()) != null) {
-            sb.append(line + "\n");
+            sb.append(line).append("\n");
         }
         is.close();
         json = sb.toString();
-        Log.i("tagreceiveddata", "["+json+"]");
-        Log.i("tagsentparams", "["+jsonObject.toString()+"]");
+        Log.i("tag received data", "["+json+"]");
+        Log.i("tag sent params", "["+jsonObject.toString()+"]");
 
         jObj = new JSONObject(json);
 
@@ -141,7 +131,7 @@ public class HttpJsonParser {
     }
 
 
-    public JSONObject buildJsonObject(Venue venue) throws JSONException {
+    JSONObject buildJsonObject(Venue venue) throws JSONException {
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.accumulate("User_Id", venue.getUser().getUserID());
@@ -159,11 +149,8 @@ public class HttpJsonParser {
         jsonObject.accumulate("PostCode", venue.getPostcode());
         jsonObject.accumulate("Phone_Number", venue.getPhoneNumber());
 
-
         return jsonObject;
+
     }
-
-
-
 
 }
