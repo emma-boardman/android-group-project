@@ -1,15 +1,28 @@
 package com.example.testandroidapplication.objects;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 public class Artist {
 
+    private User user;
     private String soundCloudLink;
 
     private Artist(ArtistBuilder builder) {
-        User user = builder.user;
+        this.user = builder.user;
         this.soundCloudLink = builder.soundCloudLink;
+
+        Map<String, List<String>> tags = new HashMap<>();
+        tags.put("Genre", Arrays.asList("Hair Metal", "Classic Rock"));
     }
 
         public static Artist fromJson(JSONObject jsonObject) {
@@ -22,13 +35,13 @@ public class Artist {
                         jsonObject.getString("User_Name"),
                         jsonObject.getString("User_Email"))
                         .withTagline(jsonObject.getString("Tagline"))
-                        .withSearchTags("tags tags tags")
                         .withDescription(jsonObject.getString("Description"))
                         .withLocation(jsonObject.getString("Location"))
                         .withFacebookLink(jsonObject.getString("Facebook"))
                         .withWebPageLink(jsonObject.getString("Website"))
                         .withOverallRating(jsonObject.getString("Overall_Rating"))
                         .withReviews(Review.fromJson(jsonObject.getJSONArray("Reviews")))
+                        .withSearchTags(Tags.fromJson(jsonObject.getJSONObject("Tags")))
                         .build();
 
                 artist = new Artist

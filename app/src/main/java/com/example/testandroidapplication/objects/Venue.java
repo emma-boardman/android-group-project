@@ -28,7 +28,7 @@ public class Venue {
                                  jsonObject.getString("User_Name"),
                                  jsonObject.getString("Email"))
                     .withTagline(jsonObject.getString("Tagline"))
-                    .withSearchTags("tag tag tag")
+                    .withSearchTags(Tags.fromJson(jsonObject.getJSONObject("Tags")))
                     .withDescription(jsonObject.getString("Description"))
                     .withLocation(jsonObject.getString("Location"))
                     .withFacebookLink(jsonObject.getString("Facebook"))

@@ -4,7 +4,17 @@ import java.util.ArrayList;
 
 public class User {
 
-    private String userID, name, email, tagLine, description, searchTags, facebookLink, instagramLink, twitterLink, webPageLink, location;
+    private String userID;
+    private String name;
+    private String email;
+    private String tagLine;
+    private String description;
+    private Tags searchTags;
+    private String facebookLink;
+    private String instagramLink;
+    private String twitterLink;
+    private String webPageLink;
+    private String location;
     private String overallRating;
     private String profileImage;
     private ArrayList<Review> reviews;
@@ -35,9 +45,7 @@ public class User {
 
     public String getTagLine() {return tagLine;}
 
-    public String getSearchTags() {
-        return searchTags;
-    }
+    public Tags getSearchTags() { return searchTags; }
 
     public String getDescription() {
         return description;
@@ -77,7 +85,17 @@ public class User {
 
     public static class UserBuilder {
 
-        private String userID, name, email, tagLine, searchTags, description, facebookLink, instagramLink, twitterLink, webPageLink, location;
+        private String userID;
+        private String name;
+        private String email;
+        private String tagLine;
+        private Tags searchTags;
+        private String description;
+        private String facebookLink;
+        private String instagramLink;
+        private String twitterLink;
+        private String webPageLink;
+        private String location;
         private String overallRating;
         private String profileImage;
         private ArrayList<Review> reviews;
@@ -98,7 +116,7 @@ public class User {
             return this;
         }
 
-        public UserBuilder withSearchTags(String searchTags){
+        public UserBuilder withSearchTags(Tags searchTags){
             this.searchTags = searchTags;
             return this;
         }
