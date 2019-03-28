@@ -1,5 +1,6 @@
 package com.example.testandroidapplication;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.CalendarView;
@@ -24,12 +25,14 @@ import android.view.MenuItem;
 import android.widget.CalendarView;
 import android.widget.Toast;
 
+import com.example.testandroidapplication.Adapter.CustomAdapter;
 import com.example.testandroidapplication.objects.Gig;
 
 
 public class CalendarActivity extends AppCompatActivity {
 
     CalendarView simpleCalendarView;
+    ArrayList<Gig> theGig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +44,7 @@ public class CalendarActivity extends AppCompatActivity {
         // perform setOnDateChangeListener event on CalendarView
         simpleCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth){
                 // display the selected date by using a toast
                 Toast.makeText(getApplicationContext(), dayOfMonth + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
             }
@@ -54,8 +57,10 @@ public class CalendarActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         //  call the constructor of CustomAdapter to get gigs in places
 
-        //CalendarAdapter customAdapter = new CalendarAdapter(CalendarActivity.this, new ArrayList<Gig>());
-        //recyclerView.setAdapter(customAdapter); // set the Adapter to RecyclerView
+
+
+        CustomAdapter customAdapter = new CustomAdapter(CalendarActivity.this, theGig = new ArrayList<>());
+        recyclerView.setAdapter(customAdapter); // set the Adapter to RecyclerView
     }
 }
 
