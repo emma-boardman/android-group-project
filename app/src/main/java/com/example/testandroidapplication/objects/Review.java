@@ -50,8 +50,8 @@ public class Review {
         if (jsonArray != null){
             for (int i = 0; i < jsonArray.length(); i++){
                 Review review = new Review(
-                        jsonArray.getJSONObject(i).getString("Venue_Name"),
-                        jsonArray.getJSONObject(i).getString("Comment_On_Artist"),
+                        jsonArray.getJSONObject(i).getString("Reviewer"),
+                        jsonArray.getJSONObject(i).getString("Comment"),
                         jsonArray.getJSONObject(i).getString("Gig_Date"));
                 reviews.add(review);
             }

@@ -10,7 +10,7 @@ public class Venue {
     private String address1;
     private String postcode;
     private String faq;
-    private int phoneNumber;
+    private String phoneNumber;
 
     public Venue(VenueBuilder builder) {
         this.user = builder.user;
@@ -27,7 +27,7 @@ public class Venue {
         try {
             User user = new User(jsonObject.getString("User_Id"),
                                  jsonObject.getString("User_Name"),
-                                 jsonObject.getString("Email"));
+                                 jsonObject.getString("User_Email"));
 
             ProfileInformation profileInformation = new ProfileInformation
                     .ProfileBuilder()
@@ -46,7 +46,7 @@ public class Venue {
                     .withProfileInformation(profileInformation)
                     .withAddress1(jsonObject.getString("Address1"))
                     .withPostcode(jsonObject.getString("PostCode"))
-                    .withPhoneNumber(jsonObject.getInt("Phone_Number"))
+                    .withPhoneNumber(jsonObject.getString("Phone_Number"))
                     .build();
 
         } catch (JSONException e) {
@@ -77,7 +77,7 @@ public class Venue {
         return faq;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
@@ -88,7 +88,7 @@ public class Venue {
         private String address1;
         private String postcode;
         private String faq;
-        private int phoneNumber;
+        private String phoneNumber;
 
         public VenueBuilder(User user){
                 this.user = user;
@@ -119,7 +119,7 @@ public class Venue {
             return this;
         }
 
-        public VenueBuilder withPhoneNumber(int phoneNumber){
+        public VenueBuilder withPhoneNumber(String phoneNumber){
             this.phoneNumber = phoneNumber;
             return this;
         }
