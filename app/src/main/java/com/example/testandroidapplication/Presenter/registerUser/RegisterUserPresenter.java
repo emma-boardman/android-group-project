@@ -1,6 +1,7 @@
 package com.example.testandroidapplication.Presenter.registerUser;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.example.testandroidapplication.objects.User;
 import com.example.testandroidapplication.utils.WebClientMethods;
@@ -15,10 +16,8 @@ public class RegisterUserPresenter implements IRegisterUserContract.Presenter {
             this.view = view;
         }
 
-        public void processUserObject(User user) {
-
+        public void validateUserObject(User user) {
             new CreateNewUserAsyncTask(user).execute();
-
         }
 
         private static class CreateNewUserAsyncTask extends AsyncTask<String, String, String> {
@@ -40,12 +39,10 @@ public class RegisterUserPresenter implements IRegisterUserContract.Presenter {
             }
 
             protected void onPostExecute(final String result) {
-
                 if (result.equals("1")) {
-                    //Display success message
-//                    view.showToast("Profile Added");
+                    Log.i("Tag for remote DB user", "Successfully added user");
                 } else {
-//                    view.showToast("Some error occurred while adding user");
+                    Log.i("Tag for remote DB user", "Error adding user");
                 }
             }
         };

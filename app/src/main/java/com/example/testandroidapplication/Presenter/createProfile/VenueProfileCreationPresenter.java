@@ -14,7 +14,7 @@ public class VenueProfileCreationPresenter implements IVenueProfileCreationContr
         this.view = view;
     }
 
-    public void processVenueObject(Venue venue) {
+    public void validateVenueObject(Venue venue) {
         // add validation methods for each field from validation class
         if (venue.getUser().getName().contains("invalid")){
             // show error for that text input
@@ -22,7 +22,6 @@ public class VenueProfileCreationPresenter implements IVenueProfileCreationContr
         venueForAsync = venue;
 
         new CreateNewProfileAsyncTask().execute();
-
     }
 
     private class CreateNewProfileAsyncTask extends AsyncTask<String, String, String> {
@@ -37,7 +36,6 @@ public class VenueProfileCreationPresenter implements IVenueProfileCreationContr
         }
 
         protected void onPostExecute(final String result) {
-
                     if (result.equals("1")) {
                         //Display success message
                         view.showToast("Profile Added");

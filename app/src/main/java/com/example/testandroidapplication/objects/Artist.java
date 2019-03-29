@@ -20,9 +20,6 @@ public class Artist {
     private Artist(ArtistBuilder builder) {
         this.user = builder.user;
         this.soundCloudLink = builder.soundCloudLink;
-
-        Map<String, List<String>> tags = new HashMap<>();
-        tags.put("Genre", Arrays.asList("Hair Metal", "Classic Rock"));
     }
 
         public static Artist fromJson(JSONObject jsonObject) {

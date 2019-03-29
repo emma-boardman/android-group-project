@@ -165,7 +165,7 @@ public class VenueProfileCreation extends Fragment implements IVenueProfileCreat
                 .withPostcode(venuePostcodeInput)
                 .build();
 
-        presenter.processVenueObject(venue);
+        presenter.validateVenueObject(venue);
     }
 
     public void showToast(String msg){

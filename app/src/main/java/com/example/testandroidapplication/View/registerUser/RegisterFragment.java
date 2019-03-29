@@ -18,7 +18,6 @@ import com.example.testandroidapplication.Presenter.registerUser.RegisterUserPre
 import com.example.testandroidapplication.R;
 import com.example.testandroidapplication.View.createProfile.RegisterFragmentVOrA;
 import com.example.testandroidapplication.objects.User;
-import com.example.testandroidapplication.utils.WebClientMethods;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -35,8 +34,6 @@ public class RegisterFragment extends Fragment implements IRegisterUserContract.
 
     TextInputEditText username, email, password, confirm_password;
     Button btn_register, userCancel, btn_bypass_register;
-    // need variable userId to be accessible by the onComplete method, so id can be sent to database.
-    // to make it final (which is how it was originally declared in method), requires it to be initialised
     String userid;
 
     FirebaseAuth auth;
@@ -134,7 +131,7 @@ public class RegisterFragment extends Fragment implements IRegisterUserContract.
                                     if(task.isSuccessful()){
 
                                         User user = new User.UserBuilder(userid, username, email).build();
-                                        presenter.processUserObject(user);
+                                        presenter.validateUserObject(user);
 
                                         RegisterFragmentVOrA registerFragmentVOrA = new RegisterFragmentVOrA();
 

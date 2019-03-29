@@ -28,14 +28,14 @@ public class VenueRegistration extends Fragment {
         final EditText venueConfirmPassword = v.findViewById(R.id.user_confirm_password);
         final RegisterFragmentVOrA registerFragmentVOrA = new RegisterFragmentVOrA();
 
-//        venueCancel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                getActivity().getSupportFragmentManager().findFragmentByTag("loginFragment");
-//
-//            }
-//        });
+        venueCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                getActivity().getSupportFragmentManager().findFragmentByTag("loginFragment");
+
+            }
+        });
 
         venueRegister.setOnClickListener(new View.OnClickListener() {
             @Override

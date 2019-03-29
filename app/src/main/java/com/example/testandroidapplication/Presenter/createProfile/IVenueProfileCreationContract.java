@@ -5,7 +5,7 @@ import com.example.testandroidapplication.objects.Venue;
 public interface IVenueProfileCreationContract {
 
     interface Presenter{
-        void processVenueObject(Venue venue);
+        void validateVenueObject(Venue venue);
     }
 
     interface View{
