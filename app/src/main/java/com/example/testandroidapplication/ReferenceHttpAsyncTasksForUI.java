@@ -22,6 +22,9 @@ public class ReferenceHttpAsyncTasksForUI extends AppCompatActivity {
     private String userName;
     private String userEmail;
     private String userPassword;
+    private String artistUserIdforTesting = "test";
+    private String venueUserIdforTesting = "testVenue";
+    private int gigUserIdforTesting = 1;
 
     // Included methods: create new user ; read artist profile ; read venue profile ; read gig information
 
@@ -65,7 +68,7 @@ public class ReferenceHttpAsyncTasksForUI extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (CheckNetworkStatus.isNetworkAvailable(getApplicationContext())) {
-                   readArtistProfile();
+                   readArtistProfile(artistUserIdforTesting);
                 } else {
                     Toast.makeText(ReferenceHttpAsyncTasksForUI.this,
                             "Unable to connect to internet",
@@ -133,7 +136,7 @@ public class ReferenceHttpAsyncTasksForUI extends AppCompatActivity {
 
     // READ ARTIST PROFILE - method
 
-    private void readArtistProfile() {
+    private void readArtistProfile(String artistUserIdforTesting) {
        new ReadArtistProfileAsyncTask().execute();
     }
 
@@ -199,7 +202,7 @@ public class ReferenceHttpAsyncTasksForUI extends AppCompatActivity {
 
         @Override
         protected ArtistResult doInBackground(String... params) {
-            return new WebClientMethods().readArtistProfile();
+            return new WebClientMethods().readArtistProfile(artistUserIdforTesting);
 
         }
 

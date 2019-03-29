@@ -81,42 +81,29 @@ public class WebClientMethods {
     // READ
 
 
-     public ArtistResult readArtistProfile(){
+     public ArtistResult readArtistProfile(String artistId){
          HttpJsonParser httpJsonParser = new HttpJsonParser();
          Map<String, String> httpParams = new HashMap<>();
-         httpParams.put(KEY_USER_ID, "test");
+         httpParams.put(KEY_USER_ID, artistId);
 
          JSONObject jsonObject = httpJsonParser.makeHttpRequest(
                  BASE_URL + "readArtistProfile.php", "GET", httpParams);
 
          try {
             JSONObject user = jsonObject.getJSONObject(KEY_DATA);
-            Artist artist = Artist.fromJson(user);
+            validator = new Validator();
+            JSONObject userWithoutNulls = validator.objectNullToString(user);
+            Artist artist = Artist.fromJson(userWithoutNulls);
             return ArtistResult.success(artist);
          } catch (JSONException e) {
             return ArtistResult.failure();
          }
      }
 
-    public static String readTags(){
-        HttpJsonParser httpJsonParser = new HttpJsonParser();
-        Map<String, String> httpParams = new HashMap<>();
-        httpParams.put(KEY_USER_ID, "test");
-
-        JSONObject jsonObject = httpJsonParser.makeHttpRequest(
-                BASE_URL + "readTags.php", "GET", httpParams);
-        try {
-            return jsonObject.getString("success");
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return e.getMessage();
-        }
-    }
-
     public VenueResult readVenueProfile(){
         HttpJsonParser httpJsonParser = new HttpJsonParser();
         Map<String, String> httpParams = new HashMap<>();
-        httpParams.put(KEY_USER_ID, "29");
+        httpParams.put(KEY_USER_ID, "testVenue");
 
         JSONObject jsonObject = httpJsonParser.makeHttpRequest(
                 BASE_URL + "readVenueProfile.php", "GET", httpParams);
