@@ -1,15 +1,19 @@
 package com.example.testandroidapplication.objects;
 
+import android.provider.ContactsContract;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Artist {
 
     private User user;
+    private ProfileInformation profileInformation;
     private String soundCloudLink;
 
     private Artist(ArtistBuilder builder) {
         this.user = builder.user;
+        this.profileInformation = builder.profileInformation;
         this.soundCloudLink = builder.soundCloudLink;
     }
 
@@ -18,10 +22,12 @@ public class Artist {
             Artist artist;
             // Deserialize json into object fields
             try {
-                User user = new User
-                        .UserBuilder(jsonObject.getString("User_Id"),
+                User user = new User(jsonObject.getString("User_Id"),
                         jsonObject.getString("User_Name"),
-                        jsonObject.getString("User_Email"))
+                        jsonObject.getString("User_Email"));
+
+                ProfileInformation profileInformation = new ProfileInformation
+                        .ProfileBuilder()
                         .withTagline(jsonObject.getString("Tagline"))
                         .withDescription(jsonObject.getString("Description"))
                         .withLocation(jsonObject.getString("Location"))
@@ -34,6 +40,7 @@ public class Artist {
 
                 artist = new Artist
                         .ArtistBuilder(user)
+                        .withProfileInformation(profileInformation)
                         .withSoundcloudLink(jsonObject.getString("Soundcloud"))
                         .build();
 
@@ -53,6 +60,7 @@ public class Artist {
 public static class ArtistBuilder {
 
     private User user;
+    private ProfileInformation profileInformation;
     private String soundCloudLink;
 
     ArtistBuilder(User user) {
@@ -61,6 +69,11 @@ public static class ArtistBuilder {
 
     public ArtistBuilder updateUser(User user) {
         this.user = user;
+        return this;
+    }
+
+    ArtistBuilder withProfileInformation(ProfileInformation profileInformation){
+        this.profileInformation = profileInformation;
         return this;
     }
 

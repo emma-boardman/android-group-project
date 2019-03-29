@@ -130,7 +130,7 @@ public class RegisterFragment extends Fragment implements IRegisterUserContract.
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
 
-                                        User user = new User.UserBuilder(userid, username, email).build();
+                                        User user = new User(userid, username, email);
                                         presenter.validateUserObject(user);
 
                                         RegisterFragmentVOrA registerFragmentVOrA = new RegisterFragmentVOrA();

@@ -6,6 +6,7 @@ import org.json.JSONObject;
 public class Venue {
 
     private User user;
+    private ProfileInformation profileInformation;
     private String address1;
     private String postcode;
     private String faq;
@@ -13,6 +14,7 @@ public class Venue {
 
     public Venue(VenueBuilder builder) {
         this.user = builder.user;
+        this.profileInformation = builder.profileInformation;
         this.address1 = builder.address1;
         this.postcode = builder.postcode;
         this.faq = builder.faq;
@@ -23,20 +25,25 @@ public class Venue {
 
         Venue venue;
         try {
-            User user = new User
-                    .UserBuilder(jsonObject.getString("User_Id"),
+            User user = new User(jsonObject.getString("User_Id"),
                                  jsonObject.getString("User_Name"),
-                                 jsonObject.getString("Email"))
+                                 jsonObject.getString("Email"));
+
+            ProfileInformation profileInformation = new ProfileInformation
+                    .ProfileBuilder()
                     .withTagline(jsonObject.getString("Tagline"))
-                    .withSearchTags(Tags.fromJson(jsonObject.getJSONObject("Tags")))
                     .withDescription(jsonObject.getString("Description"))
                     .withLocation(jsonObject.getString("Location"))
                     .withFacebookLink(jsonObject.getString("Facebook"))
                     .withWebPageLink(jsonObject.getString("Website"))
+                    .withOverallRating(jsonObject.getString("Overall_Rating"))
+                    .withReviews(Review.fromJson(jsonObject.getJSONArray("Reviews")))
+                    .withSearchTags(Tags.fromJson(jsonObject.getJSONObject("Tags")))
                     .build();
 
             venue = new Venue
                     .VenueBuilder(user)
+                    .withProfileInformation(profileInformation)
                     .withAddress1(jsonObject.getString("Address1"))
                     .withPostcode(jsonObject.getString("PostCode"))
                     .withPhoneNumber(jsonObject.getInt("Phone_Number"))
@@ -52,6 +59,10 @@ public class Venue {
 
     public User getUser(){
         return user;
+    }
+
+    public ProfileInformation getProfileInformation(){
+        return profileInformation;
     }
 
     public String getAddress1(){
@@ -73,6 +84,7 @@ public class Venue {
     public static class VenueBuilder  {
 
         private User user;
+        private ProfileInformation profileInformation;
         private String address1;
         private String postcode;
         private String faq;
@@ -84,6 +96,11 @@ public class Venue {
 
         public VenueBuilder updateUser(User user){
             this.user = user;
+            return this;
+        }
+
+        public VenueBuilder withProfileInformation(ProfileInformation profileInformation){
+            this.profileInformation = profileInformation;
             return this;
         }
 

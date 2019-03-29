@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.testandroidapplication.Presenter.createProfile.VenueProfileCreationPresenter;
 import com.example.testandroidapplication.Presenter.createProfile.IVenueProfileCreationContract;
 import com.example.testandroidapplication.R;
+import com.example.testandroidapplication.objects.ProfileInformation;
 import com.example.testandroidapplication.utils.CheckNetworkStatus;
 import com.example.testandroidapplication.objects.User;
 import com.example.testandroidapplication.objects.Venue;
@@ -23,7 +24,7 @@ public class VenueProfileCreation extends Fragment implements IVenueProfileCreat
 
 
     private User user;
-    private User.UserBuilder userBuilder;
+    private ProfileInformation profileInformation;
     private VenueProfileCreationPresenter presenter;
 
     private EditText venueNameEditText;
@@ -75,8 +76,7 @@ public class VenueProfileCreation extends Fragment implements IVenueProfileCreat
                 // if network is available, validate the user input
                 if (CheckNetworkStatus.isNetworkAvailable(getActivity().getApplicationContext())) {
 
-                    userBuilder = new User.UserBuilder("1", "Stone Temple Pilots", "stone@temple.com");
-                    user = userBuilder.build();
+                    user = new User("Ud0ZuQMdhoaNHGOUktI6BTjLzWS2", "Oasis", "oasistest@gmail.com");
 
                     venueNameInput = venueNameEditText.getText().toString();
                     if (!venueNameInput.equals("")){
@@ -148,8 +148,10 @@ public class VenueProfileCreation extends Fragment implements IVenueProfileCreat
 
     public void buildVenueObject(){
 
-        user = userBuilder
-                .withName(venueNameInput)
+        user.setName(venueNameInput);
+
+        profileInformation = new ProfileInformation
+                .ProfileBuilder()
                 .withTagline(venueTaglineInput)
                 .withLocation(venueLocationInput)
                 .withDescription(venueDescriptionInput)
@@ -161,6 +163,7 @@ public class VenueProfileCreation extends Fragment implements IVenueProfileCreat
 
         Venue venue = new Venue
                 .VenueBuilder(user)
+                .withProfileInformation(profileInformation)
                 .withAddress1(venueAddress1Input)
                 .withPostcode(venuePostcodeInput)
                 .build();
