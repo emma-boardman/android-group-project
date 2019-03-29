@@ -142,7 +142,7 @@ public class HttpJsonParser {
         jsonObject.accumulate("Twitter", venue.getProfileInformation().getTwitterLink());
         jsonObject.accumulate("Website", venue.getProfileInformation().getWebPageLink());
         jsonObject.accumulate("Tagline", venue.getProfileInformation().getTagLine());
-        jsonObject.accumulate("Description", venue.getProfileInformation().getTagLine());
+        jsonObject.accumulate("Description", venue.getProfileInformation().getDescription());
         jsonObject.accumulate("Location", venue.getProfileInformation().getLocation());
         jsonObject.accumulate("Address1", venue.getAddress1());
         jsonObject.accumulate("PostCode", venue.getPostcode());
