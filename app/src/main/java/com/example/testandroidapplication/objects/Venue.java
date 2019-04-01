@@ -3,22 +3,24 @@ package com.example.testandroidapplication.objects;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class Venue {
 
     private User user;
     private ProfileInformation profileInformation;
     private String address1;
     private String postcode;
-    private String faq;
     private String phoneNumber;
+    private ArrayList<Faq> faqs;
 
     public Venue(VenueBuilder builder) {
         this.user = builder.user;
         this.profileInformation = builder.profileInformation;
         this.address1 = builder.address1;
         this.postcode = builder.postcode;
-        this.faq = builder.faq;
         this.phoneNumber = builder.phoneNumber;
+        this.faqs = builder.faqs;
     }
 
     public static Venue fromJson(JSONObject jsonObject) {
@@ -47,6 +49,7 @@ public class Venue {
                     .withAddress1(jsonObject.getString("Address1"))
                     .withPostcode(jsonObject.getString("PostCode"))
                     .withPhoneNumber(jsonObject.getString("Phone_Number"))
+                    .withFAQs(Faq.fromJson(jsonObject.getJSONArray("FAQs")))
                     .build();
 
         } catch (JSONException e) {
@@ -73,10 +76,6 @@ public class Venue {
         return postcode;
     }
 
-    public String getFaq() {
-        return faq;
-    }
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -87,8 +86,8 @@ public class Venue {
         private ProfileInformation profileInformation;
         private String address1;
         private String postcode;
-        private String faq;
         private String phoneNumber;
+        private ArrayList<Faq> faqs;
 
         public VenueBuilder(User user){
                 this.user = user;
@@ -104,11 +103,6 @@ public class Venue {
             return this;
         }
 
-        public VenueBuilder withFAQ(String faq){
-            this.faq = faq;
-            return this;
-        }
-
         public VenueBuilder withAddress1(String address1){
             this.address1 = address1;
             return this;
@@ -121,6 +115,11 @@ public class Venue {
 
         public VenueBuilder withPhoneNumber(String phoneNumber){
             this.phoneNumber = phoneNumber;
+            return this;
+        }
+
+        public VenueBuilder withFAQs(ArrayList<Faq> faqs){
+            this.faqs = faqs;
             return this;
         }
 
