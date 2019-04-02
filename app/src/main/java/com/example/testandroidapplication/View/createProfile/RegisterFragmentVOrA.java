@@ -1,4 +1,4 @@
-package com.example.testandroidapplication;
+package com.example.testandroidapplication.View.createProfile;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,9 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.testandroidapplication.R;
+
 public class RegisterFragmentVOrA extends Fragment {
 
     private VenueRegistration venueRegistration = new VenueRegistration();
+    private VenueProfileCreation venueProfileCreation = new VenueProfileCreation();
     private ArtistRegistration artistRegistration = new ArtistRegistration();
 
     @Nullable
@@ -26,8 +29,11 @@ public class RegisterFragmentVOrA extends Fragment {
             @Override
             public void onClick(View view) {
 
+//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
+//                        venueRegistration).commit();
+
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
-                        venueRegistration).commit();
+                        venueProfileCreation).commit();
 
             }
         });

@@ -3,20 +3,16 @@ package com.example.testandroidapplication;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.content.Intent;
 
-import com.example.testandroidapplication.helper.ArtistResult;
-import com.example.testandroidapplication.helper.CheckNetworkStatus;
-import com.example.testandroidapplication.helper.GigResult;
-import com.example.testandroidapplication.helper.VenueResult;
-import com.example.testandroidapplication.helper.WebClientMethods;
-
-import org.json.JSONException;
+import com.example.testandroidapplication.utils.ArtistResult;
+import com.example.testandroidapplication.utils.CheckNetworkStatus;
+import com.example.testandroidapplication.utils.GigResult;
+import com.example.testandroidapplication.utils.VenueResult;
+import com.example.testandroidapplication.utils.WebClientMethods;
 
 public class ReferenceHttpAsyncTasksForUI extends AppCompatActivity {
 
@@ -26,6 +22,9 @@ public class ReferenceHttpAsyncTasksForUI extends AppCompatActivity {
     private String userName;
     private String userEmail;
     private String userPassword;
+    private String artistUserIdforTesting = "test";
+    private String venueUserIdforTesting = "testVenue";
+    private int gigUserIdforTesting = 1;
 
     // Included methods: create new user ; read artist profile ; read venue profile ; read gig information
 
@@ -61,7 +60,6 @@ public class ReferenceHttpAsyncTasksForUI extends AppCompatActivity {
             }
         });
 
-
         // READ ARTIST PROFILE -  button and onclick setup
         // Currently hardcoded to userId 5
         Button readArtistProfileButton = findViewById(R.id.readArtistProfileBtn);
@@ -70,7 +68,7 @@ public class ReferenceHttpAsyncTasksForUI extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (CheckNetworkStatus.isNetworkAvailable(getApplicationContext())) {
-                   readArtistProfile();
+                   readArtistProfile(artistUserIdforTesting);
                 } else {
                     Toast.makeText(ReferenceHttpAsyncTasksForUI.this,
                             "Unable to connect to internet",
@@ -138,7 +136,7 @@ public class ReferenceHttpAsyncTasksForUI extends AppCompatActivity {
 
     // READ ARTIST PROFILE - method
 
-    private void readArtistProfile() {
+    private void readArtistProfile(String artistUserIdforTesting) {
        new ReadArtistProfileAsyncTask().execute();
     }
 
@@ -204,7 +202,7 @@ public class ReferenceHttpAsyncTasksForUI extends AppCompatActivity {
 
         @Override
         protected ArtistResult doInBackground(String... params) {
-            return new WebClientMethods().readArtistProfile();
+            return new WebClientMethods().readArtistProfile(artistUserIdforTesting);
 
         }
 
@@ -216,7 +214,7 @@ public class ReferenceHttpAsyncTasksForUI extends AppCompatActivity {
                         //Display success message
                         Toast.makeText(ReferenceHttpAsyncTasksForUI.this,
                                 "Artist profile returned (see LogCat 'tagreceiveddata')", Toast.LENGTH_LONG).show();
-                        Log.i("artist:", result.getArtist().getTagLine());
+//                        Log.i("artist:", result.getArtist().getName());
                         //Finish ths activity
                         finish();
 
