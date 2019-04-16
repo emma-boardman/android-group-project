@@ -1,6 +1,10 @@
 package com.example.testandroidapplication.objects;
 
-public class User {
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.util.Property;
+
+public class User implements Parcelable {
 
     private String userID;
     private String name;
@@ -35,5 +39,38 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    //write object values to parcel for storage
+    public void writeToParcel(Parcel dest, int flags){
+        dest.writeString(userID);
+        dest.writeString(name);
+        dest.writeString(email);
+    }
+
+    //constructor used for parcel
+    public User(Parcel parcel){
+        userID = parcel.readString();
+        name = parcel.readString();
+        email = parcel.readString();
+    }
+
+    //creator - used when un-parceling our parcle (creating the object)
+    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>(){
+
+        @Override
+        public User createFromParcel(Parcel parcel) {
+            return new User(parcel);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[0];
+        }
+    };
+
+    //return hashcode of object
+    public int describeContents() {
+        return hashCode();
     }
 }

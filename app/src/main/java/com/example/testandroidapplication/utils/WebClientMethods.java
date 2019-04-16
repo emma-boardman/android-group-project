@@ -55,7 +55,7 @@ public class WebClientMethods {
         JSONObject jsonObject = null;
         JSONObject jsonVenue = null;
         try {
-            jsonVenue = httpJsonParser.buildJsonObject(venue);
+            jsonVenue = venue.toJson(venue);
 
         } catch (JSONException e) {
             e.printStackTrace();

@@ -1,6 +1,9 @@
 package com.example.testandroidapplication.objects;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 public class ProfileInformation {
@@ -144,8 +147,5 @@ public class ProfileInformation {
             return new ProfileInformation(this);
         }
 
-
     }
-
-
 }

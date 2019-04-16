@@ -40,7 +40,7 @@ public class VenueProfileCreationPresenter implements IVenueProfileCreationContr
                         //Display success message
                         view.showToast("Profile Added");
                     } else {
-                        view.showToast("Some error occurred while adding user");
+                        view.showToast("Some error occurred while adding profile");
                     }
                 }
             };

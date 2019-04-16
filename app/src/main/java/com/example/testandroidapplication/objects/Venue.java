@@ -1,5 +1,8 @@
 package com.example.testandroidapplication.objects;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -58,6 +61,28 @@ public class Venue {
         }
         // Return new object
         return venue;
+    }
+
+
+    public JSONObject toJson(Venue venue) throws JSONException {
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.accumulate("User_Id", venue.getUser().getUserID());
+        jsonObject.accumulate("User_Name", venue.getUser().getName());
+        jsonObject.accumulate("Email", venue.getUser().getEmail());
+        jsonObject.accumulate("Facebook", venue.getProfileInformation().getFacebookLink());
+        jsonObject.accumulate("Instagram", venue.getProfileInformation().getInstagramLink());
+        jsonObject.accumulate("Twitter", venue.getProfileInformation().getTwitterLink());
+        jsonObject.accumulate("Website", venue.getProfileInformation().getWebPageLink());
+        jsonObject.accumulate("Tagline", venue.getProfileInformation().getTagLine());
+        jsonObject.accumulate("Description", venue.getProfileInformation().getDescription());
+        jsonObject.accumulate("Location", venue.getProfileInformation().getLocation());
+        jsonObject.accumulate("Address1", venue.getAddress1());
+        jsonObject.accumulate("PostCode", venue.getPostcode());
+        jsonObject.accumulate("Phone_Number", venue.getPhoneNumber());
+
+        return jsonObject;
+
     }
 
     public User getUser(){
@@ -128,5 +153,4 @@ public class Venue {
         }
 
     }
-
 }

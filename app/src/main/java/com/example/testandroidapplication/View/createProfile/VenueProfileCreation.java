@@ -81,7 +81,7 @@ public class VenueProfileCreation extends Fragment implements IVenueProfileCreat
                     venueNameInput = venueNameEditText.getText().toString();
                     venueTaglineInput = venueTaglineEditText.getText().toString();
                     venueLocationInput = venueLocationEditText.getText().toString();
-                    venueDescriptionInput = VenueProfileCreation.this.venueDescriptionEditText.getText().toString();
+                    venueDescriptionInput = venueDescriptionEditText.getText().toString();
                     venueFacebookInput = venueFacebookEditText.getText().toString();
                     venueTwitterInput = venueTwitterEditText.getText().toString();
                     venueInstagramInput = venueInstagramEditText.getText().toString();
