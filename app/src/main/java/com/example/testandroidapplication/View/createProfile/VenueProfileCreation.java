@@ -79,58 +79,16 @@ public class VenueProfileCreation extends Fragment implements IVenueProfileCreat
                     user = new User("Ud0ZuQMdhoaNHGOUktI6BTjLzWS2", "Oasis", "oasistest@gmail.com");
 
                     venueNameInput = venueNameEditText.getText().toString();
-                    if (!venueNameInput.equals("")){
-                        // run some validation, let the user know if there is a problem
-                    }
-
                     venueTaglineInput = venueTaglineEditText.getText().toString();
-                    if (!venueTaglineInput.equals("")){
-                        // run some validation, let the user know if there is a problem
-                    }
-
                     venueLocationInput = venueLocationEditText.getText().toString();
-                    if (!venueLocationInput.equals("")){
-                        // run some validation, let the user know if there is a problem
-                    }
-
                     venueDescriptionInput = VenueProfileCreation.this.venueDescriptionEditText.getText().toString();
-                    if (!venueLocationInput.equals("")){
-                        // run some validation, let the user know if there is a problem
-                    }
-
                     venueFacebookInput = venueFacebookEditText.getText().toString();
-                    if (!venueFacebookInput.equals("")){
-                        // run some validation, let the user know if there is a problem
-                    }
-
                     venueTwitterInput = venueTwitterEditText.getText().toString();
-                    if (!venueTwitterInput.equals("")){
-                        // run some validation, let the user know if there is a problem
-                    }
-
                     venueInstagramInput = venueInstagramEditText.getText().toString();
-                    if (!venueInstagramInput.equals("")){
-                        // run some validation, let the user know if there is a problem
-                    }
-
                     venueWebsiteInput = venueWebsiteEditText.getText().toString();
-                    if (!venueWebsiteInput.equals("")){
-                        // run some validation, let the user know if there is a problem
-                    }
-
                     venueAddress1Input = venueAddress1EditText.getText().toString();
-                    if (!venueAddress1Input.equals("")){
-                        // run some validation, let the user know if there is a problem
-                    }
-
                     venuePostcodeInput = venuePostcodeEditText.getText().toString();
-                    if (!venuePostcodeInput.equals("")){
-                        // run some validation, let the user know if there is a problem
-                        Log.i("tag: ", "validation would be run here");
-                    }
-
                     buildVenueObject();
-
 
                 } else {
                     //Display error message if not connected to internet
@@ -143,7 +101,6 @@ public class VenueProfileCreation extends Fragment implements IVenueProfileCreat
         });
 
         return v;
-
     }
 
     public void buildVenueObject(){
