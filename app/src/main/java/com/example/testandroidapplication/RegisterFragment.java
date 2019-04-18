@@ -26,7 +26,8 @@ import java.util.HashMap;
 public class RegisterFragment extends Fragment {
 
     TextInputEditText username, email, password, confirm_password;
-    Button btn_register, userCancel;
+    Button btn_register, userCancel, btn_bypass;
+    RegisterFragmentVOrA registerFragmentVOrA = new RegisterFragmentVOrA();
 
     FirebaseAuth auth;
     DatabaseReference reference;
@@ -42,6 +43,8 @@ public class RegisterFragment extends Fragment {
         confirm_password = v.findViewById(R.id.user_confirm_password);
         btn_register = v.findViewById(R.id.btn_register);
         userCancel = v.findViewById(R.id.user_cancel);
+        btn_bypass = v.findViewById(R.id.register_bypass);
+
 
         auth = FirebaseAuth.getInstance();
 
@@ -76,6 +79,20 @@ public class RegisterFragment extends Fragment {
 
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
                         loginView).commit();
+
+            }
+        });
+
+        ///
+        ///TEMPORARY BYPASS
+        ///
+
+        btn_bypass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
+                        registerFragmentVOrA).commit();
 
             }
         });

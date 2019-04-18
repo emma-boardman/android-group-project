@@ -8,32 +8,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 
-public class ArtistRegistration extends Fragment {
+public class ArtistProfileCreation extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         View v = inflater.inflate(R.layout.artist_profile_creation, container, false);
 
-        Button artistRegister = v.findViewById(R.id.venue_register);
-        Button venueCancel = v.findViewById(R.id.venue_cancel);
-        EditText artistEmail = v.findViewById(R.id.user_email);
-        EditText artistPassword = v.findViewById(R.id.user_password);
-        EditText venueConfirmPassword = v.findViewById(R.id.user_confirm_password);
-        final RegisterFragmentVOrA registerFragmentVOrA = new RegisterFragmentVOrA();
+        Button createProfile = v.findViewById(R.id.artist_create_profile);
 
-        venueCancel.setOnClickListener(new View.OnClickListener() {
+        createProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                WelcomeFragement welcomeFragement = new WelcomeFragement();
 
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
-                        registerFragmentVOrA).commit();
+                        welcomeFragement).commit();
 
             }
         });
 
         return v;
+
     }
 }

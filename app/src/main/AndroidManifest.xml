@@ -36,6 +36,8 @@
 
         <activity android:name=".TempAddUserToDB" />
 
+        <activity android:name=".ContentActivity"/>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

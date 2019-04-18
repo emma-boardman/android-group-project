@@ -60,7 +60,18 @@ public class LoginFragment extends Fragment {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Intent i = new Intent(getActivity().getApplicationContext(),
+                        ContentActivity.class);
+                startActivity(i);
+
+                getActivity().finish();
                 // if network is available, validate the user input
+
+                ///
+                /// needs updating to work with Cals firebase Login
+                ///
+                /*
                 if (CheckNetworkStatus.isNetworkAvailable(getActivity().getApplicationContext())) {
                     validateUser();
 
@@ -69,7 +80,7 @@ public class LoginFragment extends Fragment {
                     Toast.makeText(getActivity(),
                             "Unable to connect to internet",
                             Toast.LENGTH_LONG).show();
-                }
+                }*/
             }
 
         });
@@ -150,7 +161,7 @@ public class LoginFragment extends Fragment {
                                 "User Validated", Toast.LENGTH_LONG).show();
 
                         Intent i = new Intent(getActivity().getApplicationContext(),
-                                ProfileActivity.class);
+                                ContentActivity.class);
                         startActivity(i);
 
                         getActivity().finish();

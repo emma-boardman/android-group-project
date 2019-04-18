@@ -11,8 +11,8 @@ import android.widget.Button;
 
 public class RegisterFragmentVOrA extends Fragment {
 
-    private VenueRegistration venueRegistration = new VenueRegistration();
-    private ArtistRegistration artistRegistration = new ArtistRegistration();
+    private VenueProfileCreation venueProfile = new VenueProfileCreation();
+    private ArtistProfileCreation artistProfile = new ArtistProfileCreation();
 
     @Nullable
     @Override
@@ -27,7 +27,7 @@ public class RegisterFragmentVOrA extends Fragment {
             public void onClick(View view) {
 
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
-                        venueRegistration).commit();
+                        venueProfile).commit();
 
             }
         });
@@ -37,7 +37,7 @@ public class RegisterFragmentVOrA extends Fragment {
             public void onClick(View view) {
 
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
-                        artistRegistration).commit();
+                        artistProfile).commit();
 
             }
         });

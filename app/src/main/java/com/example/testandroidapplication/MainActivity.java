@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.landr_toolbar);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
-                loginView, "loginFragment").addToBackStack(null).commit();
+                loginView, "loginFragment").addToBackStack("loginFragment").commit();
 
     }
 }

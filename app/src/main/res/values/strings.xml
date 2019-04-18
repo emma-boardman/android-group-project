@@ -18,6 +18,7 @@
     <string name="artist_registration">Artist Registration</string>
     <string name="cancel">Cancel</string>
     <string name="venue_profile_creation">Venue Profile Creation</string>
+    <string name="artist_profile_creation">Artist Profile Creation</string>
     <string name="name">Name</string>
     <string name="tag_line">Tagline</string>
     <string name="tag_search">Select your Search Tags</string>
@@ -27,6 +28,7 @@
     <string name="twitter_link">Twitter Link</string>
     <string name="instagram_link">Instagram Link</string>
     <string name="web_link">Website Link</string>
+    <string name="soundcloud_link">Soundcloud Link</string>
     <string name="location">Location</string>
     <string name="address">Address</string>
     <string name="address_line_1">Line 1</string>
@@ -36,6 +38,13 @@
     <string name="address_line_postcode">Postcode</string>
     <string name="venue_info">Profile Information</string>
     <string name="create_profile">Create Profile</string>
+    <string name="get_started">Get Started!</string>
+    <string name="welcome_message">
+        Congratulations!\n
+        You are now registered to\n
+        My Pocket Agent.\n
+        Press the button below to get started.
+    </string>
 
     <string name="current_date">June, 2016</string>
     <string name="add_event">ADD CALENDAR EVENT</string>
