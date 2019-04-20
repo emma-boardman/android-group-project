@@ -92,7 +92,7 @@ public class VenueProfileCreation extends Fragment implements IVenueProfileCreat
 
                 if (CheckNetworkStatus.isNetworkAvailable(getActivity().getApplicationContext())) {
 
-                    user = new User("g2YDuIWhlKP6kKDzeetFZV0oAaW2", "TestVenue", "mergeconflict73@gmail.com");
+                    user = new User("tAFvZ4JsTASEhApJfqKDqhS6AXA3", "TestVenue", "test456@gmail.com");
 
                     venueNameInput = venueNameEditText.getText().toString();
                     venueTaglineInput = venueTaglineEditText.getText().toString();
