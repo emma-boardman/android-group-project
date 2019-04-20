@@ -113,10 +113,10 @@ public class VenueProfileCreation extends Fragment implements IVenueProfileCreat
                             Toast.LENGTH_LONG).show();
                 }
 
-//                WelcomeFragement welcomeFragement = new WelcomeFragement();
-//
-//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
-//                        welcomeFragement).commit();
+                WelcomeFragement welcomeFragement = new WelcomeFragement();
+
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
+                        welcomeFragement).commit();
             }
         });
         return v;
@@ -150,8 +150,8 @@ public class VenueProfileCreation extends Fragment implements IVenueProfileCreat
 
 
     public void showToast(String msg){
-        Toast.makeText(getActivity(),
-                msg, Toast.LENGTH_LONG).show();
+//        Toast.makeText(getActivity(),
+//                msg, Toast.LENGTH_LONG).show();
     }
 
     public void showError(String error){
