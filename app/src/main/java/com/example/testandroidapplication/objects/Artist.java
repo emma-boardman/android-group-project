@@ -52,7 +52,34 @@ public class Artist {
             return artist;
         }
 
-        public String getSoundCloudLink() {
+    public JSONObject toJson(Artist artist) throws JSONException {
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.accumulate("User_Id", artist.getUser().getUserID());
+        jsonObject.accumulate("User_Name", artist.getUser().getName());
+        jsonObject.accumulate("Email", artist.getUser().getEmail());
+        jsonObject.accumulate("Facebook", artist.getProfileInformation().getFacebookLink());
+        jsonObject.accumulate("Instagram", artist.getProfileInformation().getInstagramLink());
+        jsonObject.accumulate("Twitter", artist.getProfileInformation().getTwitterLink());
+        jsonObject.accumulate("Website", artist.getProfileInformation().getWebPageLink());
+        jsonObject.accumulate("Tagline", artist.getProfileInformation().getTagLine());
+        jsonObject.accumulate("Description", artist.getProfileInformation().getDescription());
+        jsonObject.accumulate("Location", artist.getProfileInformation().getLocation());
+        jsonObject.accumulate("Soundcloud", artist.getSoundCloudLink());
+
+        return jsonObject;
+
+    }
+
+    public User getUser(){
+        return user;
+    }
+
+    public ProfileInformation getProfileInformation(){
+        return profileInformation;
+    }
+
+    public String getSoundCloudLink() {
             return soundCloudLink;
         }
 
@@ -63,7 +90,7 @@ public static class ArtistBuilder {
     private ProfileInformation profileInformation;
     private String soundCloudLink;
 
-    ArtistBuilder(User user) {
+    public ArtistBuilder(User user) {
         this.user = user;
     }
 
@@ -72,17 +99,17 @@ public static class ArtistBuilder {
         return this;
     }
 
-    ArtistBuilder withProfileInformation(ProfileInformation profileInformation){
+    public ArtistBuilder withProfileInformation(ProfileInformation profileInformation){
         this.profileInformation = profileInformation;
         return this;
     }
 
-    ArtistBuilder withSoundcloudLink(String soundCloudLink) {
+    public ArtistBuilder withSoundcloudLink(String soundCloudLink) {
         this.soundCloudLink = soundCloudLink;
         return this;
     }
 
-    Artist build() {
+    public Artist build() {
         return new Artist(this);
     }
 }

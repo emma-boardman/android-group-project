@@ -78,6 +78,37 @@ public class WebClientMethods {
         }
     }
 
+    public static String createArtistProfile(Artist artist) {
+        // write venue object to JSON string
+        HttpJsonParser httpJsonParser = new HttpJsonParser();
+
+        JSONObject jsonObject = null;
+        JSONObject jsonArtist = null;
+        try {
+            jsonArtist = artist.toJson(artist);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            jsonObject = httpJsonParser.makeHttpPostToArtist(
+                    jsonArtist);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            return jsonObject.getString("success");
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return e.getMessage();
+
+        }
+    }
+
+
     // READ
 
 

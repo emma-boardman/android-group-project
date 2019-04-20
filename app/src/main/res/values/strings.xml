@@ -36,7 +36,7 @@
     <string name="address_line_town">Town</string>
     <string name="address_line_county">County</string>
     <string name="address_line_postcode">Postcode</string>
-    <string name="venue_info">Profile Information</string>
+    <string name="user_info">Profile Information</string>
     <string name="create_profile">Create Profile</string>
     <string name="get_started">Get Started!</string>
     <string name="welcome_message">

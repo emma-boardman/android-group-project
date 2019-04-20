@@ -130,4 +130,39 @@ public class HttpJsonParser {
 
     }
 
+    // temp, to be refactored
+
+    JSONObject makeHttpPostToArtist(JSONObject jsonObject) throws IOException, JSONException {
+
+        URL urlObj = new URL("http://40414669.wdd.napier.ac.uk/inc/createArtistProfile.php");
+
+        HttpURLConnection conn = (HttpURLConnection) urlObj.openConnection();
+        conn.setRequestMethod("POST");
+        conn.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+        conn.connect();
+
+        OutputStream os = conn.getOutputStream();
+        OutputStreamWriter osw = new OutputStreamWriter(os);
+        osw.write(jsonObject.toString());
+        osw.flush();
+        osw.close();
+
+        is = conn.getInputStream();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder sb = new StringBuilder();
+        String line;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line).append("\n");
+        }
+        is.close();
+        json = sb.toString();
+        Log.i("tag received data", "["+json+"]");
+        Log.i("tag sent params", "["+jsonObject.toString()+"]");
+
+        jObj = new JSONObject(json);
+
+        return jObj;
+
+    }
+
 }

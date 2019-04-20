@@ -31,7 +31,7 @@
             android:textColor="@color/colorAccent"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="@string/venue_info"
+            android:text="@string/user_info"
             />
 
         <android.support.design.widget.TextInputLayout
