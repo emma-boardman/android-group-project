@@ -1,4 +1,4 @@
-package com.example.testandroidapplication.View.createProfile;
+package com.example.testandroidapplication;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,41 +9,39 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.testandroidapplication.R;
-
-public class RegisterFragmentVOrA extends Fragment {
-
-    private VenueProfileCreation venueProfile = new VenueProfileCreation();
-    private ArtistProfileCreation artistProfile = new ArtistProfileCreation();
+public class VenueProfileCreation extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.register_vora, container,false);
 
-        Button venueBtn = v.findViewById(R.id.user_venue);
-        Button artistBtn = v.findViewById(R.id.user_artist);
+        View v = inflater.inflate(R.layout.venue_profile_creation, container, false);
 
-        venueBtn.setOnClickListener(new View.OnClickListener() {
+        Button cancelBtn = v.findViewById(R.id.venue_profile_cancel);
+        Button createProfile = v.findViewById(R.id.venue_create_profile);
+
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                RegisterFragment registerFragment = new RegisterFragment();
 
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
-                        venueProfile).commit();
-
+                        registerFragment, "registerFragment").commit();
             }
         });
 
-        artistBtn.setOnClickListener(new View.OnClickListener() {
+        createProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                WelcomeFragement welcomeFragement = new WelcomeFragement();
 
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
-                        artistProfile).commit();
-
+                        welcomeFragement).commit();
             }
         });
 
         return v;
+
+
     }
 }

@@ -1,5 +1,6 @@
 package com.example.testandroidapplication.View.registerUser;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -33,8 +34,10 @@ public class RegisterFragment extends Fragment implements IRegisterUserContract.
     private RegisterUserPresenter presenter;
 
     TextInputEditText username, email, password, confirm_password;
-    Button btn_register, userCancel, btn_bypass_register;
+    Button btn_register, userCancel, btn_bypass;
     String userid;
+
+    RegisterFragmentVOrA registerFragmentVOrA = new RegisterFragmentVOrA();
 
     FirebaseAuth auth;
     DatabaseReference reference;
@@ -51,8 +54,9 @@ public class RegisterFragment extends Fragment implements IRegisterUserContract.
         password = v.findViewById(R.id.user_password);
         confirm_password = v.findViewById(R.id.user_confirm_password);
         btn_register = v.findViewById(R.id.btn_register);
-        btn_bypass_register = v.findViewById(R.id.btn_bypass_register);
         userCancel = v.findViewById(R.id.user_cancel);
+        btn_bypass = v.findViewById(R.id.register_bypass);
+
 
         auth = FirebaseAuth.getInstance();
 
@@ -91,13 +95,17 @@ public class RegisterFragment extends Fragment implements IRegisterUserContract.
             }
         });
 
-        btn_bypass_register.setOnClickListener(new View.OnClickListener() {
+        ///
+        ///TEMPORARY BYPASS
+        ///
+
+        btn_bypass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RegisterFragmentVOrA registerFragmentVOrA = new RegisterFragmentVOrA();
 
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
                         registerFragmentVOrA).commit();
+
             }
         });
 
