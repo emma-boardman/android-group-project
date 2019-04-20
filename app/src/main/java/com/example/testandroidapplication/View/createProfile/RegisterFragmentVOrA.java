@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.testandroidapplication.ArtistProfileCreation;
 import com.example.testandroidapplication.R;
 
 public class RegisterFragmentVOrA extends Fragment {

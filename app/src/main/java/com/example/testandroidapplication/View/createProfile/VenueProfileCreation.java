@@ -1,10 +1,10 @@
 package com.example.testandroidapplication.View.createProfile;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +12,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.testandroidapplication.Presenter.createProfile.VenueProfileCreationPresenter;
 import com.example.testandroidapplication.Presenter.createProfile.IVenueProfileCreationContract;
+import com.example.testandroidapplication.Presenter.createProfile.VenueProfileCreationPresenter;
 import com.example.testandroidapplication.R;
+import com.example.testandroidapplication.View.registerUser.RegisterFragment;
+import com.example.testandroidapplication.WelcomeFragement;
 import com.example.testandroidapplication.objects.ProfileInformation;
-import com.example.testandroidapplication.utils.CheckNetworkStatus;
 import com.example.testandroidapplication.objects.User;
 import com.example.testandroidapplication.objects.Venue;
+import com.example.testandroidapplication.utils.CheckNetworkStatus;
+import com.example.testandroidapplication.utils.WebClientMethods;
 
-public class VenueProfileCreationOld extends Fragment implements IVenueProfileCreationContract.View{
+public class VenueProfileCreation extends Fragment implements IVenueProfileCreationContract.View{
 
 
     private User user;
@@ -49,11 +52,13 @@ public class VenueProfileCreationOld extends Fragment implements IVenueProfileCr
     private String venueAddress1Input;
     private String venuePostcodeInput;
 
+    Venue venue;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        final View v = inflater.inflate(R.layout.venue_profile_creation, container, false);
+        View v = inflater.inflate(R.layout.venue_profile_creation, container, false);
 
         presenter = new VenueProfileCreationPresenter(this);
 
@@ -68,15 +73,26 @@ public class VenueProfileCreationOld extends Fragment implements IVenueProfileCr
         venueAddress1EditText = v.findViewById(R.id.venue_address_line_1);
         venuePostcodeEditText = v.findViewById(R.id.venue_address_line_postcode);
 
-        Button createProfileBtn = v.findViewById(R.id.venue_create_profile);
+        Button cancelBtn = v.findViewById(R.id.venue_profile_cancel);
+        Button createProfile = v.findViewById(R.id.venue_create_profile);
 
-        createProfileBtn.setOnClickListener(new View.OnClickListener() {
+        cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // if network is available, validate the user input
+                RegisterFragment registerFragment = new RegisterFragment();
+
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
+                        registerFragment, "registerFragment").commit();
+            }
+        });
+
+        createProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
                 if (CheckNetworkStatus.isNetworkAvailable(getActivity().getApplicationContext())) {
 
-                    user = new User("Ud0ZuQMdhoaNHGOUktI6BTjLzWS2", "Oasis", "oasistest@gmail.com");
+                    user = new User("g2YDuIWhlKP6kKDzeetFZV0oAaW2", "TestVenue", "mergeconflict73@gmail.com");
 
                     venueNameInput = venueNameEditText.getText().toString();
                     venueTaglineInput = venueTaglineEditText.getText().toString();
@@ -96,10 +112,13 @@ public class VenueProfileCreationOld extends Fragment implements IVenueProfileCr
                             "Unable to connect to internet",
                             Toast.LENGTH_LONG).show();
                 }
+
+//                WelcomeFragement welcomeFragement = new WelcomeFragement();
+//
+//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
+//                        welcomeFragement).commit();
             }
-
         });
-
         return v;
     }
 
@@ -118,7 +137,7 @@ public class VenueProfileCreationOld extends Fragment implements IVenueProfileCr
                 .withWebPageLink(venueWebsiteInput)
                 .build();
 
-        Venue venue = new Venue
+        venue = new Venue
                 .VenueBuilder(user)
                 .withProfileInformation(profileInformation)
                 .withAddress1(venueAddress1Input)
@@ -126,7 +145,9 @@ public class VenueProfileCreationOld extends Fragment implements IVenueProfileCr
                 .build();
 
         presenter.validateVenueObject(venue);
+
     }
+
 
     public void showToast(String msg){
         Toast.makeText(getActivity(),

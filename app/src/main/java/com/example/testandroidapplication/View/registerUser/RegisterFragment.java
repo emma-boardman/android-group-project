@@ -154,7 +154,7 @@ public class RegisterFragment extends Fragment implements IRegisterUserContract.
                                 }
                             });
                         } else {
-                            Toast.makeText(getActivity(), "You can't register with this email or password.", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getActivity(), "You can't register with this email or password.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

@@ -27,15 +27,15 @@
         <activity android:name=".Messaging" />
         <activity android:name=".CalendarActivity"/>
 
-        <activity
-            android:name=".RegisterActivity"
-            android:parentActivityName=".Messaging" />
+        <!--<activity-->
+            <!--android:name=".RegisterActivity"-->
+            <!--android:parentActivityName=".Messaging" />-->
 
         <activity
             android:name=".LoginActivity"
             android:parentActivityName=".Messaging" />
 
-        <activity android:name=".TempAddUserToDB" />
+        <!--<activity android:name=".TempAddUserToDB" />-->
 
         <activity android:name=".ContentActivity"/>
 

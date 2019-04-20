@@ -16,15 +16,15 @@ public class VenueProfileCreationPresenter implements IVenueProfileCreationContr
 
     public void validateVenueObject(Venue venue) {
         // add validation methods for each field from validation class
-        if (venue.getUser().getName().contains("invalid")){
-            // show error for that text input
-        }
+//        if (venue.getUser().getName().contains("invalid")){
+//            // show error for that text input
+//        }
         venueForAsync = venue;
 
         new CreateNewProfileAsyncTask().execute();
     }
 
-    private class CreateNewProfileAsyncTask extends AsyncTask<String, String, String> {
+    public class CreateNewProfileAsyncTask extends AsyncTask<String, String, String> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -32,16 +32,19 @@ public class VenueProfileCreationPresenter implements IVenueProfileCreationContr
 
         @Override
         protected String doInBackground(String... params) {
+            new WebClientMethods();
             return WebClientMethods.createVenueProfile(venueForAsync);
         }
 
+
+
         protected void onPostExecute(final String result) {
-                    if (result.equals("1")) {
-                        //Display success message
-                        view.showToast("Profile Added");
-                    } else {
-                        view.showToast("Some error occurred while adding profile");
-                    }
-                }
-            };
+            if (result.equals("1")) {
+                //Display success message
+                view.showToast("Profile Added");
+            } else {
+                view.showToast("Some error occurred while adding profile");
+            }
+        }
+    }
         }

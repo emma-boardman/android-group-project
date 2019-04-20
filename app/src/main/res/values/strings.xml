@@ -24,11 +24,11 @@
     <string name="tag_search">Select your Search Tags</string>
     <string name="description">Description</string>
     <string name="social_media">Social Media Links</string>
-    <string name="facebook_link">Facebook Link</string>
-    <string name="twitter_link">Twitter Link</string>
-    <string name="instagram_link">Instagram Link</string>
-    <string name="web_link">Website Link</string>
-    <string name="soundcloud_link">Soundcloud Link</string>
+    <string name="facebook_link">Facebook Account Name</string>
+    <string name="twitter_link">Twitter Account Name</string>
+    <string name="instagram_link">Instagram Account Name</string>
+    <string name="web_link">Website Account Name</string>
+    <string name="soundcloud_link">Soundcloud Account Name</string>
     <string name="location">Location</string>
     <string name="address">Address</string>
     <string name="address_line_1">Line 1</string>
