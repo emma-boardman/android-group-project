@@ -113,6 +113,15 @@
             android:text="read gig info"
             android:textSize="14sp" />
 
+        <Button
+            android:id="@+id/accessProfileFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="access profile fragment"
+            android:textSize="14sp" />
+
+
+
 
     </LinearLayout>
 

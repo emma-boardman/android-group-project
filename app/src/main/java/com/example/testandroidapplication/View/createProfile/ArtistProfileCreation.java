@@ -16,6 +16,7 @@ import com.example.testandroidapplication.Presenter.createProfile.IArtistProfile
 import com.example.testandroidapplication.Presenter.createProfile.VenueProfileCreationPresenter;
 import com.example.testandroidapplication.R;
 import com.example.testandroidapplication.WelcomeFragement;
+import com.example.testandroidapplication.ProfileFragment;
 import com.example.testandroidapplication.objects.Artist;
 import com.example.testandroidapplication.objects.ProfileInformation;
 import com.example.testandroidapplication.objects.User;
@@ -69,6 +70,19 @@ public class ArtistProfileCreation extends Fragment implements IArtistProfileCre
         artistSoundcloudEditText = v.findViewById(R.id.artist_soundcloud_link);
 
         Button createProfile = v.findViewById(R.id.artist_create_profile);
+
+        Button viewProfile = v.findViewById(R.id.artist_view_profile);
+
+        viewProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                ProfileFragment profileFragment = new ProfileFragment();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
+                        profileFragment).commit();
+
+            }
+        });
 
         createProfile.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -27,7 +27,7 @@ public class WebClientMethods {
 
     private static final String BASE_URL = "http://40414669.wdd.napier.ac.uk/inc/";
 
-    private Validator validator;
+    private static Validator validator;
 
 
     // CREATE
@@ -112,7 +112,7 @@ public class WebClientMethods {
     // READ
 
 
-     public ArtistResult readArtistProfile(String artistId){
+     public static ArtistResult readArtistProfile(String artistId){
          HttpJsonParser httpJsonParser = new HttpJsonParser();
          Map<String, String> httpParams = new HashMap<>();
          httpParams.put(KEY_USER_ID, artistId);
