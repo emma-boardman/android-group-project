@@ -7,8 +7,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.testandroidapplication.Presenter.createProfile.ArtistProfileCreationPresenter;
@@ -19,8 +21,17 @@ import com.example.testandroidapplication.WelcomeFragement;
 import com.example.testandroidapplication.ProfileFragment;
 import com.example.testandroidapplication.objects.Artist;
 import com.example.testandroidapplication.objects.ProfileInformation;
+import com.example.testandroidapplication.objects.Tags;
 import com.example.testandroidapplication.objects.User;
 import com.example.testandroidapplication.utils.CheckNetworkStatus;
+
+import org.json.JSONArray;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static android.R.layout.simple_spinner_item;
 
 public class ArtistProfileCreation extends Fragment implements IArtistProfileCreationContract.View{
 
@@ -32,12 +43,18 @@ public class ArtistProfileCreation extends Fragment implements IArtistProfileCre
     private EditText artistNameEditText;
     private EditText artistTaglineEditText;
     private EditText artistLocationEditText;
+    private Spinner artistExperienceSpinner;
+    private Spinner artistGenreSpinner;
+    private Spinner artistInstrumentSpinner;
+    private Spinner artistGroupTypeSpinner;
+    private Spinner artistLookingForSpinner;
     private EditText artistDescriptionEditText;
     private EditText artistFacebookEditText;
     private EditText artistTwitterEditText;
     private EditText artistInstagramEditText;
     private EditText artistWebsiteEditText;
     private EditText artistSoundcloudEditText;
+
 
     private String artistNameInput;
     private String artistTaglineInput;
@@ -59,9 +76,16 @@ public class ArtistProfileCreation extends Fragment implements IArtistProfileCre
 
         presenter = new ArtistProfileCreationPresenter(this);
 
+        presenter.readArtistTags();
+
         artistNameEditText = v.findViewById(R.id.artist_name);
         artistTaglineEditText = v.findViewById(R.id.artist_tagline);
         artistLocationEditText = v.findViewById(R.id.artist_location);
+        artistExperienceSpinner = v.findViewById(R.id.artist_tag_search_spinner_experience);
+        artistGenreSpinner = v.findViewById(R.id.artist_tag_search_spinner_genre);
+        artistInstrumentSpinner = v.findViewById(R.id.artist_tag_search_spinner_instruments);
+        artistGroupTypeSpinner = v.findViewById(R.id.artist_tag_search_spinner_group_type);
+        artistLookingForSpinner = v.findViewById(R.id.artist_tag_search_spinner_looking_for);
         artistDescriptionEditText = v.findViewById(R.id.artist_description);
         artistFacebookEditText = v.findViewById(R.id.artist_facebook);
         artistTwitterEditText = v.findViewById(R.id.artist_twitter);
@@ -152,5 +176,40 @@ public class ArtistProfileCreation extends Fragment implements IArtistProfileCre
 
     public void showError(String error){
         // target edit text to display an error
+    }
+
+    public void showExperienceSpinner(ArrayList<String> experienceTagList){
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), simple_spinner_item, experienceTagList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        artistExperienceSpinner.setAdapter(adapter);
+    }
+
+    public void showGenreSpinner(ArrayList<String> genreTagList){
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), simple_spinner_item, genreTagList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        artistGenreSpinner.setAdapter(adapter);
+    }
+
+    public void showInstrumentsSpinner(ArrayList<String> instrumentsTagList){
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), simple_spinner_item, instrumentsTagList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        artistInstrumentSpinner.setAdapter(adapter);
+    }
+
+    public void showGroupTypeSpinner(ArrayList<String> groupTypeTagList){
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), simple_spinner_item, groupTypeTagList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        artistGroupTypeSpinner.setAdapter(adapter);
+    }
+
+    public void showLookingForSpinner(ArrayList<String> lookingForTagList){
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), simple_spinner_item, lookingForTagList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        artistLookingForSpinner.setAdapter(adapter);
     }
 }

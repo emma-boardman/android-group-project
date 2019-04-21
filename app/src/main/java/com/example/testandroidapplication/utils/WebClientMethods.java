@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import com.example.testandroidapplication.objects.Artist;
 import com.example.testandroidapplication.objects.Gig;
+import com.example.testandroidapplication.objects.Tags;
 import com.example.testandroidapplication.objects.Venue;
 
 import java.io.IOException;
@@ -19,7 +20,7 @@ public class WebClientMethods {
     private static final String KEY_USER_ID = "User_Id";
     private static final String KEY_USER_NAME = "User_Name";
     private static final String KEY_EMAIL = "Email";
-    private static final String KEY_PASSWORD = "Password";
+    private static final String KEY_TAG_CATEGORY = "Tag_Category";
     private static final String KEY_TAGLINE = "Tagline";
     private static final String KEY_DESCRIPTION = "Description";
     private static final String KEY_GIG_ID = "Gig_Id";
@@ -111,8 +112,26 @@ public class WebClientMethods {
 
     // READ
 
+    public static Tags readArtistTags(){
+        HttpJsonParser httpJsonParser = new HttpJsonParser();
+        Map<String, String> httpParams = new HashMap<>();
+        httpParams.put(KEY_TAG_CATEGORY, "category");
 
-     public static ArtistResult readArtistProfile(String artistId){
+        JSONObject jsonObject = httpJsonParser.makeHttpRequest(
+                BASE_URL + "readTagsByCategory.php", "GET", httpParams);
+
+        try {
+            JSONObject tagList = jsonObject.getJSONObject(KEY_DATA);
+            return Tags.fromJson(tagList);
+
+        } catch (JSONException e) {
+            return null;
+        }
+    }
+
+
+
+    public static ArtistResult readArtistProfile(String artistId){
          HttpJsonParser httpJsonParser = new HttpJsonParser();
          Map<String, String> httpParams = new HashMap<>();
          httpParams.put(KEY_USER_ID, artistId);

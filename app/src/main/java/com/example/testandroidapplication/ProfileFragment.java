@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
-import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
