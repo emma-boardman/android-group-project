@@ -1,9 +1,14 @@
 package com.example.testandroidapplication.objects;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.provider.ContactsContract;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.List;
 
 public class Artist {
 
@@ -52,6 +57,7 @@ public class Artist {
             return artist;
         }
 
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     public JSONObject toJson(Artist artist) throws JSONException {
 
         JSONObject jsonObject = new JSONObject();
@@ -66,7 +72,14 @@ public class Artist {
         jsonObject.accumulate("Description", artist.getProfileInformation().getDescription());
         jsonObject.accumulate("Location", artist.getProfileInformation().getLocation());
         jsonObject.accumulate("Soundcloud", artist.getSoundCloudLink());
-
+        List[] tagList = new List[]{
+                artist.getProfileInformation().getSearchTags().getTag("Experience"),
+                artist.getProfileInformation().getSearchTags().getTag("Group Type"),
+                artist.getProfileInformation().getSearchTags().getTag("Instrument"),
+                artist.getProfileInformation().getSearchTags().getTag("Looking For"),
+                artist.getProfileInformation().getSearchTags().getTag("Genre")};
+        JSONArray jsonArray = new JSONArray(tagList);
+        jsonObject.accumulate("Tags", jsonArray);
         return jsonObject;
 
     }

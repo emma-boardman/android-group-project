@@ -41,7 +41,6 @@ public class ArtistProfileCreationPresenter implements IArtistProfileCreationCon
     }
 
 
-
     public class CreateNewProfileAsyncTask extends AsyncTask<String, String, String> {
         @Override
         protected void onPreExecute() {
@@ -84,10 +83,15 @@ public class ArtistProfileCreationPresenter implements IArtistProfileCreationCon
     public void populateSpinners(Tags tagResult){
 
         ArrayList<String>  experienceList = (ArrayList<String>) tagResult.getTag("Experience");
+        experienceList.add(0, "Years of experience");
         ArrayList<String>  genreList = (ArrayList<String>) tagResult.getTag("Genre");
+        genreList.add(0, "Genre");
         ArrayList<String>  instrumentsList = (ArrayList<String>) tagResult.getTag("Instruments");
+        instrumentsList.add(0, "Instruments");
         ArrayList<String>  groupTypeList = (ArrayList<String>) tagResult.getTag("Group Type");
+        groupTypeList.add(0, "Artist Type");
         ArrayList<String>  lookingForList = (ArrayList<String>) tagResult.getTag("Looking For");
+        lookingForList.add(0, "Looking For");
 
         view.showExperienceSpinner(experienceList);
         view.showGenreSpinner(genreList);

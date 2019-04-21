@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,7 +17,6 @@ import android.widget.Toast;
 
 import com.example.testandroidapplication.Presenter.createProfile.ArtistProfileCreationPresenter;
 import com.example.testandroidapplication.Presenter.createProfile.IArtistProfileCreationContract;
-import com.example.testandroidapplication.Presenter.createProfile.VenueProfileCreationPresenter;
 import com.example.testandroidapplication.R;
 import com.example.testandroidapplication.WelcomeFragement;
 import com.example.testandroidapplication.ProfileFragment;
@@ -25,15 +26,11 @@ import com.example.testandroidapplication.objects.Tags;
 import com.example.testandroidapplication.objects.User;
 import com.example.testandroidapplication.utils.CheckNetworkStatus;
 
-import org.json.JSONArray;
-
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import static android.R.layout.simple_spinner_item;
 
-public class ArtistProfileCreation extends Fragment implements IArtistProfileCreationContract.View{
+public class ArtistProfileCreation extends Fragment implements IArtistProfileCreationContract.View {
 
 
     private User user;
@@ -59,6 +56,7 @@ public class ArtistProfileCreation extends Fragment implements IArtistProfileCre
     private String artistNameInput;
     private String artistTaglineInput;
     private String artistLocationInput;
+    private Tags artistTags;
     private String artistDescriptionInput;
     private String artistFacebookInput;
     private String artistTwitterInput;
@@ -119,6 +117,14 @@ public class ArtistProfileCreation extends Fragment implements IArtistProfileCre
                     artistNameInput = artistNameEditText.getText().toString();
                     artistTaglineInput = artistTaglineEditText.getText().toString();
                     artistLocationInput = artistLocationEditText.getText().toString();
+
+                    artistTags = new Tags();
+                    artistTags.addTag("Experience", artistExperienceSpinner.getSelectedItem().toString());
+                    artistTags.addTag("Genre", artistGenreSpinner.getSelectedItem().toString());
+                    artistTags.addTag("Instrument", artistInstrumentSpinner.getSelectedItem().toString());
+                    artistTags.addTag("Group Type", artistGroupTypeSpinner.getSelectedItem().toString());
+                    artistTags.addTag("Looking For", artistLookingForSpinner.getSelectedItem().toString());
+
                     artistDescriptionInput = artistDescriptionEditText.getText().toString();
                     artistFacebookInput = artistFacebookEditText.getText().toString();
                     artistTwitterInput = artistTwitterEditText.getText().toString();
@@ -152,6 +158,7 @@ public class ArtistProfileCreation extends Fragment implements IArtistProfileCre
                 .ProfileBuilder()
                 .withTagline(artistTaglineInput)
                 .withLocation(artistLocationInput)
+                .withSearchTags(artistTags)
                 .withDescription(artistDescriptionInput)
                 .withFacebookLink(artistFacebookInput)
                 .withTwitterLink(artistTwitterInput)
@@ -181,8 +188,11 @@ public class ArtistProfileCreation extends Fragment implements IArtistProfileCre
     public void showExperienceSpinner(ArrayList<String> experienceTagList){
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), simple_spinner_item, experienceTagList);
+
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         artistExperienceSpinner.setAdapter(adapter);
+
+
     }
 
     public void showGenreSpinner(ArrayList<String> genreTagList){
@@ -212,4 +222,6 @@ public class ArtistProfileCreation extends Fragment implements IArtistProfileCre
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         artistLookingForSpinner.setAdapter(adapter);
     }
+
 }
+
