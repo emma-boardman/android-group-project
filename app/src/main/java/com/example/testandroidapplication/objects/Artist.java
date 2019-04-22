@@ -74,9 +74,9 @@ public class Artist {
         jsonObject.accumulate("Soundcloud", artist.getSoundCloudLink());
         List[] tagList = new List[]{
                 artist.getProfileInformation().getSearchTags().getTag("Experience"),
-                artist.getProfileInformation().getSearchTags().getTag("Group Type"),
-                artist.getProfileInformation().getSearchTags().getTag("Instrument"),
-                artist.getProfileInformation().getSearchTags().getTag("Looking For"),
+//                artist.getProfileInformation().getSearchTags().getTag("Group Type"),
+//                artist.getProfileInformation().getSearchTags().getTag("Instrument"),
+//                artist.getProfileInformation().getSearchTags().getTag("Looking For"),
                 artist.getProfileInformation().getSearchTags().getTag("Genre")};
         JSONArray jsonArray = new JSONArray(tagList);
         jsonObject.accumulate("Tags", jsonArray);

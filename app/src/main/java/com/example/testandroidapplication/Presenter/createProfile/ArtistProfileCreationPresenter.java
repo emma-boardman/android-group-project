@@ -83,15 +83,15 @@ public class ArtistProfileCreationPresenter implements IArtistProfileCreationCon
     public void populateSpinners(Tags tagResult){
 
         ArrayList<String>  experienceList = (ArrayList<String>) tagResult.getTag("Experience");
-        experienceList.add(0, "Years of experience");
+        experienceList.add(0, "Select Years of Experience");
         ArrayList<String>  genreList = (ArrayList<String>) tagResult.getTag("Genre");
-        genreList.add(0, "Genre");
+        genreList.add(0, "Select Genre");
         ArrayList<String>  instrumentsList = (ArrayList<String>) tagResult.getTag("Instruments");
-        instrumentsList.add(0, "Instruments");
+        instrumentsList.add(0, "Select Instruments");
         ArrayList<String>  groupTypeList = (ArrayList<String>) tagResult.getTag("Group Type");
-        groupTypeList.add(0, "Artist Type");
+        groupTypeList.add(0, "Select Artist Type");
         ArrayList<String>  lookingForList = (ArrayList<String>) tagResult.getTag("Looking For");
-        lookingForList.add(0, "Looking For");
+        lookingForList.add(0, "Select Looking For");
 
         view.showExperienceSpinner(experienceList);
         view.showGenreSpinner(genreList);
