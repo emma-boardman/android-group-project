@@ -8,7 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Artist {
+public class Artist implements Entity {
 
     private User user;
     private ProfileInformation profileInformation;
@@ -102,10 +102,12 @@ public class Artist {
         }
     }
 
+    @Override
     public User getUser(){
         return user;
     }
 
+    @Override
     public ProfileInformation getProfileInformation(){
         return profileInformation;
     }

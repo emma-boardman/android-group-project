@@ -8,7 +8,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class Venue {
+public class Venue implements Entity {
 
     private User user;
     private ProfileInformation profileInformation;
@@ -85,10 +85,12 @@ public class Venue {
 
     }
 
+    @Override
     public User getUser(){
         return user;
     }
 
+    @Override
     public ProfileInformation getProfileInformation(){
         return profileInformation;
     }
