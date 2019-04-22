@@ -2,7 +2,8 @@ package com.example.testandroidapplication.objects;
 
 import android.annotation.TargetApi;
 import android.os.Build;
-import android.provider.ContactsContract;
+
+import com.google.android.gms.common.util.Strings;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,31 +58,31 @@ public class Artist {
             return artist;
         }
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
-    public JSONObject toJson(Artist artist) throws JSONException {
+    public JSONObject toJson() throws JSONException {
 
         JSONObject jsonObject = new JSONObject();
-        jsonObject.accumulate("User_Id", artist.getUser().getUserID());
-        jsonObject.accumulate("User_Name", artist.getUser().getName());
-        jsonObject.accumulate("Email", artist.getUser().getEmail());
-        jsonObject.accumulate("Facebook", artist.getProfileInformation().getFacebookLink());
-        jsonObject.accumulate("Instagram", artist.getProfileInformation().getInstagramLink());
-        jsonObject.accumulate("Twitter", artist.getProfileInformation().getTwitterLink());
-        jsonObject.accumulate("Website", artist.getProfileInformation().getWebPageLink());
-        jsonObject.accumulate("Tagline", artist.getProfileInformation().getTagLine());
-        jsonObject.accumulate("Description", artist.getProfileInformation().getDescription());
-        jsonObject.accumulate("Location", artist.getProfileInformation().getLocation());
-        jsonObject.accumulate("Soundcloud", artist.getSoundCloudLink());
-        List[] tagList = new List[]{
-                artist.getProfileInformation().getSearchTags().getTag("Experience"),
-//                artist.getProfileInformation().getSearchTags().getTag("Group Type"),
-//                artist.getProfileInformation().getSearchTags().getTag("Instrument"),
-//                artist.getProfileInformation().getSearchTags().getTag("Looking For"),
-                artist.getProfileInformation().getSearchTags().getTag("Genre")};
-        JSONArray jsonArray = new JSONArray(tagList);
-        jsonObject.accumulate("Tags", jsonArray);
+        addStringToJson(jsonObject, "User_Id", this.getUser().getUserID());
+        addStringToJson(jsonObject, "User_Name", this.getUser().getName());
+        addStringToJson(jsonObject, "Email", this.getUser().getEmail());
+        addStringToJson(jsonObject, "Facebook", this.getProfileInformation().getFacebookLink());
+        addStringToJson(jsonObject, "Instagram", this.getProfileInformation().getInstagramLink());
+        addStringToJson(jsonObject, "Twitter", this.getProfileInformation().getTwitterLink());
+        addStringToJson(jsonObject, "Website", this.getProfileInformation().getWebPageLink());
+        addStringToJson(jsonObject, "Tagline", this.getProfileInformation().getTagLine());
+        addStringToJson(jsonObject, "Description", this.getProfileInformation().getDescription());
+        addStringToJson(jsonObject, "Location", this.getProfileInformation().getLocation());
+        addStringToJson(jsonObject, "Soundcloud", this.getSoundCloudLink());
+        Tags searchTags = this.getProfileInformation().getSearchTags();
+        if (searchTags.hasTags()) {
+            jsonObject.accumulate("Tags", searchTags.toJson());
+        }
         return jsonObject;
-
+    }
+    
+    private void addStringToJson(JSONObject jsonObject, String name, String value) throws JSONException {
+        if (!Strings.isEmptyOrWhitespace(value)) {
+            jsonObject.accumulate(name, value);
+        }
     }
 
     public User getUser(){

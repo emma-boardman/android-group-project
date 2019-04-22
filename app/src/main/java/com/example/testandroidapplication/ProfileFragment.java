@@ -3,10 +3,13 @@ package com.example.testandroidapplication;
 import android.app.Activity;
 import android.media.Image;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +23,8 @@ import android.widget.Toast;
 import com.example.testandroidapplication.objects.Artist;
 import com.example.testandroidapplication.utils.ArtistResult;
 import com.example.testandroidapplication.utils.WebClientMethods;
+
+import java.util.Objects;
 
 public class ProfileFragment extends Fragment {
 
@@ -66,6 +71,7 @@ public class ProfileFragment extends Fragment {
             super.onPreExecute();
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override
         protected Artist doInBackground(String... params) {
             new WebClientMethods();
@@ -73,6 +79,7 @@ public class ProfileFragment extends Fragment {
             return artistResult.getArtist();
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         protected void onPostExecute(final Artist artist) {
 
             populateUI(artist);
@@ -80,10 +87,17 @@ public class ProfileFragment extends Fragment {
                 }
             }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void populateUI(final Artist artist) {
 
         userName.setText(artist.getUser().getName());
-        userTagline.setText(artist.getProfileInformation().getTagLine());
+
+        if (artist.getProfileInformation().getTagLine() != null || !artist.getProfileInformation().getTagLine().equals("")) {
+            userTagline.setText(artist.getProfileInformation().getTagLine());
+        } else {
+            userTagline.setVisibility(View.GONE);
+        }
+
         userDescription.setText(artist.getProfileInformation().getDescription());
         userRating.setRating(Float.parseFloat(artist.getProfileInformation().getOverallRatingNum()));
         userFacebook.setOnClickListener(new View.OnClickListener() {
@@ -92,12 +106,31 @@ public class ProfileFragment extends Fragment {
                        webView.loadUrl("https://www.facebook.com/" + artist.getProfileInformation().getFacebookLink());
                     }
                 });
-        userInstagram.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                webView.loadUrl("https://www.instagram.com/" + artist.getProfileInformation().getInstagramLink());
-            }
-        });
+
+//        !artist.getProfileInformation().getInstagramLink().equals("") ||
+//         artist.getProfileInformation().getInstagramLink() != null
+
+        String instagram = artist.getProfileInformation().getInstagramLink();
+
+        if (!Objects.equals(instagram, "null")
+                || !Objects.equals(instagram, "")
+                || !Objects.equals(instagram, "not populated")
+                || instagram != null ){
+            Log.i("Tag", "not null");
+            userInstagram.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    webView.loadUrl("https://www.instagram.com/" + artist.getProfileInformation().getInstagramLink());
+                }
+            });
+        } else {
+            Log.i("Tag", "null");
+            userInstagram.setVisibility(View.GONE);
+        }
+
+
+
+
         userTwitter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

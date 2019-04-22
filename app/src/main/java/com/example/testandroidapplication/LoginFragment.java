@@ -161,7 +161,7 @@ public class LoginFragment extends Fragment {
             //Populating request parameters
             httpParams.put(KEY_EMAIL, userEmail);
             httpParams.put(KEY_PASSWORD, userPassword);
-            JSONObject jsonObject = httpJsonParser.makeHttpRequest(
+            JSONObject jsonObject = httpJsonParser.makeHttpRequestUsingFormParams(
                     BASE_URL + "validateUser.php", "POST", httpParams);
             try {
                 success = jsonObject.getInt(KEY_SUCCESS);

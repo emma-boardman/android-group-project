@@ -2,6 +2,9 @@ package com.example.testandroidapplication.utils;
 
 
 
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -39,7 +42,7 @@ public class WebClientMethods {
         httpParams.put(KEY_USER_ID, userID);
         httpParams.put(KEY_USER_NAME, userName);
         httpParams.put(KEY_EMAIL, userEmail);
-        JSONObject jsonObject = httpJsonParser.makeHttpRequest(
+        JSONObject jsonObject = httpJsonParser.makeHttpRequestUsingFormParams(
                 BASE_URL + "createUser.php", "POST", httpParams);
         try {
             return jsonObject.getString("success");
@@ -63,7 +66,7 @@ public class WebClientMethods {
         }
 
         try {
-            jsonObject = httpJsonParser.makeHttpPost(
+            jsonObject = httpJsonParser.makeHttpPostUsingJson(BASE_URL + "createVenueProfile.php",
                     jsonVenue);
         } catch (IOException e) {
             e.printStackTrace();
@@ -71,6 +74,7 @@ public class WebClientMethods {
             e.printStackTrace();
         }
         try {
+            assert jsonObject != null;
             return jsonObject.getString("success");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -86,14 +90,14 @@ public class WebClientMethods {
         JSONObject jsonObject = null;
         JSONObject jsonArtist = null;
         try {
-            jsonArtist = artist.toJson(artist);
+            jsonArtist = artist.toJson();
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         try {
-            jsonObject = httpJsonParser.makeHttpPostToArtist(
+            jsonObject = httpJsonParser.makeHttpPostUsingJson(BASE_URL + "createArtistProfile.php",
                     jsonArtist);
         } catch (IOException e) {
             e.printStackTrace();
@@ -101,6 +105,7 @@ public class WebClientMethods {
             e.printStackTrace();
         }
         try {
+            assert jsonObject != null;
             return jsonObject.getString("success");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -117,7 +122,7 @@ public class WebClientMethods {
         Map<String, String> httpParams = new HashMap<>();
         httpParams.put(KEY_TAG_CATEGORY, "category");
 
-        JSONObject jsonObject = httpJsonParser.makeHttpRequest(
+        JSONObject jsonObject = httpJsonParser.makeHttpRequestUsingFormParams(
                 BASE_URL + "readTagsByCategory.php", "GET", httpParams);
 
         try {
@@ -131,12 +136,14 @@ public class WebClientMethods {
 
 
 
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static ArtistResult readArtistProfile(String artistId){
          HttpJsonParser httpJsonParser = new HttpJsonParser();
          Map<String, String> httpParams = new HashMap<>();
          httpParams.put(KEY_USER_ID, artistId);
 
-         JSONObject jsonObject = httpJsonParser.makeHttpRequest(
+         JSONObject jsonObject = httpJsonParser.makeHttpRequestUsingFormParams(
                  BASE_URL + "readArtistProfile.php", "GET", httpParams);
 
          try {
@@ -155,14 +162,15 @@ public class WebClientMethods {
         Map<String, String> httpParams = new HashMap<>();
         httpParams.put(KEY_USER_ID, "testVenue");
 
-        JSONObject jsonObject = httpJsonParser.makeHttpRequest(
+        JSONObject jsonObject = httpJsonParser.makeHttpRequestUsingFormParams(
                 BASE_URL + "readVenueProfile.php", "GET", httpParams);
 
         try {
             JSONObject user = jsonObject.getJSONObject(KEY_DATA);
-            validator = new Validator();
-            JSONObject userWithoutNulls = validator.objectNullToString(user);
-            Venue venue = Venue.fromJson(userWithoutNulls);
+//            validator = new Validator();
+//            JSONObject userWithoutNulls = validator.objectNullToString(user);
+//            Venue venue = Venue.fromJson(userWithoutNulls);
+            Venue venue = Venue.fromJson(user);
             return VenueResult.success(venue);
 
 
@@ -176,14 +184,15 @@ public class WebClientMethods {
         Map<String, String> httpParams = new HashMap<>();
         httpParams.put(KEY_GIG_ID, "1");
 
-        JSONObject jsonObject = httpJsonParser.makeHttpRequest(
+        JSONObject jsonObject = httpJsonParser.makeHttpRequestUsingFormParams(
                 BASE_URL + "readGigInformation.php", "GET", httpParams);
 
         try {
             JSONObject gigInfo = jsonObject.getJSONObject(KEY_DATA);
-            validator = new Validator();
-            JSONObject gigWithoutNulls = validator.objectNullToString(gigInfo);
-            Gig gig = Gig.fromJson(gigWithoutNulls);
+//            validator = new Validator();
+////            JSONObject gigWithoutNulls = validator.objectNullToString(gigInfo);
+////            Gig gig = Gig.fromJson(gigWithoutNulls);
+            Gig gig = Gig.fromJson(gigInfo);
             return GigResult.success(gig);
 
 

@@ -48,5 +48,19 @@ public class Tags {
             return tags;
         }
 
+        public boolean hasTags() {
+            return !tags.isEmpty();
+        }
+
+        public JSONObject toJson() throws JSONException {
+            JSONObject tags = new JSONObject();
+            List<String> categories = this.getCategories();
+            if (!categories.isEmpty()) {
+                for (String category : categories) {
+                    tags.accumulate(category, this.getTag(category));
+                }
+            }
+            return tags;
+        }
 }
 
