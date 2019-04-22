@@ -59,7 +59,7 @@ public class WebClientMethods {
         JSONObject jsonObject = null;
         JSONObject jsonVenue = null;
         try {
-            jsonVenue = venue.toJson(venue);
+            jsonVenue = venue.toJson();
 
         } catch (JSONException e) {
             e.printStackTrace();

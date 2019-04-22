@@ -14,7 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class Tags {
+public class Tags implements JsonWritable {
 
         private final Map<String, List<String>> tags = new HashMap<>();
 
@@ -56,6 +56,7 @@ public class Tags {
             return !tags.isEmpty();
         }
 
+        @Override
         public JSONObject toJson() throws JSONException {
             JSONObject tags = new JSONObject();
             List<String> categories = this.getCategories();

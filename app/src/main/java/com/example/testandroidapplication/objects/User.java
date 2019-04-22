@@ -4,7 +4,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Property;
 
-public class User implements Parcelable {
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import static com.example.testandroidapplication.utils.JsonUtils.addStringToJson;
+
+public class User implements Parcelable, JsonWritable {
 
     private String userID;
     private String name;
@@ -72,5 +77,14 @@ public class User implements Parcelable {
     //return hashcode of object
     public int describeContents() {
         return hashCode();
+    }
+
+    @Override
+    public JSONObject toJson() throws JSONException {
+        final JSONObject jsonObject = new JSONObject();
+        addStringToJson(jsonObject,"User_Id", getUserID());
+        addStringToJson(jsonObject,"User_Name", getName());
+        addStringToJson(jsonObject,"Email", getEmail());
+        return jsonObject;
     }
 }

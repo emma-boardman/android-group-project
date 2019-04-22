@@ -1,14 +1,15 @@
 package com.example.testandroidapplication.objects;
 
-import android.support.annotation.Nullable;
+import com.example.testandroidapplication.utils.JsonUtils;
 
-import com.google.android.gms.common.util.Strings;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Artist implements Entity {
+import static com.example.testandroidapplication.utils.JsonUtils.addStringToJson;
+import static com.example.testandroidapplication.utils.JsonUtils.getStringOrNull;
+import static com.example.testandroidapplication.utils.JsonUtils.merge;
+
+public class Artist implements Entity, JsonWritable {
 
     private User user;
     private ProfileInformation profileInformation;
@@ -39,8 +40,8 @@ public class Artist implements Entity {
                         .withTwitterLink(getStringOrNull(jsonObject, "Twitter"))
                         .withWebPageLink(getStringOrNull(jsonObject, "Website"))
                         .withOverallRating(getStringOrNull(jsonObject, "Overall_Rating"))
-                        .withReviews(Review.fromJson(getJSONArrayOrNull(jsonObject,"Reviews")))
-                        .withSearchTags(Tags.fromJson(getJSONObjectOrNull(jsonObject, "Tags")))
+                        .withReviews(Review.fromJson(JsonUtils.getJSONArrayOrNull(jsonObject,"Reviews")))
+                        .withSearchTags(Tags.fromJson(JsonUtils.getJSONObjectOrNull(jsonObject, "Tags")))
                         .build();
 
                 artist = new Artist
@@ -57,49 +58,13 @@ public class Artist implements Entity {
             return artist;
         }
 
-        @Nullable
-        private static String getStringOrNull(JSONObject jsonObject, String name) throws JSONException {
-            if (jsonObject.has(name)) return jsonObject.getString(name);
-            else return null;
-        }
-
-        @Nullable
-        private static JSONArray getJSONArrayOrNull(JSONObject jsonObject, String name) throws JSONException {
-            if (jsonObject.has(name)) return jsonObject.getJSONArray(name);
-            else return null;
-        }
-
-        @Nullable
-        private static JSONObject getJSONObjectOrNull(JSONObject jsonObject, String name) throws JSONException {
-            if (jsonObject.has(name)) return jsonObject.getJSONObject(name);
-            else return null;
-        }
-
+    @Override
     public JSONObject toJson() throws JSONException {
-
-        JSONObject jsonObject = new JSONObject();
-        addStringToJson(jsonObject, "User_Id", this.getUser().getUserID());
-        addStringToJson(jsonObject, "User_Name", this.getUser().getName());
-        addStringToJson(jsonObject, "Email", this.getUser().getEmail());
-        addStringToJson(jsonObject, "Facebook", this.getProfileInformation().getFacebookLink());
-        addStringToJson(jsonObject, "Instagram", this.getProfileInformation().getInstagramLink());
-        addStringToJson(jsonObject, "Twitter", this.getProfileInformation().getTwitterLink());
-        addStringToJson(jsonObject, "Website", this.getProfileInformation().getWebPageLink());
-        addStringToJson(jsonObject, "Tagline", this.getProfileInformation().getTagLine());
-        addStringToJson(jsonObject, "Description", this.getProfileInformation().getDescription());
-        addStringToJson(jsonObject, "Location", this.getProfileInformation().getLocation());
+        final JSONObject jsonObject = new JSONObject();
         addStringToJson(jsonObject, "Soundcloud", this.getSoundCloudLink());
-        Tags searchTags = this.getProfileInformation().getSearchTags();
-        if (searchTags.hasTags()) {
-            jsonObject.accumulate("Tags", searchTags.toJson());
-        }
-        return jsonObject;
-    }
-    
-    private void addStringToJson(JSONObject jsonObject, String name, String value) throws JSONException {
-        if (!Strings.isEmptyOrWhitespace(value)) {
-            jsonObject.accumulate(name, value);
-        }
+        final JSONObject user = getUser().toJson();
+        final JSONObject profile = getProfileInformation().toJson();
+        return merge(jsonObject, profile, user);
     }
 
     @Override
