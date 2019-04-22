@@ -1,5 +1,7 @@
 package com.example.testandroidapplication.objects;
 
+import android.support.annotation.Nullable;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,7 +46,7 @@ public class Review {
     }
 
 
-    public static ArrayList<Review> fromJson(JSONArray jsonArray) throws JSONException {
+    public static ArrayList<Review> fromJson(@Nullable JSONArray jsonArray) throws JSONException {
 
         ArrayList<Review> reviews = new ArrayList<>();
         if (jsonArray != null){

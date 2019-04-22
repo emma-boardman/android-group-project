@@ -1,15 +1,12 @@
 package com.example.testandroidapplication.objects;
 
-import android.annotation.TargetApi;
-import android.os.Build;
+import android.support.annotation.Nullable;
 
 import com.google.android.gms.common.util.Strings;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.List;
 
 public class Artist {
 
@@ -34,20 +31,22 @@ public class Artist {
 
                 ProfileInformation profileInformation = new ProfileInformation
                         .ProfileBuilder()
-                        .withTagline(jsonObject.getString("Tagline"))
-                        .withDescription(jsonObject.getString("Description"))
-                        .withLocation(jsonObject.getString("Location"))
-                        .withFacebookLink(jsonObject.getString("Facebook"))
-                        .withWebPageLink(jsonObject.getString("Website"))
-                        .withOverallRating(jsonObject.getString("Overall_Rating"))
-                        .withReviews(Review.fromJson(jsonObject.getJSONArray("Reviews")))
-                        .withSearchTags(Tags.fromJson(jsonObject.getJSONObject("Tags")))
+                        .withTagline(getStringOrNull(jsonObject, "Tagline"))
+                        .withDescription(getStringOrNull(jsonObject, "Description"))
+                        .withLocation(getStringOrNull(jsonObject, "Location"))
+                        .withFacebookLink(getStringOrNull(jsonObject, "Facebook"))
+                        .withInstagramLink(getStringOrNull(jsonObject, "Instagram"))
+                        .withTwitterLink(getStringOrNull(jsonObject, "Twitter"))
+                        .withWebPageLink(getStringOrNull(jsonObject, "Website"))
+                        .withOverallRating(getStringOrNull(jsonObject, "Overall_Rating"))
+                        .withReviews(Review.fromJson(getJSONArrayOrNull(jsonObject,"Reviews")))
+                        .withSearchTags(Tags.fromJson(getJSONObjectOrNull(jsonObject, "Tags")))
                         .build();
 
                 artist = new Artist
                         .ArtistBuilder(user)
                         .withProfileInformation(profileInformation)
-                        .withSoundcloudLink(jsonObject.getString("Soundcloud"))
+                        .withSoundcloudLink(getStringOrNull(jsonObject, "Soundcloud"))
                         .build();
 
             } catch (JSONException e) {
@@ -56,6 +55,24 @@ public class Artist {
             }
             // Return new object
             return artist;
+        }
+
+        @Nullable
+        private static String getStringOrNull(JSONObject jsonObject, String name) throws JSONException {
+            if (jsonObject.has(name)) return jsonObject.getString(name);
+            else return null;
+        }
+
+        @Nullable
+        private static JSONArray getJSONArrayOrNull(JSONObject jsonObject, String name) throws JSONException {
+            if (jsonObject.has(name)) return jsonObject.getJSONArray(name);
+            else return null;
+        }
+
+        @Nullable
+        private static JSONObject getJSONObjectOrNull(JSONObject jsonObject, String name) throws JSONException {
+            if (jsonObject.has(name)) return jsonObject.getJSONObject(name);
+            else return null;
         }
 
     public JSONObject toJson() throws JSONException {

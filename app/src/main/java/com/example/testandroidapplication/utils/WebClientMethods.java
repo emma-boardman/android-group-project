@@ -148,9 +148,7 @@ public class WebClientMethods {
 
          try {
             JSONObject user = jsonObject.getJSONObject(KEY_DATA);
-            validator = new Validator();
-            JSONObject userWithoutNulls = validator.objectNullToString(user);
-            Artist artist = Artist.fromJson(userWithoutNulls);
+            Artist artist = Artist.fromJson(user);
             return ArtistResult.success(artist);
          } catch (JSONException e) {
             return ArtistResult.failure();

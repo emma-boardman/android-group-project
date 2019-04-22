@@ -21,8 +21,10 @@ import android.widget.Toast;
 
 
 import com.example.testandroidapplication.objects.Artist;
+import com.example.testandroidapplication.objects.ProfileInformation;
 import com.example.testandroidapplication.utils.ArtistResult;
 import com.example.testandroidapplication.utils.WebClientMethods;
+import com.google.android.gms.common.util.Strings;
 
 import java.util.Objects;
 
@@ -87,68 +89,45 @@ public class ProfileFragment extends Fragment {
                 }
             }
 
+            private void setTextIfExists(TextView textView, @Nullable String text) {
+                if (!Strings.isEmptyOrWhitespace(text)) {
+                    textView.setText(text);
+                } else {
+                    textView.setVisibility(View.GONE);
+                }
+            }
+
+            private void setImageIfExists(ImageButton imageButton, final String baseUrl, final @Nullable String text) {
+                if (!Strings.isEmptyOrWhitespace(text)) {
+                    imageButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            webView.loadUrl(baseUrl + text);
+                        }
+                    });
+                } else {
+                    imageButton.setVisibility(View.GONE);
+                }
+            }
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void populateUI(final Artist artist) {
 
         userName.setText(artist.getUser().getName());
 
-        if (artist.getProfileInformation().getTagLine() != null || !artist.getProfileInformation().getTagLine().equals("")) {
-            userTagline.setText(artist.getProfileInformation().getTagLine());
-        } else {
-            userTagline.setVisibility(View.GONE);
-        }
+        final ProfileInformation profile = artist.getProfileInformation();
+        setTextIfExists(userName, artist.getUser().getName());
+        setTextIfExists(userTagline, profile.getTagLine());
+        setTextIfExists(userDescription, profile.getDescription());
+        setTextIfExists(userDescription, profile.getDescription());
 
-        userDescription.setText(artist.getProfileInformation().getDescription());
-        userRating.setRating(Float.parseFloat(artist.getProfileInformation().getOverallRatingNum()));
-        userFacebook.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                       webView.loadUrl("https://www.facebook.com/" + artist.getProfileInformation().getFacebookLink());
-                    }
-                });
+        userRating.setRating(Float.parseFloat(profile.getOverallRatingNum()));
 
-//        !artist.getProfileInformation().getInstagramLink().equals("") ||
-//         artist.getProfileInformation().getInstagramLink() != null
-
-        String instagram = artist.getProfileInformation().getInstagramLink();
-
-        if (!Objects.equals(instagram, "null")
-                || !Objects.equals(instagram, "")
-                || !Objects.equals(instagram, "not populated")
-                || instagram != null ){
-            Log.i("Tag", "not null");
-            userInstagram.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    webView.loadUrl("https://www.instagram.com/" + artist.getProfileInformation().getInstagramLink());
-                }
-            });
-        } else {
-            Log.i("Tag", "null");
-            userInstagram.setVisibility(View.GONE);
-        }
-
-
-
-
-        userTwitter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                webView.loadUrl("https://www.twitter.com/" + artist.getProfileInformation().getTwitterLink());
-            }
-        });
-        userSoundcloud.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                webView.loadUrl("https://www.soundcloud.com/" + artist.getSoundCloudLink());
-            }
-        });
-        userWebsite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                webView.loadUrl(artist.getProfileInformation().getWebPageLink());
-            }
-        });
+        setImageIfExists(userFacebook, "https://www.facebook.com/", profile.getFacebookLink());
+        setImageIfExists(userInstagram, "https://www.instagram.com/", profile.getInstagramLink());
+        setImageIfExists(userTwitter, "https://www.twitter.com/", profile.getTwitterLink());
+        setImageIfExists(userSoundcloud, "https://www.soundcloud.com/", artist.getSoundCloudLink());
+        setImageIfExists(userWebsite, "", profile.getWebPageLink());
 
     }
 }
