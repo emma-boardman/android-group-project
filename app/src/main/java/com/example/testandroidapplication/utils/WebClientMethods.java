@@ -31,8 +31,6 @@ public class WebClientMethods {
 
     private static final String BASE_URL = "http://40414669.wdd.napier.ac.uk/inc/";
 
-    private static Validator validator;
-
 
     // CREATE
 
@@ -166,9 +164,6 @@ public class WebClientMethods {
 
         try {
             JSONObject user = jsonObject.getJSONObject(KEY_DATA);
-//            validator = new Validator();
-//            JSONObject userWithoutNulls = validator.objectNullToString(user);
-//            Venue venue = Venue.fromJson(userWithoutNulls);
             Venue venue = Venue.fromJson(user);
             return VenueResult.success(venue);
 
@@ -188,9 +183,6 @@ public class WebClientMethods {
 
         try {
             JSONObject gigInfo = jsonObject.getJSONObject(KEY_DATA);
-//            validator = new Validator();
-////            JSONObject gigWithoutNulls = validator.objectNullToString(gigInfo);
-////            Gig gig = Gig.fromJson(gigWithoutNulls);
             Gig gig = Gig.fromJson(gigInfo);
             return GigResult.success(gig);
 
