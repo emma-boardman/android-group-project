@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.testandroidapplication.R;
+import com.example.testandroidapplication.VenueProfileCreation;
 
 public class VenueRegistration extends Fragment {
 

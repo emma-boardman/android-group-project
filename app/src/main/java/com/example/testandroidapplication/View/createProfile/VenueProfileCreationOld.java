@@ -20,7 +20,7 @@ import com.example.testandroidapplication.utils.CheckNetworkStatus;
 import com.example.testandroidapplication.objects.User;
 import com.example.testandroidapplication.objects.Venue;
 
-public class VenueProfileCreation extends Fragment implements IVenueProfileCreationContract.View{
+public class VenueProfileCreationOld extends Fragment implements IVenueProfileCreationContract.View{
 
 
     private User user;
