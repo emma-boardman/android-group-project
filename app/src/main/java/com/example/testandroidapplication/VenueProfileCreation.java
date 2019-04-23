@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.testandroidapplication.View.registerUser.RegisterFragment;
+
 public class VenueProfileCreation extends Fragment {
 
     @Nullable
