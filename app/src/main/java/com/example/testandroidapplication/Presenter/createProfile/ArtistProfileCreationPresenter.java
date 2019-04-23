@@ -1,24 +1,16 @@
 package com.example.testandroidapplication.Presenter.createProfile;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.example.testandroidapplication.objects.Artist;
 import com.example.testandroidapplication.objects.Tags;
 import com.example.testandroidapplication.utils.WebClientMethods;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public class ArtistProfileCreationPresenter implements IArtistProfileCreationContract.Presenter {
 
     private final IArtistProfileCreationContract.View view;
-    private Artist artistForAsync;
-    private String tagCategoryForAsync;
 
     public ArtistProfileCreationPresenter(IArtistProfileCreationContract.View view){
         this.view = view;
@@ -29,33 +21,32 @@ public class ArtistProfileCreationPresenter implements IArtistProfileCreationCon
 //        if (venue.getUser().getName().contains("invalid")){
 //            // show error for that text input
 //        }
-        artistForAsync = artist;
 
-        new CreateNewProfileAsyncTask().execute();
+        new CreateNewProfileAsyncTask(view, artist).execute();
     }
 
     public void readArtistTags(){
 
-        new ReadArtistTagsAsyncTask().execute();
+        new ReadArtistTagsAsyncTask(view).execute();
 
     }
 
+    private static class CreateNewProfileAsyncTask extends AsyncTask<String, String, String> {
+        private final IArtistProfileCreationContract.View view;
+        private final Artist artistForAsync;
 
-    public class CreateNewProfileAsyncTask extends AsyncTask<String, String, String> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
+        private CreateNewProfileAsyncTask(IArtistProfileCreationContract.View view, Artist artistForAsync) {
+            this.view = view;
+            this.artistForAsync = artistForAsync;
         }
 
         @Override
         protected String doInBackground(String... params) {
-            new WebClientMethods();
             return WebClientMethods.createArtistProfile(artistForAsync);
         }
 
         protected void onPostExecute(final String result) {
             if (result.equals("1")) {
-
                 view.showToast("Profile Added");
             } else {
                 view.showToast("Some error occurred while adding profile");
@@ -63,44 +54,37 @@ public class ArtistProfileCreationPresenter implements IArtistProfileCreationCon
         }
     }
 
-    public class ReadArtistTagsAsyncTask extends AsyncTask<String, String, Tags> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
+    private static class ReadArtistTagsAsyncTask extends AsyncTask<String, String, Tags> {
+
+        private final IArtistProfileCreationContract.View view;
+
+        private ReadArtistTagsAsyncTask(IArtistProfileCreationContract.View view) {
+            this.view = view;
         }
 
         @Override
         protected Tags doInBackground(String... params) {
-            new WebClientMethods();
             return WebClientMethods.readArtistTags();
         }
 
         protected void onPostExecute(final Tags tagResult) {
-            populateSpinners(tagResult);
+            List<String> experienceList = initialiseSpinner(tagResult, "Experience", "Select Years of Experience");
+            List<String> genreList = initialiseSpinner(tagResult, "Genre", "Select Genre");
+            List<String> instrumentsList = initialiseSpinner(tagResult, "Instruments", "Select Instruments");
+            List<String> groupTypeList = initialiseSpinner(tagResult, "Group Type", "Select Artist Type");
+            List<String> lookingForList = initialiseSpinner(tagResult, "Looking For", "Select Looking For");
 
+            view.showExperienceSpinner(experienceList);
+            view.showGenreSpinner(genreList);
+            view.showInstrumentsSpinner(instrumentsList);
+            view.showGroupTypeSpinner(groupTypeList);
+            view.showLookingForSpinner(lookingForList);
+        }
+
+        private List<String> initialiseSpinner(Tags tags, String category, String s) {
+            List<String> spinnerContents = tags.getTag(category);
+            spinnerContents.add(0, s);
+            return spinnerContents;
         }
     }
-
-    public void populateSpinners(Tags tagResult){
-
-        List<String> experienceList = initialiseSpinner(tagResult, "Experience", "Select Years of Experience");
-        List<String> genreList = initialiseSpinner(tagResult, "Genre", "Select Genre");
-        List<String> instrumentsList = initialiseSpinner(tagResult, "Instruments", "Select Instruments");
-        List<String> groupTypeList = initialiseSpinner(tagResult, "Group Type", "Select Artist Type");
-        List<String> lookingForList = initialiseSpinner(tagResult, "Looking For", "Select Looking For");
-
-        view.showExperienceSpinner(experienceList);
-        view.showGenreSpinner(genreList);
-        view.showInstrumentsSpinner(instrumentsList);
-        view.showGroupTypeSpinner(groupTypeList);
-        view.showLookingForSpinner(lookingForList);
-    }
-
-    private List<String> initialiseSpinner(Tags tags, String category, String s) {
-        List<String> spinnerContents = tags.getTag(category);
-        spinnerContents.add(0, s);
-        return spinnerContents;
-    }
-
-
 }

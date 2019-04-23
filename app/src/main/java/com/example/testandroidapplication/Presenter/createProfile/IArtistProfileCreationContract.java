@@ -10,7 +10,6 @@ public interface IArtistProfileCreationContract {
     interface Presenter{
         void validateArtistObject(Artist artist);
         void readArtistTags();
-        void populateSpinners(Tags tagResult);
     }
 
     interface View{

@@ -137,31 +137,28 @@ public class WebClientMethods {
     }
 
 
-    public static List<Entity> readUserIds() throws JSONException {
-        HttpJsonParser httpJsonParser = new HttpJsonParser();
-        Map<String, String> httpParams = new HashMap<>();
-        httpParams.put(KEY_USER_TYPE, "Artist");
-
-        JSONObject jsonObject = httpJsonParser.makeHttpRequestUsingFormParams(
-                BASE_URL + "readUserList.php", "GET", httpParams);
-        List<Entity> entityList = new ArrayList();
-        JSONArray resultsArray = null;
+    public static List<Entity> readUserIds() {
+        List<Entity> entityList = new ArrayList<>();
         try {
+            HttpJsonParser httpJsonParser = new HttpJsonParser();
+            Map<String, String> httpParams = new HashMap<>();
+            httpParams.put(KEY_USER_TYPE, "Artist");
+
+            JSONObject jsonObject = httpJsonParser.makeHttpRequestUsingFormParams(
+                    BASE_URL + "readUserList.php", "GET", httpParams);
+            JSONArray resultsArray = null;
             resultsArray = jsonObject.getJSONArray(KEY_DATA);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        if (resultsArray != null) {
-            int len = resultsArray.length();
-            for (int i = 0; i < len; i++) {
-                try {
+
+            if (resultsArray != null) {
+                int len = resultsArray.length();
+                for (int i = 0; i < len; i++) {
                     JSONObject user = (JSONObject) resultsArray.get(i);
                     Artist artist = Artist.fromJson(user);
                     entityList.add(artist);
-                } catch (JSONException e) {
-                    e.printStackTrace();
                 }
             }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
         return entityList;
     }
