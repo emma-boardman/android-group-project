@@ -1,4 +1,4 @@
-package com.example.testandroidapplication;
+package com.example.testandroidapplication.View.createProfile;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,6 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.example.testandroidapplication.R;
+import com.example.testandroidapplication.VenueProfileCreation;
 
 public class VenueRegistration extends Fragment {
 

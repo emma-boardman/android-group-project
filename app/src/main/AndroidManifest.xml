@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         tools:ignore="GoogleAppIndexingWarning"
         android:theme="@style/AppTheme">
-        <activity android:name=".ProfileActivity" />
+        <activity android:name=".View.readProfile.ProfileActivity" />
         <activity android:name=".ReferenceHttpAsyncTasksForUI" />
 
 
@@ -25,16 +25,15 @@
         <activity android:name=".ActualMessaging" />
         <activity android:name=".MessagingWindow" />
         <activity android:name=".Messaging" />
+        <activity android:name=".CalendarActivity"/>
 
-        <activity
-            android:name=".RegisterActivity"
-            android:parentActivityName=".Messaging" />
 
         <activity
             android:name=".LoginActivity"
             android:parentActivityName=".Messaging" />
 
-        <activity android:name=".TempAddUserToDB" />
+
+        <activity android:name=".ContentActivity"/>
 
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -43,6 +42,23 @@
 
             </intent-filter>
         </activity>
+
+        <service android:name=".Notifications.MyFirebaseService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service android:name=".Notifications.MyFirebaseMessaging"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>
