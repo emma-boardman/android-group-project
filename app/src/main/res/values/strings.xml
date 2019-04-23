@@ -51,6 +51,15 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="username">username</string>
+    <string name="calendar_view">\@layout/recycler_view_item</string>
+
+    <string name="adding_new_gig_name">Name</string>
+    <string name="adding_new_gig_time">Time</string>
+    <string name="adding_new_gig_genre">Genre</string>
+    <string name="adding_new_gig_notes">Notes</string>
+    <string name="adding_new_gig_further_notes">Further Notes</string>
+    <string name="adding_new_gig_button">Create Gig!</string>
+    <string name="adding_new_gig_button2">Create Gig!</string>
 
 
 </resources>
