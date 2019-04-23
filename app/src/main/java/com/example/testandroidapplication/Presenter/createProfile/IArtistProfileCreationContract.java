@@ -1,10 +1,9 @@
 package com.example.testandroidapplication.Presenter.createProfile;
 
-import com.example.testandroidapplication.Presenter.createProfile.ArtistProfileCreationPresenter.CreateNewProfileAsyncTask;
 import com.example.testandroidapplication.objects.Artist;
 import com.example.testandroidapplication.objects.Tags;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface IArtistProfileCreationContract {
 
@@ -18,10 +17,10 @@ public interface IArtistProfileCreationContract {
         void buildArtistObject();
         void showToast(String msg);
         void showError(String error);
-        void showExperienceSpinner(ArrayList<String> tagList);
-        void showGenreSpinner(ArrayList<String> tagList);
-        void showInstrumentsSpinner(ArrayList<String> tagList);
-        void showGroupTypeSpinner(ArrayList<String> tagList);
-        void showLookingForSpinner(ArrayList<String> tagList);
+        void showExperienceSpinner(List<String> tagList);
+        void showGenreSpinner(List<String> tagList);
+        void showInstrumentsSpinner(List<String> tagList);
+        void showGroupTypeSpinner(List<String> tagList);
+        void showLookingForSpinner(List<String> tagList);
     }
 }

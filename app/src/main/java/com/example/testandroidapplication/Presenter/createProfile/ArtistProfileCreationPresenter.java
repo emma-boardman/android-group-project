@@ -83,26 +83,24 @@ public class ArtistProfileCreationPresenter implements IArtistProfileCreationCon
 
     public void populateSpinners(Tags tagResult){
 
-        ArrayList<String>  experienceList = (ArrayList<String>) tagResult.getTag("Experience");
-        experienceList.add(0, "Select Years of Experience");
-        ArrayList<String>  genreList = (ArrayList<String>) tagResult.getTag("Genre");
-        genreList.add(0, "Select Genre");
-        ArrayList<String>  instrumentsList = (ArrayList<String>) tagResult.getTag("Instruments");
-        instrumentsList.add(0, "Select Instruments");
-        ArrayList<String>  groupTypeList = (ArrayList<String>) tagResult.getTag("Group Type");
-        groupTypeList.add(0, "Select Artist Type");
-        ArrayList<String>  lookingForList = (ArrayList<String>) tagResult.getTag("Looking For");
-        lookingForList.add(0, "Select Looking For");
+        List<String> experienceList = initialiseSpinner(tagResult, "Experience", "Select Years of Experience");
+        List<String> genreList = initialiseSpinner(tagResult, "Genre", "Select Genre");
+        List<String> instrumentsList = initialiseSpinner(tagResult, "Instruments", "Select Instruments");
+        List<String> groupTypeList = initialiseSpinner(tagResult, "Group Type", "Select Artist Type");
+        List<String> lookingForList = initialiseSpinner(tagResult, "Looking For", "Select Looking For");
 
         view.showExperienceSpinner(experienceList);
         view.showGenreSpinner(genreList);
         view.showInstrumentsSpinner(instrumentsList);
         view.showGroupTypeSpinner(groupTypeList);
         view.showLookingForSpinner(lookingForList);
+    }
 
+    private List<String> initialiseSpinner(Tags tags, String category, String s) {
+        List<String> spinnerContents = tags.getTag(category);
+        spinnerContents.add(0, s);
+        return spinnerContents;
     }
 
 
-
-
- }
+}

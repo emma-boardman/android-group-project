@@ -29,7 +29,6 @@ public class WebClientMethods {
     private static final String KEY_EMAIL = "Email";
     private static final String KEY_TAG_CATEGORY = "Tag_Category";
     private static final String KEY_USER_TYPE = "User_Type";
-    private static final String KEY_DESCRIPTION = "Description";
     private static final String KEY_GIG_ID = "Gig_Id";
     private static final String KEY_DATA = "data";
 

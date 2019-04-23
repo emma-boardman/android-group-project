@@ -1,34 +1,28 @@
 package com.example.testandroidapplication.View.createProfile;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.testandroidapplication.ContentActivity;
 import com.example.testandroidapplication.Presenter.createProfile.ArtistProfileCreationPresenter;
 import com.example.testandroidapplication.Presenter.createProfile.IArtistProfileCreationContract;
 import com.example.testandroidapplication.R;
 import com.example.testandroidapplication.WelcomeFragement;
-import com.example.testandroidapplication.ProfileFragment;
 import com.example.testandroidapplication.objects.Artist;
 import com.example.testandroidapplication.objects.ProfileInformation;
 import com.example.testandroidapplication.objects.Tags;
 import com.example.testandroidapplication.objects.User;
 import com.example.testandroidapplication.utils.CheckNetworkStatus;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ArtistProfileCreation extends Fragment implements IArtistProfileCreationContract.View {
@@ -109,22 +103,11 @@ public class ArtistProfileCreation extends Fragment implements IArtistProfileCre
 
                     artistTags = new Tags();
 
-                    // to be refactored
-                    if (!artistExperienceSpinner.getSelectedItem().toString().contains("Select")){
-                        artistTags.addTag("Experience", artistExperienceSpinner.getSelectedItem().toString());
-                    }
-                    if (!artistGenreSpinner.getSelectedItem().toString().contains("Select")){
-                        artistTags.addTag("Genre", artistGenreSpinner.getSelectedItem().toString());
-                    }
-                    if (!artistInstrumentSpinner.getSelectedItem().toString().contains("Select")){
-                        artistTags.addTag("Instruments", artistInstrumentSpinner.getSelectedItem().toString());
-                    }
-                    if (!artistGroupTypeSpinner.getSelectedItem().toString().contains("Select")){
-                        artistTags.addTag("Group Type", artistGroupTypeSpinner.getSelectedItem().toString());
-                    }
-                    if (!artistLookingForSpinner.getSelectedItem().toString().contains("Select")){
-                        artistTags.addTag("Looking For", artistLookingForSpinner.getSelectedItem().toString());
-                    }
+                    populateTagsFromSpinner(artistExperienceSpinner, "Experience");
+                    populateTagsFromSpinner(artistGenreSpinner, "Genre");
+                    populateTagsFromSpinner(artistInstrumentSpinner, "Instruments");
+                    populateTagsFromSpinner(artistGroupTypeSpinner, "Group Type");
+                    populateTagsFromSpinner(artistLookingForSpinner, "Looking For");
 
                     artistDescriptionInput = artistDescriptionEditText.getText().toString();
                     artistFacebookInput = artistFacebookEditText.getText().toString();
@@ -149,6 +132,12 @@ public class ArtistProfileCreation extends Fragment implements IArtistProfileCre
         });
 
         return v;
+    }
+
+    private void populateTagsFromSpinner(Spinner spinner, String category) {
+        if (!spinner.getSelectedItem().toString().contains("Select")) {
+            artistTags.addTag(category, spinner.getSelectedItem().toString());
+        }
     }
 
     public void buildArtistObject(){
@@ -186,43 +175,30 @@ public class ArtistProfileCreation extends Fragment implements IArtistProfileCre
         // target edit text to display an error
     }
 
-    // to be refactored
-
-    public void showExperienceSpinner(ArrayList<String> experienceTagList){
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), R.layout.spinner_item, experienceTagList);
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        artistExperienceSpinner.setAdapter(adapter);
+    public void showExperienceSpinner(List<String> experienceTagList){
+        showSpinner(artistExperienceSpinner, experienceTagList);
     }
 
-    public void showGenreSpinner(ArrayList<String> genreTagList){
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), R.layout.spinner_item, genreTagList);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        artistGenreSpinner.setAdapter(adapter);
+    public void showGenreSpinner(List<String> genreTagList){
+        showSpinner(artistGenreSpinner, genreTagList);
     }
 
-    public void showInstrumentsSpinner(ArrayList<String> instrumentsTagList){
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), R.layout.spinner_item, instrumentsTagList);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        artistInstrumentSpinner.setAdapter(adapter);
+    public void showInstrumentsSpinner(List<String> instrumentsTagList){
+        showSpinner(artistInstrumentSpinner, instrumentsTagList);
     }
 
-    public void showGroupTypeSpinner(ArrayList<String> groupTypeTagList){
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), R.layout.spinner_item, groupTypeTagList);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        artistGroupTypeSpinner.setAdapter(adapter);
+    public void showGroupTypeSpinner(List<String> groupTypeTagList){
+        showSpinner(artistGroupTypeSpinner, groupTypeTagList);
     }
 
-    public void showLookingForSpinner(ArrayList<String> lookingForTagList){
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), R.layout.spinner_item, lookingForTagList);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        artistLookingForSpinner.setAdapter(adapter);
+    public void showLookingForSpinner(List<String> lookingForTagList){
+        showSpinner(artistLookingForSpinner, lookingForTagList);
     }
 
+    private void showSpinner(Spinner spinner, List<String> tagList) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), R.layout.spinner_item, tagList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+    }
 }
 
