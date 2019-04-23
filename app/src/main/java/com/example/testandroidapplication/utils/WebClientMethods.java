@@ -5,17 +5,21 @@ package com.example.testandroidapplication.utils;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 
 import com.example.testandroidapplication.objects.Artist;
+import com.example.testandroidapplication.objects.Entity;
 import com.example.testandroidapplication.objects.Gig;
 import com.example.testandroidapplication.objects.Tags;
 import com.example.testandroidapplication.objects.Venue;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class WebClientMethods {
@@ -24,7 +28,7 @@ public class WebClientMethods {
     private static final String KEY_USER_NAME = "User_Name";
     private static final String KEY_EMAIL = "Email";
     private static final String KEY_TAG_CATEGORY = "Tag_Category";
-    private static final String KEY_TAGLINE = "Tagline";
+    private static final String KEY_USER_TYPE = "User_Type";
     private static final String KEY_DESCRIPTION = "Description";
     private static final String KEY_GIG_ID = "Gig_Id";
     private static final String KEY_DATA = "data";
@@ -134,7 +138,34 @@ public class WebClientMethods {
     }
 
 
+    public static List<Entity> readUserIds() throws JSONException {
+        HttpJsonParser httpJsonParser = new HttpJsonParser();
+        Map<String, String> httpParams = new HashMap<>();
+        httpParams.put(KEY_USER_TYPE, "Artist");
 
+        JSONObject jsonObject = httpJsonParser.makeHttpRequestUsingFormParams(
+                BASE_URL + "readUserList.php", "GET", httpParams);
+        List<Entity> entityList = new ArrayList();
+        JSONArray resultsArray = null;
+        try {
+            resultsArray = jsonObject.getJSONArray(KEY_DATA);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (resultsArray != null) {
+            int len = resultsArray.length();
+            for (int i = 0; i < len; i++) {
+                try {
+                    JSONObject user = (JSONObject) resultsArray.get(i);
+                    Artist artist = Artist.fromJson(user);
+                    entityList.add(artist);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return entityList;
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static ArtistResult readArtistProfile(String artistId){
