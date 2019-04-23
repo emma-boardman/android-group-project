@@ -1,14 +1,17 @@
 package com.example.testandroidapplication.objects;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class Venue {
+import static com.example.testandroidapplication.utils.JsonUtils.addStringToJson;
+import static com.example.testandroidapplication.utils.JsonUtils.getJSONArrayOrNull;
+import static com.example.testandroidapplication.utils.JsonUtils.getJSONObjectOrNull;
+import static com.example.testandroidapplication.utils.JsonUtils.getStringOrNull;
+import static com.example.testandroidapplication.utils.JsonUtils.merge;
+
+public class Venue implements Entity, JsonWritable {
 
     private User user;
     private ProfileInformation profileInformation;
@@ -36,23 +39,23 @@ public class Venue {
 
             ProfileInformation profileInformation = new ProfileInformation
                     .ProfileBuilder()
-                    .withTagline(jsonObject.getString("Tagline"))
-                    .withDescription(jsonObject.getString("Description"))
-                    .withLocation(jsonObject.getString("Location"))
-                    .withFacebookLink(jsonObject.getString("Facebook"))
-                    .withWebPageLink(jsonObject.getString("Website"))
-                    .withOverallRating(jsonObject.getString("Overall_Rating"))
-                    .withReviews(Review.fromJson(jsonObject.getJSONArray("Reviews")))
-                    .withSearchTags(Tags.fromJson(jsonObject.getJSONObject("Tags")))
+                    .withTagline(getStringOrNull(jsonObject, "Tagline"))
+                    .withDescription(getStringOrNull(jsonObject, "Description"))
+                    .withLocation(getStringOrNull(jsonObject, "Location"))
+                    .withFacebookLink(getStringOrNull(jsonObject, "Facebook"))
+                    .withWebPageLink(getStringOrNull(jsonObject, "Website"))
+                    .withOverallRating(getStringOrNull(jsonObject, "Overall_Rating"))
+                    .withReviews(Review.fromJson(getJSONArrayOrNull(jsonObject,"Reviews")))
+                    .withSearchTags(Tags.fromJson(getJSONObjectOrNull(jsonObject, "Tags")))
                     .build();
 
             venue = new Venue
                     .VenueBuilder(user)
                     .withProfileInformation(profileInformation)
-                    .withAddress1(jsonObject.getString("Address1"))
-                    .withPostcode(jsonObject.getString("PostCode"))
-                    .withPhoneNumber(jsonObject.getString("Phone_Number"))
-                    .withFAQs(Faq.fromJson(jsonObject.getJSONArray("FAQs")))
+                    .withAddress1(getStringOrNull(jsonObject, "Address1"))
+                    .withPostcode(getStringOrNull(jsonObject, "PostCode"))
+                    .withPhoneNumber(getStringOrNull(jsonObject, "Phone_Number"))
+                    .withFAQs(Faq.fromJson(getJSONArrayOrNull(jsonObject,"FAQs")))
                     .build();
 
         } catch (JSONException e) {
@@ -63,32 +66,23 @@ public class Venue {
         return venue;
     }
 
-
-    public JSONObject toJson(Venue venue) throws JSONException {
-
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.accumulate("User_Id", venue.getUser().getUserID());
-        jsonObject.accumulate("User_Name", venue.getUser().getName());
-        jsonObject.accumulate("Email", venue.getUser().getEmail());
-        jsonObject.accumulate("Facebook", venue.getProfileInformation().getFacebookLink());
-        jsonObject.accumulate("Instagram", venue.getProfileInformation().getInstagramLink());
-        jsonObject.accumulate("Twitter", venue.getProfileInformation().getTwitterLink());
-        jsonObject.accumulate("Website", venue.getProfileInformation().getWebPageLink());
-        jsonObject.accumulate("Tagline", venue.getProfileInformation().getTagLine());
-        jsonObject.accumulate("Description", venue.getProfileInformation().getDescription());
-        jsonObject.accumulate("Location", venue.getProfileInformation().getLocation());
-        jsonObject.accumulate("Address1", venue.getAddress1());
-        jsonObject.accumulate("PostCode", venue.getPostcode());
-        jsonObject.accumulate("Phone_Number", venue.getPhoneNumber());
-
-        return jsonObject;
-
+    @Override
+    public JSONObject toJson() throws JSONException {
+        final JSONObject jsonObject = new JSONObject();
+        addStringToJson(jsonObject,"Address1", this.getAddress1());
+        addStringToJson(jsonObject,"PostCode", this.getPostcode());
+        addStringToJson(jsonObject,"Phone_Number", this.getPhoneNumber());
+        final JSONObject user = getUser().toJson();
+        final JSONObject profile = getProfileInformation().toJson();
+        return merge(jsonObject, profile, user);
     }
 
+    @Override
     public User getUser(){
         return user;
     }
 
+    @Override
     public ProfileInformation getProfileInformation(){
         return profileInformation;
     }

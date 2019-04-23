@@ -4,9 +4,14 @@ package com.example.testandroidapplication.objects;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
-public class ProfileInformation {
+import static com.example.testandroidapplication.utils.JsonUtils.addStringToJson;
+
+public class ProfileInformation implements JsonWritable {
 
     private String tagLine;
     private String description;
@@ -147,5 +152,22 @@ public class ProfileInformation {
             return new ProfileInformation(this);
         }
 
+    }
+
+    @Override
+    public JSONObject toJson() throws JSONException {
+        final JSONObject jsonObject = new JSONObject();
+        addStringToJson(jsonObject, "Facebook", getFacebookLink());
+        addStringToJson(jsonObject, "Instagram", getInstagramLink());
+        addStringToJson(jsonObject, "Twitter", getTwitterLink());
+        addStringToJson(jsonObject, "Website", getWebPageLink());
+        addStringToJson(jsonObject, "Tagline", getTagLine());
+        addStringToJson(jsonObject, "Description", getDescription());
+        addStringToJson(jsonObject, "Location", getLocation());
+        Tags searchTags = getSearchTags();
+        if (searchTags.hasTags()) {
+            jsonObject.accumulate("Tags", searchTags.toJson());
+        }
+        return jsonObject;
     }
 }

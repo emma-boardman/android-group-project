@@ -17,10 +17,23 @@ public class WelcomeFragement extends Fragment {
         View v = inflater.inflate(R.layout.registration_sucessful, container, false);
 
         Button getStarted = v.findViewById(R.id.get_started);
+        Button viewProfile = v.findViewById(R.id.view_profile);
+
+        final ProfileFragment profileFragment = new ProfileFragment();
 
         getStarted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+            }
+        });
+
+        viewProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
+                        profileFragment).commit();
 
             }
         });

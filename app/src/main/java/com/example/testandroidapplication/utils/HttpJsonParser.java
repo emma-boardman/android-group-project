@@ -29,10 +29,10 @@ public class HttpJsonParser {
     private static JSONObject jObj = null;
     private static String json = "";
 
-    // function get json from url
-    // by making HTTP POST or GET method
-    public JSONObject makeHttpRequest(String url, String method,
-                                      Map<String, String> params) {
+    // for requests with 1-3 parameters, JSON conversion not required
+
+    public JSONObject makeHttpRequestUsingFormParams(String url, String method,
+                                                     Map<String, String> params) {
 
         try {
             Uri.Builder builder = new Uri.Builder();
@@ -97,9 +97,11 @@ public class HttpJsonParser {
 
     }
 
-    JSONObject makeHttpPost(JSONObject jsonObject) throws IOException, JSONException {
+    // for requests with multiple parameters, JSON conversion required
 
-        URL urlObj = new URL("http://40414669.wdd.napier.ac.uk/inc/createVenueProfile.php");
+    JSONObject makeHttpPostUsingJson(String url, JSONObject jsonObject) throws IOException, JSONException {
+
+        URL urlObj = new URL(url);
 
         HttpURLConnection conn = (HttpURLConnection) urlObj.openConnection();
         conn.setRequestMethod("POST");
