@@ -94,24 +94,6 @@ public class ArtistProfileCreation extends Fragment implements IArtistProfileCre
 
         Button createProfile = v.findViewById(R.id.artist_create_profile);
 
-        Button viewProfile = v.findViewById(R.id.artist_view_profile);
-
-        viewProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent i = new Intent(getActivity().getApplicationContext(),
-                        ContentActivity.class);
-                startActivity(i);
-
-                getActivity().finish();
-                /*ProfileFragment profileFragment = new ProfileFragment();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
-                        profileFragment).commit();*/
-
-            }
-        });
-
         createProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,6 +109,7 @@ public class ArtistProfileCreation extends Fragment implements IArtistProfileCre
 
                     artistTags = new Tags();
 
+                    // to be refactored
                     if (!artistExperienceSpinner.getSelectedItem().toString().contains("Select")){
                         artistTags.addTag("Experience", artistExperienceSpinner.getSelectedItem().toString());
                     }
@@ -202,6 +185,8 @@ public class ArtistProfileCreation extends Fragment implements IArtistProfileCre
     public void showError(String error){
         // target edit text to display an error
     }
+
+    // to be refactored
 
     public void showExperienceSpinner(ArrayList<String> experienceTagList){
 
