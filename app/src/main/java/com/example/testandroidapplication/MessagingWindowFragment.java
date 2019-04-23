@@ -1,5 +1,6 @@
 package com.example.testandroidapplication;
 
+import android.annotation.TargetApi;
 import android.support.v4.app.FragmentManager;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -14,8 +15,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -37,10 +41,11 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MessagingWindow extends AppCompatActivity {
+public class MessagingWindowFragment extends Fragment {
 
     CircleImageView profile_image;
     TextView username;
@@ -48,7 +53,87 @@ public class MessagingWindow extends AppCompatActivity {
     FirebaseUser firebaseUser;
     DatabaseReference reference;
 
+    @Nullable
     @Override
+    @TargetApi(27)
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.activity_messaging_window, container, false);
+
+        Toolbar toolbar = v.findViewById(R.id.toolbar);
+        //getActivity().setActionBar(toolbar);
+        //getSupportActionBar().setTitle("");
+
+        profile_image = v.findViewById(R.id.profile_image);
+        username = v.findViewById(R.id.username);
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                username.setText(user.getUsername());
+                if(user.getImageURL().equals("default")){
+                    profile_image.setImageResource(R.mipmap.ic_launcher);
+                } //else {
+
+                    //Glide.with(Objects.requireNonNull(getActivity()).getApplicationContext()).load(user.getImageURL()).into(profile_image);
+               // }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        final TabLayout tabLayout = v.findViewById(R.id.tab_layout);
+        final ViewPager viewPager = v.findViewById(R.id.view_pager);
+
+        reference = FirebaseDatabase.getInstance().getReference("Chats");
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(Objects.requireNonNull(getActivity()).getSupportFragmentManager());
+
+                int unread = 0;
+
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+
+                    Chat chat = snapshot.getValue(Chat.class);
+
+                    if (chat.getReceiver().equals(firebaseUser.getUid()) && !chat.isIsseen()){
+                        unread++;
+                    }
+                }
+
+                if (unread == 0){
+                    viewPagerAdapter.addFragment(new ChatsFragment(), "Chats");
+                } else {
+                    viewPagerAdapter.addFragment(new ChatsFragment(), "("+unread+") Chats");
+                }
+
+                viewPagerAdapter.addFragment(new UsersFragment(), "Users");
+                viewPagerAdapter.addFragment(new ProfileFragment(), "Profile");
+
+                viewPager.setAdapter(viewPagerAdapter);
+                tabLayout.setupWithViewPager(viewPager);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        return v;
+    }
+
+    /*@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messaging_window);
@@ -125,11 +210,11 @@ public class MessagingWindow extends AppCompatActivity {
         });
 
 
-    }
+    }*/
 
-    @Override
+
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
+        getActivity().getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
@@ -142,7 +227,7 @@ public class MessagingWindow extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
 
                 //check back if correct
-                startActivity(new Intent(MessagingWindow.this, Messaging.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                //startActivity(new Intent(MessagingWindowFragment.this, Messaging.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 return true;
         }
         return false;
@@ -154,7 +239,7 @@ public class MessagingWindow extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.logout) {
             FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(MessagingWindow.this, Messaging.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            startActivity(new Intent(MessagingWindowFragment.this, Messaging.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
             return true;
         } else {
             return false;
@@ -203,13 +288,13 @@ public class MessagingWindow extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         status("online");
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         status("offline");
     }

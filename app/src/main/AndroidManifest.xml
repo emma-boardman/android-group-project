@@ -23,9 +23,9 @@
             android:parentActivityName=".LoginActivity"/>
 
         <activity android:name=".ActualMessaging" />
-        <activity android:name=".MessagingWindow" />
+        <activity android:name=".MessagingWindowFragment" />
         <activity android:name=".Messaging" />
-        <activity android:name=".CalendarActivity"/>
+        <activity android:name=".CalendarFragment"/>
 
 
         <activity
