@@ -106,6 +106,7 @@ public class WebClientMethods {
         }
         try {
             assert jsonObject != null;
+
             return jsonObject.getString("success");
         } catch (JSONException e) {
             e.printStackTrace();

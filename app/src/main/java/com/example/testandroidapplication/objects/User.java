@@ -84,7 +84,7 @@ public class User implements Parcelable, JsonWritable {
         final JSONObject jsonObject = new JSONObject();
         addStringToJson(jsonObject,"User_Id", getUserID());
         addStringToJson(jsonObject,"User_Name", getName());
-        addStringToJson(jsonObject,"Email", getEmail());
+        addStringToJson(jsonObject,"User_Email", getEmail());
         return jsonObject;
     }
 }

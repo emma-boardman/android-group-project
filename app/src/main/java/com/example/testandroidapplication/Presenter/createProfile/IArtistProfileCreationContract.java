@@ -1,5 +1,6 @@
 package com.example.testandroidapplication.Presenter.createProfile;
 
+import com.example.testandroidapplication.Presenter.createProfile.ArtistProfileCreationPresenter.CreateNewProfileAsyncTask;
 import com.example.testandroidapplication.objects.Artist;
 import com.example.testandroidapplication.objects.Tags;
 

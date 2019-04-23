@@ -126,13 +126,15 @@ public class ArtistProfileCreation extends Fragment implements IArtistProfileCre
                     if (!artistGenreSpinner.getSelectedItem().toString().contains("Select")){
                         artistTags.addTag("Genre", artistGenreSpinner.getSelectedItem().toString());
                     }
-
-//                    artistTags.addTag("Experience", artistExperienceSpinner.getSelectedItem().toString());
-//                    artistTags.addTag("Genre", artistGenreSpinner.getSelectedItem().toString());
-//                    artistTags.addTag("Instrument", artistInstrumentSpinner.getSelectedItem().toString());
-//                    artistTags.addTag("Group Type", artistGroupTypeSpinner.getSelectedItem().toString());
-//                    artistTags.addTag("Looking For", artistLookingForSpinner.getSelectedItem().toString());
-
+                    if (!artistInstrumentSpinner.getSelectedItem().toString().contains("Select")){
+                        artistTags.addTag("Instruments", artistInstrumentSpinner.getSelectedItem().toString());
+                    }
+                    if (!artistGroupTypeSpinner.getSelectedItem().toString().contains("Select")){
+                        artistTags.addTag("Group Type", artistGroupTypeSpinner.getSelectedItem().toString());
+                    }
+                    if (!artistLookingForSpinner.getSelectedItem().toString().contains("Select")){
+                        artistTags.addTag("Looking For", artistLookingForSpinner.getSelectedItem().toString());
+                    }
 
                     artistDescriptionInput = artistDescriptionEditText.getText().toString();
                     artistFacebookInput = artistFacebookEditText.getText().toString();

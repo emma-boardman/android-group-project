@@ -55,10 +55,10 @@ public class ArtistProfileCreationPresenter implements IArtistProfileCreationCon
 
         protected void onPostExecute(final String result) {
             if (result.equals("1")) {
-                //Display success message
-//                view.showToast("Profile Added");
+
+                view.showToast("Profile Added");
             } else {
-//                view.showToast("Some error occurred while adding profile");
+                view.showToast("Some error occurred while adding profile");
             }
         }
     }
@@ -77,6 +77,7 @@ public class ArtistProfileCreationPresenter implements IArtistProfileCreationCon
 
         protected void onPostExecute(final Tags tagResult) {
             populateSpinners(tagResult);
+
         }
     }
 
