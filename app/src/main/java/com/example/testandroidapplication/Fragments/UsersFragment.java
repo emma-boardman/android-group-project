@@ -35,7 +35,6 @@ import java.util.List;
 public class UsersFragment extends Fragment {
 
     private RecyclerView recyclerView;
-
     private UserAdapter userAdapter;
     private List<User> mUsers;
 
@@ -118,13 +117,12 @@ public class UsersFragment extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(search_users.getText().toString().equals("")) {
+                if (search_users.getText().toString().equals("")) {
                     mUsers.clear();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                         User user = snapshot.getValue(User.class);
 
                         assert user != null;
-                        assert firebaseUser != null;
                         if (!user.getId().equals(firebaseUser.getUid())) {
                             mUsers.add(user);
                         }
