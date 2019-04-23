@@ -23,14 +23,13 @@
             android:parentActivityName=".LoginActivity"/>
 
         <activity android:name=".ActualMessaging" />
-        <activity android:name=".MessagingWindowFragment" />
-        <activity android:name=".Messaging" />
-        <activity android:name=".CalendarFragment"/>
+
+
 
 
         <activity
-            android:name=".LoginActivity"
-            android:parentActivityName=".Messaging" />
+            android:name=".LoginActivity"/>
+
 
 
         <activity android:name=".ContentActivity"/>
