@@ -14,8 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.testandroidapplication.helper.CheckNetworkStatus;
-import com.example.testandroidapplication.helper.HttpJsonParser;
+import com.example.testandroidapplication.utils.CheckNetworkStatus;
+import com.example.testandroidapplication.utils.HttpJsonParser;
+import com.example.testandroidapplication.View.registerUser.RegisterFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,6 +50,15 @@ public class LoginFragment extends Fragment {
         Button addNewBtn = v.findViewById(R.id.addNewBtn);
         Button btn_messaging = v.findViewById(R.id.btn_messaging);
         Button btn_calender = v.findViewById(R.id.btn_calender);
+        Button btn_test = v.findViewById(R.id.btn_test);
+
+        btn_test.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), ReferenceHttpAsyncTasksForUI.class);
+                startActivity(i);
+            }
+        });
 
         btn_messaging.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +71,18 @@ public class LoginFragment extends Fragment {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Intent i = new Intent(getActivity().getApplicationContext(),
+                        ContentActivity.class);
+                startActivity(i);
+
+                getActivity().finish();
                 // if network is available, validate the user input
+
+                ///
+                /// needs updating to work with Cals firebase Login
+                ///
+                /*
                 if (CheckNetworkStatus.isNetworkAvailable(getActivity().getApplicationContext())) {
                     validateUser();
 
@@ -70,7 +91,7 @@ public class LoginFragment extends Fragment {
                     Toast.makeText(getActivity(),
                             "Unable to connect to internet",
                             Toast.LENGTH_LONG).show();
-                }
+                }*/
             }
 
         });
@@ -140,7 +161,7 @@ public class LoginFragment extends Fragment {
             //Populating request parameters
             httpParams.put(KEY_EMAIL, userEmail);
             httpParams.put(KEY_PASSWORD, userPassword);
-            JSONObject jsonObject = httpJsonParser.makeHttpRequest(
+            JSONObject jsonObject = httpJsonParser.makeHttpRequestUsingFormParams(
                     BASE_URL + "validateUser.php", "POST", httpParams);
             try {
                 success = jsonObject.getInt(KEY_SUCCESS);
@@ -160,7 +181,7 @@ public class LoginFragment extends Fragment {
                                 "User Validated", Toast.LENGTH_LONG).show();
 
                         Intent i = new Intent(getActivity().getApplicationContext(),
-                                ProfileActivity.class);
+                                ContentActivity.class);
                         startActivity(i);
 
                         getActivity().finish();

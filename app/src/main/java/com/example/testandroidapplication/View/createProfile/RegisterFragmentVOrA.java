@@ -1,4 +1,4 @@
-package com.example.testandroidapplication;
+package com.example.testandroidapplication.View.createProfile;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,11 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.testandroidapplication.R;
+import com.example.testandroidapplication.VenueProfileCreation;
+
 public class RegisterFragmentVOrA extends Fragment {
 
-    private VenueRegistration venueRegistration = new VenueRegistration();
-    private ArtistRegistration artistRegistration = new ArtistRegistration();
-
+    private VenueProfileCreation venueProfile = new VenueProfileCreation();
+//    private ArtistProfileCreation artistProfile = new ArtistProfileCreation();
+    private ArtistProfileCreation artistProfile = new ArtistProfileCreation();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -27,7 +30,7 @@ public class RegisterFragmentVOrA extends Fragment {
             public void onClick(View view) {
 
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
-                        venueRegistration).commit();
+                        venueProfile).commit();
 
             }
         });
@@ -37,7 +40,7 @@ public class RegisterFragmentVOrA extends Fragment {
             public void onClick(View view) {
 
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
-                        artistRegistration).commit();
+                        artistProfile).commit();
 
             }
         });

@@ -1,38 +1,33 @@
 package com.example.testandroidapplication.objects;
 
-public abstract class User {
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.util.Property;
 
-    protected String name, email, password, tagLine, searchTags, description, facebookLink, instagramLink, twitterLink, webPageLink, location;
-    protected int userID, overallRating;
-    protected byte[] profileImage;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-    public User(String name, String email, String password, String tagLine, String searchTags, String description, String facebookLink, String instagramLink, String twitterLink, String webPageLink, String location, int userID, int overallRating, byte[] profileImage) {
-        setName(name);
-        setEmail(email);
-        setPassword(password);
-        setTagLine(tagLine);
-        setSearchTags(searchTags);
-        setDescription(description);
-        setFacebookLink(facebookLink);
-        setInstagramLink(instagramLink);
-        setTwitterLink(twitterLink);
-        setWebPageLink(webPageLink);
-        setLocation(location);
-        setUserID(userID);
-        setOverallRating(overallRating);
-        setProfileImage(profileImage);
+import static com.example.testandroidapplication.utils.JsonUtils.addStringToJson;
+
+public class User implements Parcelable, JsonWritable {
+
+    private String userID;
+    private String name;
+    private String email;
+
+
+    public User(String userID, String name, String email){
+        this.userID = userID;
+        this.name = name;
+        this.email = email;
     }
 
-    public User() {
+    public String getUserID() {
+        return userID;
     }
 
-
-        public String toString() {
-        String output;
-
-        output = "" + this.name + " , " + this.userID;
-
-        return output;
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     public String getName() {
@@ -51,99 +46,45 @@ public abstract class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    //write object values to parcel for storage
+    public void writeToParcel(Parcel dest, int flags){
+        dest.writeString(userID);
+        dest.writeString(name);
+        dest.writeString(email);
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    //constructor used for parcel
+    public User(Parcel parcel){
+        userID = parcel.readString();
+        name = parcel.readString();
+        email = parcel.readString();
     }
 
-    public String getTagLine() {
-        return tagLine;
+    //creator - used when un-parceling our parcle (creating the object)
+    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>(){
+
+        @Override
+        public User createFromParcel(Parcel parcel) {
+            return new User(parcel);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[0];
+        }
+    };
+
+    //return hashcode of object
+    public int describeContents() {
+        return hashCode();
     }
 
-    public void setTagLine(String tagLine) {
-        this.tagLine = tagLine;
-    }
-
-    public String getSearchTags() {
-        return searchTags;
-    }
-
-    public void setSearchTags(String searchTags) {
-        this.searchTags = searchTags;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getInstagramLink() {
-        return instagramLink;
-    }
-
-    public void setInstagramLink(String instagramLink) {
-        this.instagramLink = instagramLink;
-    }
-
-    public String getFacebookLink() {
-        return facebookLink;
-    }
-
-    public void setFacebookLink(String facebookLink) {
-        this.facebookLink = facebookLink;
-    }
-
-    public String getTwitterLink() {
-        return twitterLink;
-    }
-
-    public void setTwitterLink(String twitterLink) {
-        this.twitterLink = twitterLink;
-    }
-
-    public String getWebPageLink() {
-        return webPageLink;
-    }
-
-    public void setWebPageLink(String webPageLink) {
-        this.webPageLink = webPageLink;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public int getUserID() {
-        return userID;
-    }
-
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
-
-    public int getOverallRating() {
-        return overallRating;
-    }
-
-    public void setOverallRating(int overallRating) {
-        this.overallRating = overallRating;
-    }
-
-    public byte[] getProfileImage() {
-        return profileImage;
-    }
-
-    public void setProfileImage(byte[] profileImage) {
-        this.profileImage = profileImage;
+    @Override
+    public JSONObject toJson() throws JSONException {
+        final JSONObject jsonObject = new JSONObject();
+        addStringToJson(jsonObject,"User_Id", getUserID());
+        addStringToJson(jsonObject,"User_Name", getName());
+        addStringToJson(jsonObject,"User_Email", getEmail());
+        return jsonObject;
     }
 }

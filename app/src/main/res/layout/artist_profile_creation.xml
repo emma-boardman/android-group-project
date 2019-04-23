@@ -19,8 +19,18 @@
             android:textColor="@color/colorAccent"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:text="@string/venue_profile_creation"
+            android:text="@string/artist_profile_creation"
             />
+
+        <Button
+            android:id="@+id/artist_view_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:fontFamily="@font/arvo"
+            android:padding="2dp"
+            android:text="Bypass to view Profile"
+            android:textColor="@color/colorAccent" />
 
         <TextView
             android:layout_marginTop="30dp"
@@ -45,7 +55,7 @@
             android:gravity="center">
 
             <android.support.design.widget.TextInputEditText
-                android:id="@+id/venue_name"
+                android:id="@+id/artist_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/name"
@@ -66,7 +76,7 @@
             android:gravity="center">
 
             <android.support.design.widget.TextInputEditText
-                android:id="@+id/venue_tagline"
+                android:id="@+id/artist_tagline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/tag_line"
@@ -87,7 +97,7 @@
             android:gravity="center">
 
             <android.support.design.widget.TextInputEditText
-                android:id="@+id/venue_location"
+                android:id="@+id/artist_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/location"
@@ -97,12 +107,108 @@
 
         </android.support.design.widget.TextInputLayout>
 
-        <android.support.v7.widget.AppCompatSpinner
-            android:id="@+id/tag_search_spinner"
+
+        <android.support.design.widget.TextInputLayout
             android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:fontFamily="@font/arvo"
+            android:textColorHint="@color/colorAccent"
+            android:gravity="start">
+
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/artist_tag_search_spinner_experience"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                />
+
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:fontFamily="@font/arvo"
+            android:textColorHint="@color/colorAccent"
+            android:gravity="start">
+
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/artist_tag_search_spinner_genre"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:fontFamily="@font/arvo"
+            android:textColorHint="@color/colorAccent"
+            android:gravity="start">
+
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/artist_tag_search_spinner_instruments"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:fontFamily="@font/arvo"
+            android:textColorHint="@color/colorAccent"
+            android:gravity="start">
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/artist_tag_search_spinner_group_type"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:fontFamily="@font/arvo"
+            android:textColorHint="@color/colorAccent"
+            android:gravity="start">
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/artist_tag_search_spinner_looking_for"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+        </android.support.design.widget.TextInputLayout>
+
 
         <android.support.design.widget.TextInputLayout
             android:layout_marginTop="10dp"
@@ -115,7 +221,7 @@
             android:gravity="center">
 
             <android.support.design.widget.TextInputEditText
-                android:id="@+id/venue_description"
+                android:id="@+id/artist_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/description"
@@ -147,7 +253,7 @@
             android:gravity="center">
 
             <android.support.design.widget.TextInputEditText
-                android:id="@+id/venue_facebook"
+                android:id="@+id/artist_facebook"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/facebook_link"
@@ -168,7 +274,7 @@
             android:gravity="center">
 
             <android.support.design.widget.TextInputEditText
-                android:id="@+id/venue_twitter"
+                android:id="@+id/artist_twitter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/twitter_link"
@@ -189,7 +295,7 @@
             android:gravity="center">
 
             <android.support.design.widget.TextInputEditText
-                android:id="@+id/venue_instagram"
+                android:id="@+id/artist_instagram"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/instagram_link"
@@ -210,7 +316,7 @@
             android:gravity="center">
 
             <android.support.design.widget.TextInputEditText
-                android:id="@+id/venue_webpage"
+                android:id="@+id/artist_webpage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/web_link"
@@ -220,18 +326,6 @@
 
         </android.support.design.widget.TextInputLayout>
 
-        <TextView
-            android:layout_marginTop="40dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:textColor="@color/colorAccent"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:text="@string/address"
-            />
-
         <android.support.design.widget.TextInputLayout
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
@@ -243,31 +337,10 @@
             android:gravity="center">
 
             <android.support.design.widget.TextInputEditText
-                android:id="@+id/venue_address_line_1"
+                android:id="@+id/artist_soundcloud_link"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/address_line_1"
-                android:inputType="text"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:fontFamily="@font/arvo"
-            android:textColorHint="@color/colorAccent"
-            android:gravity="center">
-
-            <android.support.design.widget.TextInputEditText
-                android:id="@+id/venue_address_line_postcode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/address_line_postcode"
+                android:hint="@string/soundcloud_link"
                 android:inputType="text"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
@@ -281,7 +354,7 @@
             android:layout_gravity="center">
 
             <Button
-                android:id="@+id/venue_create_profile"
+                android:id="@+id/artist_create_profile"
                 android:padding="2dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
