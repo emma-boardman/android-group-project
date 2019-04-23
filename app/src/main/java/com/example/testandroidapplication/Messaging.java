@@ -6,9 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.testandroidapplication.Notifications.Data;
+import com.example.testandroidapplication.Notifications.Token;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class Messaging extends AppCompatActivity {
 
@@ -44,6 +49,7 @@ public class Messaging extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Messaging.this, LoginActivity.class));
+                //updateToken(FirebaseInstanceId.getInstance().getToken());
             }
         });
 
@@ -51,7 +57,18 @@ public class Messaging extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Messaging.this, LoginActivity.class));
+                //updateToken(FirebaseInstanceId.getInstance().getToken());
             }
         });
     }
+
+    //might be able to use
+
+    /*
+    private void updateToken(String token){
+        DatabaseReference tokenReference = FirebaseDatabase.getInstance().getReference("Tokens");
+        Token token1 = new Token(token);
+        tokenReference.child(firebaseUser.getUid()).setValue(token1);
+    }
+    */
 }
