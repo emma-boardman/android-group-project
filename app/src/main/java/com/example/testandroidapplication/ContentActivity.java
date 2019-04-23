@@ -9,6 +9,7 @@ import android.view.MenuItem;
 
 public class ContentActivity extends AppCompatActivity {
 
+    private WelcomeFragement welcomeFragement =  new WelcomeFragement();
     private ProfileFragment profileView = new ProfileFragment();
 
 
@@ -17,6 +18,9 @@ public class ContentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.content_activity);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
+                welcomeFragement, "loginFragment").addToBackStack("loginFragment").commit();
+
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         //bottomNav.setOnNavigationItemSelectedListener(navListener);

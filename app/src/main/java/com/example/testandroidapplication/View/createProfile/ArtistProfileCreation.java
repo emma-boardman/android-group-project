@@ -1,5 +1,6 @@
 package com.example.testandroidapplication.View.createProfile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.testandroidapplication.ContentActivity;
 import com.example.testandroidapplication.Presenter.createProfile.ArtistProfileCreationPresenter;
 import com.example.testandroidapplication.Presenter.createProfile.IArtistProfileCreationContract;
 import com.example.testandroidapplication.R;
@@ -98,9 +100,14 @@ public class ArtistProfileCreation extends Fragment implements IArtistProfileCre
             @Override
             public void onClick(View view) {
 
-                ProfileFragment profileFragment = new ProfileFragment();
+                Intent i = new Intent(getActivity().getApplicationContext(),
+                        ContentActivity.class);
+                startActivity(i);
+
+                getActivity().finish();
+                /*ProfileFragment profileFragment = new ProfileFragment();
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
-                        profileFragment).commit();
+                        profileFragment).commit();*/
 
             }
         });
