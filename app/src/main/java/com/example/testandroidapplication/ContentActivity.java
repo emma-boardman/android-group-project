@@ -18,8 +18,8 @@ public class ContentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.content_activity);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
-                welcomeFragement, "loginFragment").addToBackStack("loginFragment").commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_fragement_container,
+                profileView).commit();
 
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);

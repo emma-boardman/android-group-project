@@ -1,5 +1,6 @@
 package com.example.testandroidapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -32,8 +33,14 @@ public class WelcomeFragement extends Fragment {
             @Override
             public void onClick(View view) {
 
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
-                        profileFragment).commit();
+                Intent i = new Intent(getActivity().getApplicationContext(),
+                        ContentActivity.class);
+                startActivity(i);
+
+                getActivity().finish();
+
+                /*getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
+                        profileFragment).commit();*/
 
             }
         });
