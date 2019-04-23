@@ -17,12 +17,12 @@ public class ArtistRegistration extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.artist_registration, container, false);
+        View v = inflater.inflate(R.layout.artist_profile_creation, container, false);
 
-        Button venueRegister = v.findViewById(R.id.venue_register);
+        Button artistRegister = v.findViewById(R.id.venue_register);
         Button venueCancel = v.findViewById(R.id.venue_cancel);
-        EditText venueEmail = v.findViewById(R.id.user_email);
-        EditText venuePassword = v.findViewById(R.id.user_password);
+        EditText artistEmail = v.findViewById(R.id.user_email);
+        EditText artistPassword = v.findViewById(R.id.user_password);
         EditText venueConfirmPassword = v.findViewById(R.id.user_confirm_password);
         final RegisterFragmentVOrA registerFragmentVOrA = new RegisterFragmentVOrA();
 

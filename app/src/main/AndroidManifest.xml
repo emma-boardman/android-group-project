@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         tools:ignore="GoogleAppIndexingWarning"
         android:theme="@style/AppTheme">
-        <activity android:name=".ProfileActivity" />
+        <activity android:name=".View.readProfile.ProfileActivity" />
         <activity android:name=".ReferenceHttpAsyncTasksForUI" />
 
 
@@ -27,15 +27,17 @@
         <activity android:name=".Messaging" />
         <activity android:name=".CalendarActivity"/>
 
-        <activity
-            android:name=".RegisterActivity"
-            android:parentActivityName=".Messaging" />
+        <!--<activity-->
+            <!--android:name=".RegisterActivity"-->
+            <!--android:parentActivityName=".Messaging" />-->
 
         <activity
             android:name=".LoginActivity"
             android:parentActivityName=".Messaging" />
 
-        <activity android:name=".TempAddUserToDB" />
+        <!--<activity android:name=".TempAddUserToDB" />-->
+
+        <activity android:name=".ContentActivity"/>
 
         <activity android:name=".MainActivity">
             <intent-filter>

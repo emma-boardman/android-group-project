@@ -1,11 +1,15 @@
 package com.example.testandroidapplication.objects;
 
-import android.provider.ContactsContract;
+import com.example.testandroidapplication.utils.JsonUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Artist {
+import static com.example.testandroidapplication.utils.JsonUtils.addStringToJson;
+import static com.example.testandroidapplication.utils.JsonUtils.getStringOrNull;
+import static com.example.testandroidapplication.utils.JsonUtils.merge;
+
+public class Artist implements Entity, JsonWritable {
 
     private User user;
     private ProfileInformation profileInformation;
@@ -28,20 +32,22 @@ public class Artist {
 
                 ProfileInformation profileInformation = new ProfileInformation
                         .ProfileBuilder()
-                        .withTagline(jsonObject.getString("Tagline"))
-                        .withDescription(jsonObject.getString("Description"))
-                        .withLocation(jsonObject.getString("Location"))
-                        .withFacebookLink(jsonObject.getString("Facebook"))
-                        .withWebPageLink(jsonObject.getString("Website"))
-                        .withOverallRating(jsonObject.getString("Overall_Rating"))
-                        .withReviews(Review.fromJson(jsonObject.getJSONArray("Reviews")))
-                        .withSearchTags(Tags.fromJson(jsonObject.getJSONObject("Tags")))
+                        .withTagline(getStringOrNull(jsonObject, "Tagline"))
+                        .withDescription(getStringOrNull(jsonObject, "Description"))
+                        .withLocation(getStringOrNull(jsonObject, "Location"))
+                        .withFacebookLink(getStringOrNull(jsonObject, "Facebook"))
+                        .withInstagramLink(getStringOrNull(jsonObject, "Instagram"))
+                        .withTwitterLink(getStringOrNull(jsonObject, "Twitter"))
+                        .withWebPageLink(getStringOrNull(jsonObject, "Website"))
+                        .withOverallRating(getStringOrNull(jsonObject, "Overall_Rating"))
+                        .withReviews(Review.fromJson(JsonUtils.getJSONArrayOrNull(jsonObject,"Reviews")))
+                        .withSearchTags(Tags.fromJson(JsonUtils.getJSONObjectOrNull(jsonObject, "Tags")))
                         .build();
 
                 artist = new Artist
                         .ArtistBuilder(user)
                         .withProfileInformation(profileInformation)
-                        .withSoundcloudLink(jsonObject.getString("Soundcloud"))
+                        .withSoundcloudLink(getStringOrNull(jsonObject, "Soundcloud"))
                         .build();
 
             } catch (JSONException e) {
@@ -52,7 +58,26 @@ public class Artist {
             return artist;
         }
 
-        public String getSoundCloudLink() {
+    @Override
+    public JSONObject toJson() throws JSONException {
+        final JSONObject jsonObject = new JSONObject();
+        addStringToJson(jsonObject, "Soundcloud", this.getSoundCloudLink());
+        final JSONObject user = getUser().toJson();
+        final JSONObject profile = getProfileInformation().toJson();
+        return merge(jsonObject, profile, user);
+    }
+
+    @Override
+    public User getUser(){
+        return user;
+    }
+
+    @Override
+    public ProfileInformation getProfileInformation(){
+        return profileInformation;
+    }
+
+    public String getSoundCloudLink() {
             return soundCloudLink;
         }
 
@@ -63,7 +88,7 @@ public static class ArtistBuilder {
     private ProfileInformation profileInformation;
     private String soundCloudLink;
 
-    ArtistBuilder(User user) {
+    public ArtistBuilder(User user) {
         this.user = user;
     }
 
@@ -72,17 +97,17 @@ public static class ArtistBuilder {
         return this;
     }
 
-    ArtistBuilder withProfileInformation(ProfileInformation profileInformation){
+    public ArtistBuilder withProfileInformation(ProfileInformation profileInformation){
         this.profileInformation = profileInformation;
         return this;
     }
 
-    ArtistBuilder withSoundcloudLink(String soundCloudLink) {
+    public ArtistBuilder withSoundcloudLink(String soundCloudLink) {
         this.soundCloudLink = soundCloudLink;
         return this;
     }
 
-    Artist build() {
+    public Artist build() {
         return new Artist(this);
     }
 }

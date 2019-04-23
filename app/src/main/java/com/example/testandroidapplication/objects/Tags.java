@@ -1,5 +1,7 @@
 package com.example.testandroidapplication.objects;
 
+import android.support.annotation.Nullable;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,7 +14,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-public class Tags {
+public class Tags implements JsonWritable {
 
         private final Map<String, List<String>> tags = new HashMap<>();
 
@@ -34,19 +36,36 @@ public class Tags {
             else return Collections.emptyList();
         }
 
-        public static Tags fromJson(final JSONObject jsonObject) throws JSONException {
+        public static Tags fromJson(@Nullable final JSONObject jsonObject) throws JSONException {
             final Tags tags = new Tags();
-            Iterator<String> keys = jsonObject.keys();
-            while (keys.hasNext()) {
-                String category = keys.next();
-                JSONArray values = jsonObject.getJSONArray(category);
-                for (int i = 0; i < values.length(); i++ ) {
-                    String value = values.getString(i);
-                    tags.addTag(category, value);
+            if (jsonObject != null) {
+                Iterator<String> keys = jsonObject.keys();
+                while (keys.hasNext()) {
+                    String category = keys.next();
+                    JSONArray values = jsonObject.getJSONArray(category);
+                    for (int i = 0; i < values.length(); i++ ) {
+                        String value = values.getString(i);
+                        tags.addTag(category, value);
+                    }
                 }
             }
             return tags;
         }
 
+        public boolean hasTags() {
+            return !tags.isEmpty();
+        }
+
+        @Override
+        public JSONObject toJson() throws JSONException {
+            JSONObject tags = new JSONObject();
+            List<String> categories = this.getCategories();
+            if (!categories.isEmpty()) {
+                for (String category : categories) {
+                    tags.accumulate(category, this.getTag(category));
+                }
+            }
+            return tags;
+        }
 }
 

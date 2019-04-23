@@ -131,15 +131,16 @@
             android:textColor="@color/colorAccent" />
 
         <Button
-            android:id="@+id/btn_bypass_register"
+            android:id="@+id/register_bypass"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
             android:background="@color/colorPrimaryDark"
             android:fontFamily="@font/arvo"
-            android:text="bypass registration for testing"
+            android:text="BYPASS"
             android:textColor="@color/colorAccent" />
 
     </LinearLayout>
-
 
 </LinearLayout>
