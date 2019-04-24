@@ -1,15 +1,17 @@
 package com.example.testandroidapplication;
 
 import android.annotation.TargetApi;
-import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,19 +23,37 @@ import java.util.Objects;
 import android.support.v7.widget.LinearLayoutManager;
 import com.example.testandroidapplication.Adapter.CustomAdapter;
 
+import static com.example.testandroidapplication.R.id.addingGigCalendarView;
+
 
 public class CalendarFragment extends Fragment {
 
 
-    CalendarView simpleCalendarView;
+    private NewGigFragment newGigFragment = new NewGigFragment();
     ArrayList theGig = new ArrayList<>(Arrays.asList("DippidyDooBAR", "7PM", "Funk", "No money"));
+
+
 
     @Nullable
     @Override
     @TargetApi(27)
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.calendar_view, container, false);
-        simpleCalendarView = v.findViewById(R.id.simpleCalendarView); // get the reference of CalendarView
+
+
+        Button createGigButton;
+        createGigButton = v.findViewById(R.id.goToAddGigPage);//reference of the Gig Add button
+
+        createGigButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FragmentManager manager = getFragmentManager();
+                manager.beginTransaction().replace(R.id.content_fragement_container, newGigFragment).commit();
+
+            }
+        });
+
 
 
         //RecyclerView
@@ -47,6 +67,10 @@ public class CalendarFragment extends Fragment {
         recyclerView.setAdapter(customAdapter); // set the Adapter to RecyclerView
 
 
+
+
+        CalendarView simpleCalendarView;
+        simpleCalendarView = v.findViewById(R.id.simpleCalendarView); // get the reference of CalendarView
         // perform setOnDateChangeListener event on CalendarView
         simpleCalendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -68,44 +92,60 @@ public class CalendarFragment extends Fragment {
                 //}
                 //Hardcoded if
                 if ((dayOfMonth == 28) && (month == 4) && (year == 2019)) {
-                    Toast.makeText(getActivity().getApplicationContext(), "Gig Today!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Gig Today!", Toast.LENGTH_SHORT).show();
 
-                    name.setText("DippidyDooBAR");
-                    time.setText("7PM");
-                    genre.setText("Funk");
-                    notes.setText("Bring Extension");
-                    furtherNotes.setText("No Money");
+                name.setText("DippidyDooBAR");
+                time.setText("7PM");
+                genre.setText("Funk");
+                notes.setText("Bring Extension");
+                furtherNotes.setText("No Money");
 
-                } else if ((dayOfMonth == 5) && (month == 5) && (year == 2019)){
-                    Toast.makeText(getActivity().getApplicationContext(), "Gig Today!", Toast.LENGTH_SHORT).show();
-                    name.setText("McSorleys");
-                    time.setText("8PM");
-                    genre.setText("Banging Irish Tunes");
-                    notes.setText("Student Discount");
-                    furtherNotes.setText("£5 per song not booed");
 
-                } else if ((dayOfMonth == 8) && (month == 5) && (year == 2019)){
-                    Toast.makeText(getActivity().getApplicationContext(), "Gig Today!", Toast.LENGTH_SHORT).show();
-                    name.setText("Banshee Labyrinth");
-                    time.setText("7.30PM");
-                    genre.setText("Korean Pop");
-                    notes.setText("Bring drumsticks");
-                    furtherNotes.setText("Paid in drinks");
+            } else { if ((dayOfMonth == 5) && (month == 5) && (year == 2019)){
+                Toast.makeText(getActivity().getApplicationContext(), "Gig Today!", Toast.LENGTH_SHORT).show();
+                name.setText("McSorleys");
+                time.setText("8PM");
+                genre.setText("Banging Irish Tunes");
+                notes.setText("Student Discount");
+                furtherNotes.setText("£5 per song not booed");
 
-                } else if ((dayOfMonth == 17) && (month == 5) && (year == 2019)){
-                    Toast.makeText(getActivity().getApplicationContext(), "Gig Today!", Toast.LENGTH_SHORT).show();
-                    name.setText("Banshee Labyrinth");
-                    time.setText("7PM-1AM");
-                    genre.setText("Jazz-Fusion");
-                    notes.setText("Bring Presents");
-                    furtherNotes.setText("'Experience'");
+            } else { if ((dayOfMonth == 8) && (month == 5) && (year == 2019)){
+                Toast.makeText(getActivity().getApplicationContext(), "Gig Today!", Toast.LENGTH_SHORT).show();
+                name.setText("Banshee Labyrinth");
+                time.setText("7.30PM");
+                genre.setText("Korean Pop");
+                notes.setText("Bring drumsticks");
+                furtherNotes.setText("Paid in drinks");
 
-                } else Toast.makeText(getActivity().getApplicationContext(),"No Events today!", Toast.LENGTH_SHORT).show();
+            } else { if ((dayOfMonth == 17) && (month == 5) && (year == 2019)){
+                Toast.makeText(getActivity().getApplicationContext(), "Gig Today!", Toast.LENGTH_SHORT).show();
+                name.setText("Banshee Labyrinth");
+                time.setText("7PM-1AM");
+                genre.setText("Jazz-Fusion");
+                notes.setText("Bring Presents");
+                furtherNotes.setText("'Experience'");
 
+
+            } else {
+                Toast.makeText(getActivity().getApplicationContext(), "No Events today!", Toast.LENGTH_SHORT).show();
+                name.setText("");
+                time.setText("");
+                genre.setText("");
+                notes.setText("");
+                furtherNotes.setText("");
             }
+            }
+            }
+            }
+
+        }
         });
         return v;
+
+
+
     }
+
 
 
     /*@Override

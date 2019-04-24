@@ -9,10 +9,13 @@
     <CalendarView
         android:id="@+id/simpleCalendarView"
         android:layout_width="fill_parent"
-        android:layout_height="350dp"
+        android:layout_height="300dp"
         android:firstDayOfWeek="2"
         android:maxDate="01/01/2070"
         android:minDate="01/01/2019"
+        android:weekNumberColor="@color/cardview_dark_background"
+        android:background="@color/cardview_light_background"
+
         />
 
     <android.support.v7.widget.RecyclerView
@@ -26,7 +29,7 @@
     <Button
         android:id="@+id/goToAddGigPage"
         android:layout_width="120dp"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:layout_below="@+id/simpleCalendarView"
         android:text="@string/adding_new_gig_button"
         android:background="@color/colorPrimaryDark"
@@ -38,33 +41,33 @@
         android:id="@+id/text"
         android:layout_below="@+id/goToAddGigPage"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:text=""
         />
     <TextView
         android:id="@+id/text1"
         android:layout_below="@+id/text"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:text=""
         />
     <TextView
         android:id="@+id/text2"
         android:layout_below="@+id/text1"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:text=""/>
     <TextView
         android:id="@+id/text3"
         android:layout_below="@+id/text2"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:text=""/>
     <TextView
         android:id="@+id/text4"
         android:layout_below="@+id/text3"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="35dp"
         android:text=""/>
 
 </RelativeLayout>
