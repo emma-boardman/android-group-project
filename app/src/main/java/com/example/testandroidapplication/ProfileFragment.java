@@ -3,6 +3,7 @@ package com.example.testandroidapplication;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -48,12 +49,13 @@ public class ProfileFragment extends Fragment {
     private ImageButton userWebsite;
     private TextView userReviewOne;
     private TextView userReviewDate;
+    private TextView userReviewLabel;
     private TextView userTags;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_main_profile,container,false);
+        View v = inflater.inflate(R.layout.fragment_main_profile, container, false);
 
         webView = v.findViewById(R.id.profile_web_view);
 
@@ -70,19 +72,20 @@ public class ProfileFragment extends Fragment {
         userWebsite = v.findViewById(R.id.profile_email);
         userReviewOne = v.findViewById(R.id.comment_1);
         userReviewDate = v.findViewById(R.id.comment_1_reviewer_and_date);
+        userRatingLabel = v.findViewById(R.id.profile_review_label);
         userTags = v.findViewById(R.id.profile_tags);
 
         return v;
     }
 
     public void accessUserIdForDB(JSONObject user) throws JSONException {
-           Log.i("user", String.valueOf(user));
-           userId = user.getString("User_Id");
-           if (user.getString("User_type").equals("Artist")){
-               new ReadArtistProfileAsyncTask().execute(userId);
-           } else {
-               new ReadVenueProfileAsyncTask().execute(userId);
-           }
+        Log.i("user", String.valueOf(user));
+        userId = user.getString("User_Id");
+        if (user.getString("User_type").equals("Artist")) {
+            new ReadArtistProfileAsyncTask().execute(userId);
+        } else {
+            new ReadVenueProfileAsyncTask().execute(userId);
+        }
 
     }
 
@@ -102,8 +105,8 @@ public class ProfileFragment extends Fragment {
 
             populateArtistUI(artist);
 
-                }
-            }
+        }
+    }
 
 
     private class ReadVenueProfileAsyncTask extends AsyncTask<String, String, Venue> {
@@ -124,26 +127,26 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-            private void setTextIfExists(TextView textView, @Nullable String text) {
-                if (!Strings.isEmptyOrWhitespace(text)) {
-                    textView.setText(text);
-                } else {
-                    textView.setVisibility(View.GONE);
-                }
-            }
+    private void setTextIfExists(TextView textView, @Nullable String text) {
+        if (!Strings.isEmptyOrWhitespace(text)) {
+            textView.setText(text);
+        } else {
+            textView.setVisibility(View.GONE);
+        }
+    }
 
-            private void setImageIfExists(ImageButton imageButton, final String baseUrl, final @Nullable String text) {
-                if (!Strings.isEmptyOrWhitespace(text)) {
-                    imageButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            webView.loadUrl(baseUrl + text);
-                        }
-                    });
-                } else {
-                    imageButton.setVisibility(View.GONE);
+    private void setImageIfExists(ImageButton imageButton, final String baseUrl, final @Nullable String text) {
+        if (!Strings.isEmptyOrWhitespace(text)) {
+            imageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    webView.loadUrl(baseUrl + text);
                 }
-            }
+            });
+        } else {
+            imageButton.setVisibility(View.GONE);
+        }
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
 
@@ -158,11 +161,11 @@ public class ProfileFragment extends Fragment {
         setTextIfExists(userDescription, profile.getDescription());
 
         String listOfTags = String.valueOf(profile.getSearchTags().getTag("Genre"));
-        listOfTags = listOfTags.replaceAll("\\[", "").replaceAll("]","");
+        listOfTags = listOfTags.replaceAll("\\[", "").replaceAll("]", "");
         setTextIfExists(userTags, listOfTags);
 
         String rating = profile.getOverallRatingNum();
-        if (!rating.equals("null")){
+        if (!rating.equals("null")) {
             userRating.setRating(Float.parseFloat(rating));
         } else {
             userRating.setVisibility(View.GONE);
@@ -177,12 +180,14 @@ public class ProfileFragment extends Fragment {
         setImageIfExists(userWebsite, "", profile.getWebPageLink());
 
         ArrayList<Review> reviews;
-        if (profile.getReviews() != null){
+        if (profile.getReviews() != null) {
             reviews = profile.getReviews();
             for (Review review : reviews) {
                 setTextIfExists(userReviewOne, review.getVenueComment());
-                setTextIfExists(userReviewDate, review.getVenueName() + ", "  + review.getGigDate());
+                setTextIfExists(userReviewDate, review.getVenueName() + ", " + review.getGigDate());
             }
+        } else {
+            userReviewLabel.setVisibility(View.GONE);
         }
 
     }
@@ -198,12 +203,12 @@ public class ProfileFragment extends Fragment {
         setTextIfExists(userDescription, profile.getDescription());
 
         String listOfTags = String.valueOf(profile.getSearchTags().getTag("Genre"));
-        listOfTags = listOfTags.replaceAll("\\[", "").replaceAll("]","");
+        listOfTags = listOfTags.replaceAll("\\[", "").replaceAll("]", "");
         setTextIfExists(userTags, listOfTags);
 
         String rating = profile.getOverallRatingNum();
-        if (!rating.equals("null")){
-        userRating.setRating(Float.parseFloat(rating));
+        if (!rating.equals("null")) {
+            userRating.setRating(Float.parseFloat(rating));
         } else {
             userRating.setVisibility(View.GONE);
             userRatingLabel.setVisibility(View.GONE);
@@ -214,7 +219,16 @@ public class ProfileFragment extends Fragment {
         setImageIfExists(userTwitter, "https://www.twitter.com/", profile.getTwitterLink());
         setImageIfExists(userWebsite, "", profile.getWebPageLink());
 
-        setTextIfExists(userReviewOne, String.valueOf(profile.getReviews()));
+        ArrayList<Review> reviews;
+        if (profile.getReviews() != null) {
+            reviews = profile.getReviews();
+            for (Review review : reviews) {
+                setTextIfExists(userReviewOne, review.getVenueComment());
+                setTextIfExists(userReviewDate, review.getVenueName() + ", " + review.getGigDate());
+            }
+        } else {
+            userReviewLabel.setVisibility(View.GONE);
+        }
 
     }
 
