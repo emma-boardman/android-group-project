@@ -211,10 +211,10 @@ public class WebClientMethods {
          }
      }
 
-    public VenueResult readVenueProfile(){
+    public static VenueResult readVenueProfile(String venueId){
         HttpJsonParser httpJsonParser = new HttpJsonParser();
         Map<String, String> httpParams = new HashMap<>();
-        httpParams.put(KEY_USER_ID, "testVenue");
+        httpParams.put(KEY_USER_ID, venueId);
 
         JSONObject jsonObject = httpJsonParser.makeHttpRequestUsingFormParams(
                 BASE_URL + "readVenueProfile.php", "GET", httpParams);

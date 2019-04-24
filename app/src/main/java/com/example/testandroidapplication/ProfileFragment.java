@@ -1,7 +1,5 @@
 package com.example.testandroidapplication;
 
-import android.app.Activity;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,20 +15,18 @@ import android.webkit.WebView;
 import android.widget.ImageButton;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.example.testandroidapplication.objects.Artist;
 import com.example.testandroidapplication.objects.ProfileInformation;
+import com.example.testandroidapplication.objects.Venue;
 import com.example.testandroidapplication.utils.ArtistResult;
+import com.example.testandroidapplication.utils.VenueResult;
 import com.example.testandroidapplication.utils.WebClientMethods;
 import com.google.android.gms.common.util.Strings;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Objects;
 
 public class ProfileFragment extends Fragment {
 
@@ -71,7 +67,12 @@ public class ProfileFragment extends Fragment {
     public void accessUserIdForDB(JSONObject user) throws JSONException {
            Log.i("user", String.valueOf(user));
            userId = user.getString("User_Id");
-           new ReadArtistProfileAsyncTask().execute(userId);
+           if (user.getString("User_type").equals("Artist")){
+               new ReadArtistProfileAsyncTask().execute(userId);
+           } else {
+               new ReadVenueProfileAsyncTask().execute(userId);
+           }
+
     }
 
 
@@ -92,10 +93,33 @@ public class ProfileFragment extends Fragment {
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         protected void onPostExecute(final Artist artist) {
 
-            populateUI(artist);
+            populateArtistUI(artist);
 
                 }
             }
+
+
+    private class ReadVenueProfileAsyncTask extends AsyncTask<String, String, Venue> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+        @Override
+        protected Venue doInBackground(String... params) {
+
+            VenueResult venueResult = WebClientMethods.readVenueProfile(userId);
+            return venueResult.getVenue();
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+        protected void onPostExecute(final Venue venue) {
+
+            populateVenueUI(venue);
+
+        }
+    }
 
             private void setTextIfExists(TextView textView, @Nullable String text) {
                 if (!Strings.isEmptyOrWhitespace(text)) {
@@ -119,7 +143,8 @@ public class ProfileFragment extends Fragment {
             }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    private void populateUI(final Artist artist) {
+
+    private void populateArtistUI(final Artist artist) {
 
         userName.setText(artist.getUser().getName());
 
@@ -138,4 +163,24 @@ public class ProfileFragment extends Fragment {
         setImageIfExists(userWebsite, "", profile.getWebPageLink());
 
     }
+
+    private void populateVenueUI(final Venue venue) {
+
+        userName.setText(venue.getUser().getName());
+
+        final ProfileInformation profile = venue.getProfileInformation();
+        setTextIfExists(userName, venue.getUser().getName());
+        setTextIfExists(userTagline, profile.getTagLine());
+        setTextIfExists(userDescription, profile.getDescription());
+        setTextIfExists(userDescription, profile.getDescription());
+
+//        userRating.setRating(Float.parseFloat(profile.getOverallRatingNum()));
+
+        setImageIfExists(userFacebook, "https://www.facebook.com/", profile.getFacebookLink());
+        setImageIfExists(userInstagram, "https://www.instagram.com/", profile.getInstagramLink());
+        setImageIfExists(userTwitter, "https://www.twitter.com/", profile.getTwitterLink());
+        setImageIfExists(userWebsite, "", profile.getWebPageLink());
+
+    }
+
 }
