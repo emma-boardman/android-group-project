@@ -5,104 +5,98 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/User_Input_Layout"
-        android:layout_width="395dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/addingGigCalendarView"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="349dp">
 
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/User_Input"
-            android:layout_width="match_parent"
+
+    <ScrollView
+        android:id="@+id/scroll_View"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.LinearLayoutCompat
+            android:id="@+id/User_Input_Layout"
+            android:layout_width="395dp"
             android:layout_height="wrap_content"
-            android:hint="@string/adding_new_gig_name" />
-    </android.support.design.widget.TextInputLayout>
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="349dp">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/time_Input_Layout"
-        android:layout_width="395dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/User_Input_Layout"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="417dp">
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/time_Input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/adding_new_gig_time" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/genre_Input_Layout"
-        android:layout_width="395dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/time_Input_Layout"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="486dp">
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/genre_Input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/adding_new_gig_genre" />
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/Notes_Input_Layout"
-        android:layout_width="395dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/genre_Input_Layout"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="561dp">
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/notes_Input"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/adding_new_gig_notes" />
-    </android.support.design.widget.TextInputLayout>
+            <CalendarView
+                android:id="@+id/addingGigCalendarView"
+                android:layout_width="wrap_content"
+                android:layout_height="350dp"
+                android:layout_marginTop="100dp"
+                android:background="@color/cardview_light_background"
+                android:firstDayOfWeek="2"
+                android:focusedMonthDateColor="#00050505"
+                android:maxDate="01/01/2070"
+                android:minDate="01/01/2019"
+                android:weekNumberColor="@color/cardview_dark_background" />
 
 
-
-    <CalendarView
-        android:id="@+id/addingGigCalendarView"
-        android:layout_width="fill_parent"
-        android:layout_height="350dp"
-        android:firstDayOfWeek="2"
-        android:maxDate="01/01/2070"
-        android:minDate="01/01/2019"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-1dp" />
+            <EditText
+                android:id="@+id/User_Input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autoText="false"
+                android:hint="@string/adding_new_gig_name"
+                android:importantForAutofill="no"
+                android:inputType="textShortMessage" />
 
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/further_Notes_Input_Layout"
-        android:layout_width="395dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/Notes_Input_Layout"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="620dp">
+            <EditText
+                android:id="@+id/time_Input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/adding_new_gig_time"
+                android:importantForAutofill="no"
+                android:inputType="time" />
 
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/furtherNotes_Input"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_below="@+id/notes_Input"
-            android:hint="@string/adding_new_gig_further_notes" />
-    </android.support.design.widget.TextInputLayout>
 
-    <Button
-        android:id="@+id/addGigButton"
-        android:layout_width="120dp"
-        android:layout_height="40dp"
-        android:layout_below="@id/further_Notes_Input_Layout"
-        android:background="@color/colorPrimaryDark"
-        android:fontFamily="@font/arvo"
-        android:text="@string/adding_new_gig_button2"
-        android:textColor="@color/colorAccent"
-        tools:layout_editor_absoluteX="283dp"
-        tools:layout_editor_absoluteY="689dp" />
+            <EditText
+                android:id="@+id/genre_Input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/adding_new_gig_genre"
+                android:importantForAutofill="no"
+                android:inputType="textShortMessage" />
+
+
+            <EditText
+                android:id="@+id/notes_Input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/adding_new_gig_notes"
+                android:importantForAutofill="no"
+                android:inputType="textShortMessage" />
+
+
+            <EditText
+                android:id="@+id/furtherNotes_Input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/adding_new_gig_further_notes"
+                android:importantForAutofill="no"
+                android:inputType="textShortMessage" />
+
+
+            <Button
+                android:id="@+id/addGigButton"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="11dp"
+                android:background="@color/colorPrimaryDark"
+                android:fontFamily="@font/arvo"
+                android:text="@string/adding_new_gig_button2"
+                android:textColor="@color/colorAccent"
+                tools:layout_editor_absoluteX="283dp"
+                tools:layout_editor_absoluteY="689dp"
+                />
+
+        </android.support.v7.widget.LinearLayoutCompat>
+
+    </ScrollView>
+
+
 
 </RelativeLayout>
