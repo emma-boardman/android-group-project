@@ -30,13 +30,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-
 public class LoginFragment extends Fragment {
 
-    private static final String KEY_SUCCESS = "success";
-    private static final String KEY_EMAIL = "Email";
-    private static final String KEY_PASSWORD = "Password";
-    private static final String BASE_URL = "http://40414669.wdd.napier.ac.uk/inc/";
     private EditText userEmailEditText;
     private EditText userPasswordEditText;
     private String userEmail;
@@ -60,13 +55,13 @@ public class LoginFragment extends Fragment {
         Button btn_calender = v.findViewById(R.id.btn_calender);
         Button btn_test = v.findViewById(R.id.btn_test);
 
-        btn_test.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getActivity(), ReferenceHttpAsyncTasksForUI.class);
-                startActivity(i);
-            }
-        });
+//        btn_test.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View view) {
+//                Intent i = new Intent(getActivity(), ReferenceHttpAsyncTasksForUI.class);
+//                startActivity(i);
+//            }
+//        });
 
         /*btn_messaging.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +81,7 @@ public class LoginFragment extends Fragment {
 
                 getActivity().finish();*/
 
-                String txt_email = userEmailEditText.getText().toString();
+                final String txt_email = userEmailEditText.getText().toString();
                 String txt_password = userPasswordEditText.getText().toString();
 
                 if(TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password)) {
@@ -100,6 +95,7 @@ public class LoginFragment extends Fragment {
                                         Intent intent = new Intent(Objects.requireNonNull(getActivity()).getApplicationContext(),
                                                 ContentActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        intent.putExtra("userEmail", txt_email);
                                         startActivity(intent);
                                         getActivity().finish();
                                     } else {
@@ -161,70 +157,4 @@ public class LoginFragment extends Fragment {
         return v;
     }
 
-
-
-    private void validateUser() {
-        String STRING_EMPTY = "";
-        if (!STRING_EMPTY.equals(userEmailEditText.getText().toString()) &&
-                !STRING_EMPTY.equals(userPasswordEditText.getText().toString())) {
-
-            userEmail = userEmailEditText.getText().toString();
-            userPassword = userPasswordEditText.getText().toString();
-            new LoginFragment.ValidateUserAsyncTask().execute();
-        } else {
-            Toast.makeText(getActivity(),
-                    "One or more fields left empty!",
-                    Toast.LENGTH_LONG).show();
-
-        }
-    }
-
-    private class ValidateUserAsyncTask extends AsyncTask<String, String, String> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            HttpJsonParser httpJsonParser = new HttpJsonParser();
-            Map<String, String> httpParams = new HashMap<>();
-            //Populating request parameters
-            httpParams.put(KEY_EMAIL, userEmail);
-            httpParams.put(KEY_PASSWORD, userPassword);
-            JSONObject jsonObject = httpJsonParser.makeHttpRequestUsingFormParams(
-                    BASE_URL + "validateUser.php", "POST", httpParams);
-            try {
-                success = jsonObject.getInt(KEY_SUCCESS);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        protected void onPostExecute(String result) {
-
-            getActivity().runOnUiThread(new Runnable() {
-                public void run() {
-                    if (success == 1) {
-                        //Display success message
-                        Toast.makeText(getActivity(),
-                                "User Validated", Toast.LENGTH_LONG).show();
-
-                        Intent i = new Intent(getActivity().getApplicationContext(),
-                                ContentActivity.class);
-                        startActivity(i);
-
-                        getActivity().finish();
-
-                    } else {
-                        Toast.makeText(getActivity(),
-                                "Some error occurred while adding user",
-                                Toast.LENGTH_LONG).show();
-
-                    }
-                }
-            });
-        }
-    }
-}
+ }

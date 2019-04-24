@@ -178,6 +178,7 @@
                 android:paddingRight="0sp"
                 android:numStars="5"
                 android:stepSize="0.5"
+                android:progressTint="@android:color/black"
                 />
 
         </LinearLayout>

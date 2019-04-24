@@ -8,8 +8,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.testandroidapplication.Presenter.createProfile.IVenueProfileCreationContract;
@@ -18,10 +20,13 @@ import com.example.testandroidapplication.R;
 import com.example.testandroidapplication.View.registerUser.RegisterFragment;
 import com.example.testandroidapplication.WelcomeFragement;
 import com.example.testandroidapplication.objects.ProfileInformation;
+import com.example.testandroidapplication.objects.Tags;
 import com.example.testandroidapplication.objects.User;
 import com.example.testandroidapplication.objects.Venue;
 import com.example.testandroidapplication.utils.CheckNetworkStatus;
 import com.example.testandroidapplication.utils.WebClientMethods;
+
+import java.util.List;
 
 public class VenueProfileCreation extends Fragment implements IVenueProfileCreationContract.View{
 
@@ -29,6 +34,7 @@ public class VenueProfileCreation extends Fragment implements IVenueProfileCreat
     private User user;
     private ProfileInformation profileInformation;
     private VenueProfileCreationPresenter presenter;
+    private Tags venueTags;
 
     private EditText venueNameEditText;
     private EditText venueTaglineEditText;
@@ -40,6 +46,10 @@ public class VenueProfileCreation extends Fragment implements IVenueProfileCreat
     private EditText venueWebsiteEditText;
     private EditText venueAddress1EditText;
     private EditText venuePostcodeEditText;
+
+    private Spinner venueGenreSpinner;
+    private Spinner venueGroupTypeSpinner;
+    private Spinner venueLookingForSpinner;
 
     private String venueNameInput;
     private String venueTaglineInput;
@@ -61,6 +71,11 @@ public class VenueProfileCreation extends Fragment implements IVenueProfileCreat
         View v = inflater.inflate(R.layout.venue_profile_creation, container, false);
 
         presenter = new VenueProfileCreationPresenter(this);
+        presenter.readVenueTags();
+
+        final String userId = getArguments().getString("USER_ID");
+        final String userEmail = getArguments().getString("USER_EMAIL");
+        final String userName = getArguments().getString("USER_NAME");
 
         venueNameEditText = v.findViewById(R.id.venue_name);
         venueTaglineEditText = v.findViewById(R.id.venue_tagline);
@@ -72,6 +87,9 @@ public class VenueProfileCreation extends Fragment implements IVenueProfileCreat
         venueWebsiteEditText = v.findViewById(R.id.venue_webpage);
         venueAddress1EditText = v.findViewById(R.id.venue_address_line_1);
         venuePostcodeEditText = v.findViewById(R.id.venue_address_line_postcode);
+        venueGenreSpinner = v.findViewById(R.id.venue_tag_search_spinner_genre);
+        venueGroupTypeSpinner = v.findViewById(R.id.venue_tag_search_spinner_group_type);
+        venueLookingForSpinner = v.findViewById(R.id.venue_tag_search_spinner_looking_for);
 
         Button cancelBtn = v.findViewById(R.id.venue_profile_cancel);
         Button createProfile = v.findViewById(R.id.venue_create_profile);
@@ -92,7 +110,7 @@ public class VenueProfileCreation extends Fragment implements IVenueProfileCreat
 
                 if (CheckNetworkStatus.isNetworkAvailable(getActivity().getApplicationContext())) {
 
-                    user = new User("tAFvZ4JsTASEhApJfqKDqhS6AXA3", "TestVenue", "test456@gmail.com");
+                    user = new User(userId, userName, userEmail);
 
                     venueNameInput = venueNameEditText.getText().toString();
                     venueTaglineInput = venueTaglineEditText.getText().toString();
@@ -104,6 +122,13 @@ public class VenueProfileCreation extends Fragment implements IVenueProfileCreat
                     venueWebsiteInput = venueWebsiteEditText.getText().toString();
                     venueAddress1Input = venueAddress1EditText.getText().toString();
                     venuePostcodeInput = venuePostcodeEditText.getText().toString();
+
+                    venueTags = new Tags();
+
+                    populateTagsFromSpinner(venueGenreSpinner, "Genre");
+                    populateTagsFromSpinner(venueGroupTypeSpinner, "Group Type");
+                    populateTagsFromSpinner(venueLookingForSpinner, "Looking For");
+
                     buildVenueObject();
 
                 } else {
@@ -115,11 +140,23 @@ public class VenueProfileCreation extends Fragment implements IVenueProfileCreat
 
                 WelcomeFragement welcomeFragement = new WelcomeFragement();
 
+                Bundle bundle = new Bundle();
+                bundle.putString("USER_ID", userId);
+                bundle.putString("USER_EMAIL", userEmail);
+                bundle.putString("USER_NAME", userName);
+                welcomeFragement.setArguments(bundle);
+
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
                         welcomeFragement).commit();
             }
         });
         return v;
+    }
+
+    private void populateTagsFromSpinner(Spinner spinner, String category) {
+        if (!spinner.getSelectedItem().toString().contains("Select")) {
+            venueTags.addTag(category, spinner.getSelectedItem().toString());
+        }
     }
 
     public void buildVenueObject(){
@@ -130,6 +167,7 @@ public class VenueProfileCreation extends Fragment implements IVenueProfileCreat
                 .ProfileBuilder()
                 .withTagline(venueTaglineInput)
                 .withLocation(venueLocationInput)
+                .withSearchTags(venueTags)
                 .withDescription(venueDescriptionInput)
                 .withFacebookLink(venueFacebookInput)
                 .withTwitterLink(venueTwitterInput)
@@ -156,6 +194,25 @@ public class VenueProfileCreation extends Fragment implements IVenueProfileCreat
 
     public void showError(String error){
         // target edit text to display an error
+    }
+
+
+    public void showGenreSpinner(List<String> genreTagList){
+        showSpinner(venueGenreSpinner, genreTagList);
+    }
+
+    public void showGroupTypeSpinner(List<String> groupTypeTagList){
+        showSpinner(venueGroupTypeSpinner, groupTypeTagList);
+    }
+
+    public void showLookingForSpinner(List<String> lookingForTagList){
+        showSpinner(venueLookingForSpinner, lookingForTagList);
+    }
+
+    private void showSpinner(Spinner spinner, List<String> tagList) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), R.layout.spinner_item, tagList);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
     }
 
 

@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.testandroidapplication.R;
-import com.example.testandroidapplication.ReferenceHttpAsyncTasksForUI;
 import com.example.testandroidapplication.utils.ArtistResult;
 import com.example.testandroidapplication.utils.CheckNetworkStatus;
 import com.example.testandroidapplication.utils.WebClientMethods;
@@ -26,7 +25,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         if (CheckNetworkStatus.isNetworkAvailable(getApplicationContext())) {
-            readArtistProfile(artistUserIdforTesting);
+//            readArtistProfile(artistUserIdforTesting);
         } else {
 //            Toast.makeText(ProfileActivity.this,
 //                    "Unable to connect to internet",
@@ -47,23 +46,23 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void readArtistProfile(String artistUserIdforTesting) {
-        new ReadArtistProfileAsyncTask().execute();
-    }
+//    private void readArtistProfile(String artistUserIdforTesting) {
+//        new ReadArtistProfileAsyncTask().execute();
+//    }
 
-    private class ReadArtistProfileAsyncTask extends AsyncTask<String, String, ArtistResult> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
+//    private class ReadArtistProfileAsyncTask extends AsyncTask<String, String, ArtistResult> {
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//        }
+//
+//        @Override
+//        protected ArtistResult doInBackground(String... params) {
+////            return new WebClientMethods().readArtistProfile(artistUserIdforTesting);
+//
+//        }
 
-        @Override
-        protected ArtistResult doInBackground(String... params) {
-            return new WebClientMethods().readArtistProfile(artistUserIdforTesting);
-
-        }
-
-        protected void onPostExecute(final ArtistResult result) {
+//        protected void onPostExecute(final ArtistResult result) {
 
 //            runOnUiThread(new Runnable() {
 //                public void run() {
@@ -84,6 +83,6 @@ public class ProfileActivity extends AppCompatActivity {
 //                }
 //            });
         }
-
-    }
-}
+//
+//    }
+//}
