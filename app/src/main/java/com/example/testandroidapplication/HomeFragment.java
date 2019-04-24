@@ -58,11 +58,7 @@ public class HomeFragment extends Fragment {
         @Override
         protected List<Entity> doInBackground(String... params) {
             new WebClientMethods();
-            try {
-                mUsers = WebClientMethods.readUserIds();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            mUsers = WebClientMethods.readUserIds();
             return mUsers;
         }
 

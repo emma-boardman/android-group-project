@@ -19,6 +19,7 @@ import com.example.testandroidapplication.objects.Venue;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +27,7 @@ public class WebClientMethods {
 
     private static final String KEY_USER_ID = "User_Id";
     private static final String KEY_USER_NAME = "User_Name";
-    private static final String KEY_EMAIL = "Email";
+    private static final String KEY_EMAIL = "User_Email";
     private static final String KEY_TAG_CATEGORY = "Tag_Category";
     private static final String KEY_USER_TYPE = "User_Type";
     private static final String KEY_GIG_ID = "Gig_Id";
@@ -130,6 +131,35 @@ public class WebClientMethods {
         try {
             JSONObject tagList = jsonObject.getJSONObject(KEY_DATA);
             return Tags.fromJson(tagList);
+
+        } catch (JSONException e) {
+            return null;
+        }
+    }
+
+    public static JSONObject readUserIdandType(String userEmail){
+        HttpJsonParser httpJsonParser = new HttpJsonParser();
+        Map<String, String> httpParams = new HashMap<>();
+        httpParams.put(KEY_EMAIL, userEmail);
+
+        JSONObject jsonObject = httpJsonParser.makeHttpRequestUsingFormParams(
+                BASE_URL + "readUserIdandType.php", "GET", httpParams);
+
+        try {
+            return jsonObject.getJSONObject(KEY_DATA);
+//
+//            List<String> userIdandType = new ArrayList<>();
+//            if (data != null) {
+//                Iterator<String> keys = jsonObject.keys();
+//                while (keys.hasNext()) {
+//                    String key = keys.next();
+//                    JSONArray values = jsonObject.getJSONArray(key);
+//                    for (int i = 0; i < values.length(); i++ ) {
+//                        String value = values.getString(i);
+//                        userIdandType.add(key, value);
+//                    }
+//                }
+//            }
 
         } catch (JSONException e) {
             return null;
