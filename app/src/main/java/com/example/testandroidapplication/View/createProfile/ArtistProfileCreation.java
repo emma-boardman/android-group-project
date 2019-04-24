@@ -29,7 +29,6 @@ public class ArtistProfileCreation extends Fragment implements IArtistProfileCre
 
 
     private User user;
-    private ProfileInformation profileInformation;
     private ArtistProfileCreationPresenter presenter;
 
     private EditText artistNameEditText;
@@ -151,7 +150,7 @@ public class ArtistProfileCreation extends Fragment implements IArtistProfileCre
 
     public void buildArtistObject(){
 
-        profileInformation = new ProfileInformation
+        ProfileInformation profileInformation = new ProfileInformation
                 .ProfileBuilder()
                 .withTagline(artistTaglineInput)
                 .withLocation(artistLocationInput)
@@ -171,15 +170,6 @@ public class ArtistProfileCreation extends Fragment implements IArtistProfileCre
 
         presenter.validateArtistObject(artist);
 
-    }
-
-    public void showToast(String msg){
-//        Toast.makeText(getActivity(),
-//                msg, Toast.LENGTH_LONG).show();
-    }
-
-    public void showError(String error){
-        // target edit text to display an error
     }
 
     public void showExperienceSpinner(List<String> experienceTagList){

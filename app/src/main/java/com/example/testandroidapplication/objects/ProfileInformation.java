@@ -1,9 +1,6 @@
 package com.example.testandroidapplication.objects;
 
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,7 +22,7 @@ public class ProfileInformation implements JsonWritable {
     private String profileImage;
     private ArrayList<Review> reviews;
 
-    public ProfileInformation(ProfileBuilder builder){
+    public ProfileInformation(ProfileBuilder builder) {
         this.tagLine = builder.tagLine;
         this.searchTags = builder.searchTags;
         this.description = builder.description;
@@ -38,9 +35,13 @@ public class ProfileInformation implements JsonWritable {
         this.overallRating = builder.overallRating;
     }
 
-    public String getTagLine() {return tagLine;}
+    public String getTagLine() {
+        return tagLine;
+    }
 
-    public Tags getSearchTags() { return searchTags; }
+    public Tags getSearchTags() {
+        return searchTags;
+    }
 
     public String getDescription() {
         return description;
@@ -70,7 +71,9 @@ public class ProfileInformation implements JsonWritable {
         return overallRating;
     }
 
-    public ArrayList<Review> getReviews() {return reviews; }
+    public ArrayList<Review> getReviews() {
+        return reviews;
+    }
 
     public String getProfileImage() {
         return profileImage;
@@ -90,60 +93,60 @@ public class ProfileInformation implements JsonWritable {
         private String profileImage;
         private ArrayList<Review> reviews;
 
-        public ProfileBuilder(){
+        public ProfileBuilder() {
         }
 
-        public ProfileBuilder withTagline(String tagLine){
+        public ProfileBuilder withTagline(String tagLine) {
             this.tagLine = tagLine;
             return this;
         }
 
-        public ProfileBuilder withSearchTags(Tags searchTags){
+        public ProfileBuilder withSearchTags(Tags searchTags) {
             this.searchTags = searchTags;
             return this;
         }
 
-        public ProfileBuilder withDescription(String description){
+        public ProfileBuilder withDescription(String description) {
             this.description = description;
             return this;
         }
 
-        public ProfileBuilder withFacebookLink(String facebookLink){
+        public ProfileBuilder withFacebookLink(String facebookLink) {
             this.facebookLink = facebookLink;
             return this;
         }
 
-        public ProfileBuilder withInstagramLink(String instagramLink){
+        public ProfileBuilder withInstagramLink(String instagramLink) {
             this.instagramLink = instagramLink;
             return this;
         }
 
-        public ProfileBuilder withTwitterLink(String twitterLink){
+        public ProfileBuilder withTwitterLink(String twitterLink) {
             this.twitterLink = twitterLink;
             return this;
         }
 
-        public ProfileBuilder withWebPageLink(String webPageLink){
+        public ProfileBuilder withWebPageLink(String webPageLink) {
             this.webPageLink = webPageLink;
             return this;
         }
 
-        public ProfileBuilder withLocation(String location){
+        public ProfileBuilder withLocation(String location) {
             this.location = location;
             return this;
         }
 
-        public ProfileBuilder withOverallRating(String overallRating){
+        public ProfileBuilder withOverallRating(String overallRating) {
             this.overallRating = overallRating;
             return this;
         }
 
-        public ProfileBuilder withReviews(ArrayList<Review> reviews){
+        public ProfileBuilder withReviews(ArrayList<Review> reviews) {
             this.reviews = reviews;
             return this;
         }
 
-        public ProfileBuilder withProfileImage(String profileImage){
+        public ProfileBuilder withProfileImage(String profileImage) {
             this.profileImage = profileImage;
             return this;
         }

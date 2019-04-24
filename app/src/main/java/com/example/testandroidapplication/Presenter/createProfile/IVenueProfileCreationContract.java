@@ -6,17 +6,19 @@ import java.util.List;
 
 public interface IVenueProfileCreationContract {
 
-    interface Presenter{
+    interface Presenter {
         void validateVenueObject(Venue venue);
+
         void readVenueTags();
     }
 
-    interface View{
+    interface View {
         void buildVenueObject();
-        void showToast(String msg);
-        void showError(String error);
+
         void showGenreSpinner(List<String> tagList);
+
         void showGroupTypeSpinner(List<String> tagList);
+
         void showLookingForSpinner(List<String> tagList);
     }
 }

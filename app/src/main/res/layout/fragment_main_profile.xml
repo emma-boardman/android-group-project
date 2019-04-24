@@ -23,7 +23,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="125sp"
+                android:layout_height="145sp"
                 android:background="@color/colorPrimary" />
 
             <TextView
@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="175sp"
                 android:layout_marginLeft="175sp"
-                android:layout_marginTop="92.5sp"
+                android:layout_marginTop="100sp"
                 android:fontFamily="@font/arvo"
                 android:text="User Tagline"
                 android:textColor="@color/colorAccent"
@@ -99,19 +99,22 @@
                 android:layout_marginTop="130sp">
 
                 <TextView
-                    android:id="@+id/profile_tags"
+                    android:id="@+id/profile_tags_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/arvo"
                     android:text="Tags:"
                     android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginTop="25sp"
                     android:textSize="15sp"
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/profile_tags"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10sp"
+                    android:layout_marginTop="25sp"
                     android:text="List of tags"
                     android:textColor="@color/colorPrimaryDark"
                     android:fontFamily="@font/arvo"/>
@@ -121,7 +124,7 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/user_profile_pic"
                 android:layout_width="125sp"
-                android:layout_height="125sp"
+                android:layout_height="145sp"
                 android:layout_marginStart="25sp"
                 android:layout_marginLeft="25sp"
                 android:layout_marginTop="62.5sp"
@@ -132,13 +135,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25sp"
             android:layout_marginStart="25sp"
-            android:paddingTop="10sp"
+            android:layout_marginLeft="25sp"
+            android:paddingTop="5sp"
             android:text="Bio:"
             android:textColor="@color/colorPrimaryDark"
-            android:textStyle="bold"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/profile_bio"
@@ -146,6 +149,8 @@
             android:layout_height="wrap_content"
             android:paddingLeft="25sp"
             android:paddingRight="25sp"
+            android:paddingTop="5sp"
+            android:layout_marginBottom="10sp"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="15sp"
             android:text="Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default "/>
@@ -157,21 +162,24 @@
             >
 
             <TextView
+                android:id="@+id/profile_rating_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginStart="25sp"
                 android:layout_marginLeft="25sp"
-                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="10sp"
                 android:text="User Rating:"
                 android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <RatingBar
                 android:id="@+id/profile_rating"
                 style="?android:attr/ratingBarStyleIndicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10sp"
                 android:paddingStart="10sp"
                 android:paddingLeft="10sp"
                 android:paddingEnd="0sp"
@@ -199,8 +207,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingRight="25sp"
+            android:layout_marginBottom="10sp"
             android:paddingLeft="25sp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            >
 
             <android.support.v7.widget.AppCompatImageButton
                 android:id="@+id/profile_facebook"
@@ -251,14 +261,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="10sp"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="25sp"
             android:layout_marginLeft="25sp"
-            android:layout_gravity="center_vertical"
-            android:text="Comments:"
+            android:paddingTop="10sp"
+            android:text="Reviews:"
             android:textColor="@color/colorPrimaryDark"
-            android:textStyle="bold"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <android.support.v7.widget.RecyclerView
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -277,7 +287,20 @@
             android:textSize="15sp"
             android:textColor="@color/colorPrimaryDark"
             android:fontFamily="@font/arvo"
-            android:text="Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default "/>
+            android:text=""/>
+
+        <TextView
+            android:id="@+id/comment_1_reviewer_and_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10sp"
+            android:paddingLeft="25sp"
+            android:paddingRight="25sp"
+            android:textSize="12sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:fontFamily="@font/arvo"
+            android:text=""/>
+
 
         <TextView
             android:id="@+id/comment_2"
@@ -291,6 +314,7 @@
             android:background="@color/colorPrimary"
             android:textColor="@color/colorAccent"
             android:fontFamily="@font/arvo"
+            android:visibility="gone"
             android:text="Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default "/>
 
         <TextView
@@ -304,6 +328,7 @@
             android:textSize="15sp"
             android:textColor="@color/colorPrimaryDark"
             android:fontFamily="@font/arvo"
+            android:visibility="gone"
             android:text="Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default Default "/>
 
     </LinearLayout>

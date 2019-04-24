@@ -12,20 +12,16 @@ public class ArtistProfileCreationPresenter implements IArtistProfileCreationCon
 
     private final IArtistProfileCreationContract.View view;
 
-    public ArtistProfileCreationPresenter(IArtistProfileCreationContract.View view){
+    public ArtistProfileCreationPresenter(IArtistProfileCreationContract.View view) {
         this.view = view;
     }
 
     public void validateArtistObject(Artist artist) {
-        // add validation methods for each field from validation class
-//        if (venue.getUser().getName().contains("invalid")){
-//            // show error for that text input
-//        }
-
+        // add validation methods for each field via an artist class validation methods
         new CreateNewProfileAsyncTask(view, artist).execute();
     }
 
-    public void readArtistTags(){
+    public void readArtistTags() {
 
         new ReadArtistTagsAsyncTask(view).execute();
 
@@ -45,13 +41,6 @@ public class ArtistProfileCreationPresenter implements IArtistProfileCreationCon
             return WebClientMethods.createArtistProfile(artistForAsync);
         }
 
-        protected void onPostExecute(final String result) {
-            if (result.equals("1")) {
-                view.showToast("Profile Added");
-            } else {
-                view.showToast("Some error occurred while adding profile");
-            }
-        }
     }
 
     private static class ReadArtistTagsAsyncTask extends AsyncTask<String, String, Tags> {

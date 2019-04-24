@@ -19,7 +19,7 @@ public class Gig {
     private LocalTime startTime, endTime;
     private LocalDate date;
 
-    public Gig(GigBuilder builder){
+    public Gig(GigBuilder builder) {
         this.gigID = builder.gigID;
         this.userIDArtist = builder.userIDArtist;
         this.userIDVenue = builder.userIDVenue;
@@ -34,7 +34,7 @@ public class Gig {
     }
 
     @TargetApi(26)
-    public static Gig fromJson(JSONObject jsonObject){
+    public static Gig fromJson(JSONObject jsonObject) {
 
         Gig gig;
 
@@ -47,19 +47,19 @@ public class Gig {
             DateTimeFormatter formatterTime = DateTimeFormatter.ISO_LOCAL_TIME;
 
             gig = new Gig.GigBuilder(jsonObject.getInt("Gig_Id"),
-                                     jsonObject.getString("Artist_Id"),
-                                     jsonObject.getString("Venue_Id"),
-                                     LocalDate.parse(stringDate, formatterDate),
-                                     LocalTime.parse(stringStartTime, formatterTime),
-                                     LocalTime.parse(stringEndTime, formatterTime))
-                                    .withNotes(jsonObject.getString("Notes"))
-                                    .withArtistRating(0)
-                                    .withVenueRating(0)
-                                    .withArtistComment(jsonObject.getString("Comment_On_Artist"))
-                                    .withVenueComment(jsonObject.getString("Comment_On_Venue"))
-                                    .build();
+                    jsonObject.getString("Artist_Id"),
+                    jsonObject.getString("Venue_Id"),
+                    LocalDate.parse(stringDate, formatterDate),
+                    LocalTime.parse(stringStartTime, formatterTime),
+                    LocalTime.parse(stringEndTime, formatterTime))
+                    .withNotes(jsonObject.getString("Notes"))
+                    .withArtistRating(0)
+                    .withVenueRating(0)
+                    .withArtistComment(jsonObject.getString("Comment_On_Artist"))
+                    .withVenueComment(jsonObject.getString("Comment_On_Venue"))
+                    .build();
 
-        } catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
             return null;
         }
@@ -83,7 +83,9 @@ public class Gig {
         return userIDVenue;
     }
 
-    public int getArtistRating() { return artistRating; }
+    public int getArtistRating() {
+        return artistRating;
+    }
 
     public int getVenueRating() {
         return venueRating;
@@ -116,7 +118,7 @@ public class Gig {
         protected LocalTime startTime, endTime;
         protected LocalDate date;
 
-        public GigBuilder(int gigID, String userIDArtist, String userIDVenue, LocalDate date, LocalTime startTime, LocalTime endTime){
+        public GigBuilder(int gigID, String userIDArtist, String userIDVenue, LocalDate date, LocalTime startTime, LocalTime endTime) {
             this.gigID = gigID;
             this.userIDArtist = userIDArtist;
             this.userIDVenue = userIDVenue;
@@ -125,32 +127,32 @@ public class Gig {
             this.endTime = endTime;
         }
 
-        public GigBuilder withNotes(String notes){
+        public GigBuilder withNotes(String notes) {
             this.notes = notes;
             return this;
         }
 
-        public GigBuilder withArtistRating(int artistRating){
+        public GigBuilder withArtistRating(int artistRating) {
             this.artistRating = artistRating;
             return this;
         }
 
-        public GigBuilder withVenueRating(int venueRating){
+        public GigBuilder withVenueRating(int venueRating) {
             this.venueRating = venueRating;
             return this;
         }
 
-        public GigBuilder withArtistComment(String artistComment){
+        public GigBuilder withArtistComment(String artistComment) {
             this.artistComment = artistComment;
             return this;
         }
 
-        public GigBuilder withVenueComment(String venueComment){
+        public GigBuilder withVenueComment(String venueComment) {
             this.venueComment = venueComment;
             return this;
         }
 
-        public Gig build(){
+        public Gig build() {
             return new Gig(this);
         }
     }

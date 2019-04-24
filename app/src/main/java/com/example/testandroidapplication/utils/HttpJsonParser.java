@@ -11,8 +11,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import org.json.JSONException;
@@ -20,8 +18,6 @@ import org.json.JSONObject;
 
 import android.net.Uri;
 import android.util.Log;
-
-import com.example.testandroidapplication.objects.Venue;
 
 public class HttpJsonParser {
 

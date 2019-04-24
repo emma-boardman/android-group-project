@@ -18,7 +18,6 @@ public class Venue implements Entity, JsonWritable {
     private String address1;
     private String postcode;
     private String phoneNumber;
-    private ArrayList<Faq> faqs;
 
     public Venue(VenueBuilder builder) {
         this.user = builder.user;
@@ -26,7 +25,7 @@ public class Venue implements Entity, JsonWritable {
         this.address1 = builder.address1;
         this.postcode = builder.postcode;
         this.phoneNumber = builder.phoneNumber;
-        this.faqs = builder.faqs;
+        ArrayList<Faq> faqs = builder.faqs;
     }
 
     public static Venue fromJson(JSONObject jsonObject) {
@@ -34,8 +33,8 @@ public class Venue implements Entity, JsonWritable {
         Venue venue;
         try {
             User user = new User(jsonObject.getString("User_Id"),
-                                 jsonObject.getString("User_Name"),
-                                 jsonObject.getString("User_Email"));
+                    jsonObject.getString("User_Name"),
+                    jsonObject.getString("User_Email"));
 
             ProfileInformation profileInformation = new ProfileInformation
                     .ProfileBuilder()
@@ -45,7 +44,7 @@ public class Venue implements Entity, JsonWritable {
                     .withFacebookLink(getStringOrNull(jsonObject, "Facebook"))
                     .withWebPageLink(getStringOrNull(jsonObject, "Website"))
                     .withOverallRating(getStringOrNull(jsonObject, "Overall_Rating"))
-                    .withReviews(Review.fromJson(getJSONArrayOrNull(jsonObject,"Reviews")))
+                    .withReviews(Review.fromJson(getJSONArrayOrNull(jsonObject, "Reviews")))
                     .withSearchTags(Tags.fromJson(getJSONObjectOrNull(jsonObject, "Tags")))
                     .build();
 
@@ -55,7 +54,7 @@ public class Venue implements Entity, JsonWritable {
                     .withAddress1(getStringOrNull(jsonObject, "Address1"))
                     .withPostcode(getStringOrNull(jsonObject, "PostCode"))
                     .withPhoneNumber(getStringOrNull(jsonObject, "Phone_Number"))
-                    .withFAQs(Faq.fromJson(getJSONArrayOrNull(jsonObject,"FAQs")))
+                    .withFAQs(Faq.fromJson(getJSONArrayOrNull(jsonObject, "FAQs")))
                     .build();
 
         } catch (JSONException e) {
@@ -69,29 +68,29 @@ public class Venue implements Entity, JsonWritable {
     @Override
     public JSONObject toJson() throws JSONException {
         final JSONObject jsonObject = new JSONObject();
-        addStringToJson(jsonObject,"Address1", this.getAddress1());
-        addStringToJson(jsonObject,"PostCode", this.getPostcode());
-        addStringToJson(jsonObject,"Phone_Number", this.getPhoneNumber());
+        addStringToJson(jsonObject, "Address1", this.getAddress1());
+        addStringToJson(jsonObject, "PostCode", this.getPostcode());
+        addStringToJson(jsonObject, "Phone_Number", this.getPhoneNumber());
         final JSONObject user = getUser().toJson();
         final JSONObject profile = getProfileInformation().toJson();
         return merge(jsonObject, profile, user);
     }
 
     @Override
-    public User getUser(){
+    public User getUser() {
         return user;
     }
 
     @Override
-    public ProfileInformation getProfileInformation(){
+    public ProfileInformation getProfileInformation() {
         return profileInformation;
     }
 
-    public String getAddress1(){
+    public String getAddress1() {
         return address1;
     }
 
-    public String getPostcode(){
+    public String getPostcode() {
         return postcode;
     }
 
@@ -99,7 +98,7 @@ public class Venue implements Entity, JsonWritable {
         return phoneNumber;
     }
 
-    public static class VenueBuilder  {
+    public static class VenueBuilder {
 
         private User user;
         private ProfileInformation profileInformation;
@@ -108,36 +107,36 @@ public class Venue implements Entity, JsonWritable {
         private String phoneNumber;
         private ArrayList<Faq> faqs;
 
-        public VenueBuilder(User user){
-                this.user = user;
+        public VenueBuilder(User user) {
+            this.user = user;
         }
 
-        public VenueBuilder updateUser(User user){
+        public VenueBuilder updateUser(User user) {
             this.user = user;
             return this;
         }
 
-        public VenueBuilder withProfileInformation(ProfileInformation profileInformation){
+        public VenueBuilder withProfileInformation(ProfileInformation profileInformation) {
             this.profileInformation = profileInformation;
             return this;
         }
 
-        public VenueBuilder withAddress1(String address1){
+        public VenueBuilder withAddress1(String address1) {
             this.address1 = address1;
             return this;
         }
 
-        public VenueBuilder withPostcode(String postcode){
+        public VenueBuilder withPostcode(String postcode) {
             this.postcode = postcode;
             return this;
         }
 
-        public VenueBuilder withPhoneNumber(String phoneNumber){
+        public VenueBuilder withPhoneNumber(String phoneNumber) {
             this.phoneNumber = phoneNumber;
             return this;
         }
 
-        public VenueBuilder withFAQs(ArrayList<Faq> faqs){
+        public VenueBuilder withFAQs(ArrayList<Faq> faqs) {
             this.faqs = faqs;
             return this;
         }

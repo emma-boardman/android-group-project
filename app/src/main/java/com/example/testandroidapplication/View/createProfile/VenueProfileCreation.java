@@ -1,6 +1,5 @@
 package com.example.testandroidapplication.View.createProfile;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,7 +23,6 @@ import com.example.testandroidapplication.objects.Tags;
 import com.example.testandroidapplication.objects.User;
 import com.example.testandroidapplication.objects.Venue;
 import com.example.testandroidapplication.utils.CheckNetworkStatus;
-import com.example.testandroidapplication.utils.WebClientMethods;
 
 import java.util.List;
 
@@ -32,7 +30,6 @@ public class VenueProfileCreation extends Fragment implements IVenueProfileCreat
 
 
     private User user;
-    private ProfileInformation profileInformation;
     private VenueProfileCreationPresenter presenter;
     private Tags venueTags;
 
@@ -163,7 +160,7 @@ public class VenueProfileCreation extends Fragment implements IVenueProfileCreat
 
         user.setName(venueNameInput);
 
-        profileInformation = new ProfileInformation
+        ProfileInformation profileInformation = new ProfileInformation
                 .ProfileBuilder()
                 .withTagline(venueTaglineInput)
                 .withLocation(venueLocationInput)
@@ -184,16 +181,6 @@ public class VenueProfileCreation extends Fragment implements IVenueProfileCreat
 
         presenter.validateVenueObject(venue);
 
-    }
-
-
-    public void showToast(String msg){
-//        Toast.makeText(getActivity(),
-//                msg, Toast.LENGTH_LONG).show();
-    }
-
-    public void showError(String error){
-        // target edit text to display an error
     }
 
 

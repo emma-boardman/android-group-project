@@ -2,7 +2,6 @@ package com.example.testandroidapplication.objects;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Property;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,7 +15,7 @@ public class User implements Parcelable, JsonWritable {
     private String email;
 
 
-    public User(String userID, String name, String email){
+    public User(String userID, String name, String email) {
         this.userID = userID;
         this.name = name;
         this.email = email;
@@ -47,21 +46,21 @@ public class User implements Parcelable, JsonWritable {
     }
 
     //write object values to parcel for storage
-    public void writeToParcel(Parcel dest, int flags){
+    public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(userID);
         dest.writeString(name);
         dest.writeString(email);
     }
 
     //constructor used for parcel
-    public User(Parcel parcel){
+    public User(Parcel parcel) {
         userID = parcel.readString();
         name = parcel.readString();
         email = parcel.readString();
     }
 
     //creator - used when un-parceling our parcle (creating the object)
-    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>(){
+    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
 
         @Override
         public User createFromParcel(Parcel parcel) {
@@ -82,9 +81,9 @@ public class User implements Parcelable, JsonWritable {
     @Override
     public JSONObject toJson() throws JSONException {
         final JSONObject jsonObject = new JSONObject();
-        addStringToJson(jsonObject,"User_Id", getUserID());
-        addStringToJson(jsonObject,"User_Name", getName());
-        addStringToJson(jsonObject,"User_Email", getEmail());
+        addStringToJson(jsonObject, "User_Id", getUserID());
+        addStringToJson(jsonObject, "User_Name", getName());
+        addStringToJson(jsonObject, "User_Email", getEmail());
         return jsonObject;
     }
 }
