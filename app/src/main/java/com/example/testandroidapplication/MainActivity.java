@@ -1,7 +1,18 @@
 package com.example.testandroidapplication;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
+
+import com.example.testandroidapplication.View.registerUser.RegisterFragment;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,4 +28,5 @@ public class MainActivity extends AppCompatActivity {
                 loginView, "loginFragment").addToBackStack("loginFragment").commit();
 
     }
+
 }

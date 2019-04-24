@@ -1,5 +1,7 @@
 package com.example.testandroidapplication;
 
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -7,20 +9,30 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
+
+import com.example.testandroidapplication.utils.WebClientMethods;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
 
 public class ContentActivity extends AppCompatActivity {
 
     private ProfileFragment profileView = new ProfileFragment();
-
-
+    JSONObject userIdandType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.content_activity);
+        Intent intent = getIntent();
+        String userEmail = intent.getStringExtra("userEmail");
+        new ReadIdandTypeAsyncTask(userEmail, profileView).execute();
+
+
         getSupportFragmentManager().beginTransaction().replace(R.id.content_fragement_container,
                 profileView).commit();
 
@@ -61,6 +73,33 @@ public class ContentActivity extends AppCompatActivity {
                     return true;
                 }
             };
+
+
+    private static class ReadIdandTypeAsyncTask extends AsyncTask<String, String, JSONObject> {
+
+        private ProfileFragment profileFragment;
+        private final String userEmail;
+
+        ReadIdandTypeAsyncTask(String userEmail, ProfileFragment profileFragment) {
+            this.userEmail = userEmail;
+            this.profileFragment = profileFragment;
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... params) {
+            return WebClientMethods.readUserIdandType(userEmail);
+        }
+
+        protected void onPostExecute(final JSONObject userIdAndType) {
+            try {
+                profileFragment.accessUserIdForDB(userIdAndType);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
 }
 
 
