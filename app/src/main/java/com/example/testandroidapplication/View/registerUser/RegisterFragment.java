@@ -1,5 +1,6 @@
 package com.example.testandroidapplication.View.registerUser;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.testandroidapplication.LoginFragment;
+import com.example.testandroidapplication.MainActivity;
 import com.example.testandroidapplication.Presenter.registerUser.IRegisterUserContract;
 import com.example.testandroidapplication.Presenter.registerUser.RegisterUserPresenter;
 import com.example.testandroidapplication.R;
@@ -27,12 +29,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 
 public class RegisterFragment extends Fragment implements IRegisterUserContract.View {
 
     private RegisterUserPresenter presenter;
-
     TextInputEditText username, email, password, confirm_password;
     Button btn_register, userCancel, btn_bypass;
     String userid;
@@ -84,6 +87,7 @@ public class RegisterFragment extends Fragment implements IRegisterUserContract.
             }
         });
 
+
         userCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,8 +107,13 @@ public class RegisterFragment extends Fragment implements IRegisterUserContract.
             @Override
             public void onClick(View view) {
 
+                Bundle bundle = new Bundle();
+                bundle.putString("my_key", "My String");
+                registerFragmentVOrA.setArguments(bundle);
+
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
                         registerFragmentVOrA).commit();
+
 
             }
         });
@@ -140,11 +149,15 @@ public class RegisterFragment extends Fragment implements IRegisterUserContract.
 
                                         User user = new User(userid, username, email);
                                         presenter.validateUserObject(user);
-
                                         RegisterFragmentVOrA registerFragmentVOrA = new RegisterFragmentVOrA();
+
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString("my_key", "My String");
+                                        registerFragmentVOrA.setArguments(bundle);
 
                                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
                                                 registerFragmentVOrA).commit();
+
 
                                         /*Intent intent = new Intent(getActivity(), Messaging.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -159,4 +172,8 @@ public class RegisterFragment extends Fragment implements IRegisterUserContract.
                     }
                 });
     }
+
+
 }
+
+
