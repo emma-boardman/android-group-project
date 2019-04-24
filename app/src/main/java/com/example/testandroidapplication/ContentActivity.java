@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 
 import com.example.testandroidapplication.utils.WebClientMethods;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.List;
 public class ContentActivity extends AppCompatActivity {
 
     private ProfileFragment profileView = new ProfileFragment();
+    JSONObject userIdandType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +30,8 @@ public class ContentActivity extends AppCompatActivity {
         setContentView(R.layout.content_activity);
         Intent intent = getIntent();
         String userEmail = intent.getStringExtra("userEmail");
-//        List<String> userIdandType = returnUserIdAndType(userEmail);
-        new ReadIdandTypeAsyncTask(userEmail).execute();
+        new ReadIdandTypeAsyncTask(userEmail, profileView).execute();
+
 
         getSupportFragmentManager().beginTransaction().replace(R.id.content_fragement_container,
                 profileView).commit();
@@ -75,10 +77,12 @@ public class ContentActivity extends AppCompatActivity {
 
     private static class ReadIdandTypeAsyncTask extends AsyncTask<String, String, JSONObject> {
 
+        private ProfileFragment profileFragment;
         private final String userEmail;
 
-        ReadIdandTypeAsyncTask(String userEmail) {
+        ReadIdandTypeAsyncTask(String userEmail, ProfileFragment profileFragment) {
             this.userEmail = userEmail;
+            this.profileFragment = profileFragment;
         }
 
         @Override
@@ -86,11 +90,16 @@ public class ContentActivity extends AppCompatActivity {
             return WebClientMethods.readUserIdandType(userEmail);
         }
 
-        protected void onPostExecute(final JSONObject tagResult) {
-
+        protected void onPostExecute(final JSONObject userIdAndType) {
+            try {
+                profileFragment.accessUserIdForDB(userIdAndType);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
     }
+
 }
 
 

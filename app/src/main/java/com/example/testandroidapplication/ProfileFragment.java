@@ -26,11 +26,15 @@ import com.example.testandroidapplication.utils.ArtistResult;
 import com.example.testandroidapplication.utils.WebClientMethods;
 import com.google.android.gms.common.util.Strings;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Objects;
 
 public class ProfileFragment extends Fragment {
 
-    private String artistUserIdforTesting = "test";
+    private String userId;
 
     private TextView userName;
     private TextView userTagline;
@@ -48,8 +52,6 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_main_profile,container,false);
 
-        new ReadArtistProfileAsyncTask().execute();
-
         webView = v.findViewById(R.id.profile_web_view);
 
         userName = v.findViewById(R.id.profile_username);
@@ -66,6 +68,12 @@ public class ProfileFragment extends Fragment {
         return v;
     }
 
+    public void accessUserIdForDB(JSONObject user) throws JSONException {
+           Log.i("user", String.valueOf(user));
+           userId = user.getString("User_Id");
+           new ReadArtistProfileAsyncTask().execute(userId);
+    }
+
 
     private class ReadArtistProfileAsyncTask extends AsyncTask<String, String, Artist> {
         @Override
@@ -76,8 +84,8 @@ public class ProfileFragment extends Fragment {
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override
         protected Artist doInBackground(String... params) {
-            new WebClientMethods();
-            ArtistResult artistResult = WebClientMethods.readArtistProfile(artistUserIdforTesting);
+
+            ArtistResult artistResult = WebClientMethods.readArtistProfile(userId);
             return artistResult.getArtist();
         }
 
@@ -121,7 +129,7 @@ public class ProfileFragment extends Fragment {
         setTextIfExists(userDescription, profile.getDescription());
         setTextIfExists(userDescription, profile.getDescription());
 
-        userRating.setRating(Float.parseFloat(profile.getOverallRatingNum()));
+//        userRating.setRating(Float.parseFloat(profile.getOverallRatingNum()));
 
         setImageIfExists(userFacebook, "https://www.facebook.com/", profile.getFacebookLink());
         setImageIfExists(userInstagram, "https://www.instagram.com/", profile.getInstagramLink());
