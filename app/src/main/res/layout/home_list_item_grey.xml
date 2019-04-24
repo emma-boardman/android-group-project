@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary">
+    
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_image_white_24dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="5dp"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:gravity="right"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name:"
+                android:textColor="@color/colorAccent"
+                android:textSize="15sp"
+                android:fontFamily="@font/arvo"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Location:"
+                android:textColor="@color/colorAccent"
+                android:textSize="15sp"
+                android:fontFamily="@font/arvo"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Looking For:"
+                android:textColor="@color/colorAccent"
+                android:textSize="15sp"
+                android:fontFamily="@font/arvo"
+                android:paddingBottom="32sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rating:"
+                android:textColor="@color/colorAccent"
+                android:textSize="15sp"
+                android:fontFamily="@font/arvo"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="5dp"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:gravity="left"
+            >
+
+            <TextView
+                android:id="@+id/menu_item_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Username"
+                android:textColor="@color/colorAccent"
+                android:textSize="15sp"
+                android:fontFamily="@font/arvo"/>
+
+            <TextView
+                android:id="@+id/menu_item_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                android:textColor="@color/colorAccent"
+                android:textSize="15sp"
+                android:fontFamily="@font/arvo"/>
+
+            <TextView
+                android:id="@+id/menu_item_looking_for"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Default default default default default default default default default"
+                android:textColor="@color/colorAccent"
+                android:textSize="14sp"
+                android:fontFamily="@font/arvo"
+                />
+
+            <android.support.v7.widget.AppCompatRatingBar
+                android:id="@+id/menu_item_rating"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
