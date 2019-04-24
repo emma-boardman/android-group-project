@@ -1,77 +1,116 @@
 package com.example.testandroidapplication.objects;
 
+import com.example.testandroidapplication.utils.JsonUtils;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Artist extends User {
+import static com.example.testandroidapplication.utils.JsonUtils.addStringToJson;
+import static com.example.testandroidapplication.utils.JsonUtils.getStringOrNull;
+import static com.example.testandroidapplication.utils.JsonUtils.merge;
 
-    private String soundCloudLink, comments;
+public class Artist implements Entity, JsonWritable {
 
-    public Artist(String name, String email, String password, String tagLine, String searchTags, String description, String facebookLink, String instagramLink, String twitterLink, String webPageLink, String location, int userID, int overallRating, byte[] profileImage, String comments, String soundCloudLink) {
-        super(name, email, password, tagLine, searchTags, description, facebookLink, instagramLink, twitterLink, webPageLink, location, userID, overallRating, profileImage);
-        setComments(comments);
-        setSoundCloudLink(soundCloudLink);
+    private User user;
+    private ProfileInformation profileInformation;
+    private String soundCloudLink;
+
+    private Artist(ArtistBuilder builder) {
+        this.user = builder.user;
+        this.profileInformation = builder.profileInformation;
+        this.soundCloudLink = builder.soundCloudLink;
     }
 
-    public Artist(){
+        public static Artist fromJson(JSONObject jsonObject) {
 
-    }
+            Artist artist;
+            // Deserialize json into object fields
+            try {
+                User user = new User(jsonObject.getString("User_Id"),
+                        jsonObject.getString("User_Name"),
+                        jsonObject.getString("User_Email"));
 
-// Questions:
-// Should the tags be an array?
-// Should the comments be an array?
+                ProfileInformation profileInformation = new ProfileInformation
+                        .ProfileBuilder()
+                        .withTagline(getStringOrNull(jsonObject, "Tagline"))
+                        .withDescription(getStringOrNull(jsonObject, "Description"))
+                        .withLocation(getStringOrNull(jsonObject, "Location"))
+                        .withFacebookLink(getStringOrNull(jsonObject, "Facebook"))
+                        .withInstagramLink(getStringOrNull(jsonObject, "Instagram"))
+                        .withTwitterLink(getStringOrNull(jsonObject, "Twitter"))
+                        .withWebPageLink(getStringOrNull(jsonObject, "Website"))
+                        .withOverallRating(getStringOrNull(jsonObject, "Overall_Rating"))
+                        .withReviews(Review.fromJson(JsonUtils.getJSONArrayOrNull(jsonObject,"Reviews")))
+                        .withSearchTags(Tags.fromJson(JsonUtils.getJSONObjectOrNull(jsonObject, "Tags")))
+                        .build();
 
-    public static Artist fromJson(JSONObject jsonObject) {
+                artist = new Artist
+                        .ArtistBuilder(user)
+                        .withProfileInformation(profileInformation)
+                        .withSoundcloudLink(getStringOrNull(jsonObject, "Soundcloud"))
+                        .build();
 
-        Artist artist = new Artist();
-        // Deserialize json into object fields
-        try {
-            artist.name = jsonObject.getString("User_Name");
-            artist.tagLine = jsonObject.getString("Tagline");
-            artist.searchTags = "tag tag tag";
-            artist.description = jsonObject.getString("Description");
-            artist.facebookLink = jsonObject.getString("Facebook");
-            artist.instagramLink = jsonObject.getString("Instagram");
-            artist.twitterLink = jsonObject.getString("Twitter");
-            artist.webPageLink = jsonObject.getString("Website");
-            artist.location = jsonObject.getString("Location");
-            artist.userID = jsonObject.getInt("User_Id");
-            artist.overallRating = 4;
-            artist.profileImage = null;
-            artist.comments = "comments";
-            artist.soundCloudLink = jsonObject.getString("Soundcloud");
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
+            } catch (JSONException e) {
+                e.printStackTrace();
+                return null;
+            }
+            // Return new object
+            return artist;
         }
-        // Return new object
-        return artist;
+
+    @Override
+    public JSONObject toJson() throws JSONException {
+        final JSONObject jsonObject = new JSONObject();
+        addStringToJson(jsonObject, "Soundcloud", this.getSoundCloudLink());
+        final JSONObject user = getUser().toJson();
+        final JSONObject profile = getProfileInformation().toJson();
+        return merge(jsonObject, profile, user);
     }
 
+    @Override
+    public User getUser(){
+        return user;
+    }
 
-    public String toString() {
-        String output;
-
-        output = "" + this.name + " , " + this.userID;
-
-        return output;
+    @Override
+    public ProfileInformation getProfileInformation(){
+        return profileInformation;
     }
 
     public String getSoundCloudLink() {
-        return soundCloudLink;
+            return soundCloudLink;
+        }
+
+
+public static class ArtistBuilder {
+
+    private User user;
+    private ProfileInformation profileInformation;
+    private String soundCloudLink;
+
+    public ArtistBuilder(User user) {
+        this.user = user;
     }
 
-    public void setSoundCloudLink(String soundCloudLink) {
+    public ArtistBuilder updateUser(User user) {
+        this.user = user;
+        return this;
+    }
+
+    public ArtistBuilder withProfileInformation(ProfileInformation profileInformation){
+        this.profileInformation = profileInformation;
+        return this;
+    }
+
+    public ArtistBuilder withSoundcloudLink(String soundCloudLink) {
         this.soundCloudLink = soundCloudLink;
+        return this;
     }
 
-    public String getComments() {
-        return comments;
+    public Artist build() {
+        return new Artist(this);
     }
-
-    public void setComments(String comments) {
-        this.comments = comments;
-    }
+}
 
 }
+
