@@ -2,12 +2,16 @@ package com.example.testandroidapplication;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -35,6 +39,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
@@ -66,7 +71,6 @@ public class ActualMessaging extends AppCompatActivity {
 
     ValueEventListener seenListener;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +84,11 @@ public class ActualMessaging extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //check back
-                startActivity(new Intent(ActualMessaging.this, MessagingWindowFragment.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                //startActivity(new Intent(ActualMessaging.this, ContentActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                Intent i = new Intent(getApplicationContext(), ContentActivity.class);
+                i.putExtra("userid", fuser);
+                startActivity(i);
+                finish();
             }
         });
 
@@ -296,13 +304,13 @@ public class ActualMessaging extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         status("online");
     }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         reference.removeEventListener(seenListener);
         status("offline");

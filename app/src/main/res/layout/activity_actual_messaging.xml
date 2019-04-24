@@ -10,13 +10,14 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/colorPrimary"
             android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/MenuStyle">
 
@@ -30,10 +31,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/username"
-                android:layout_marginLeft="25dp"
-                android:textColor="#fff"
+                android:textColor="@color/colorAccent"
                 android:textStyle="bold"
-                android:layout_marginStart="25dp"/>
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:fontFamily="@font/arvo"
+                />
 
         </android.support.v7.widget.Toolbar>
 
