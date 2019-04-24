@@ -12,16 +12,16 @@ public class ArtistProfileCreationPresenter implements IArtistProfileCreationCon
 
     private final IArtistProfileCreationContract.View view;
 
-    public ArtistProfileCreationPresenter(IArtistProfileCreationContract.View view){
+    public ArtistProfileCreationPresenter(IArtistProfileCreationContract.View view) {
         this.view = view;
     }
 
     public void validateArtistObject(Artist artist) {
-        // // add validation methods for each field via an artist class validation me
+        // add validation methods for each field via an artist class validation methods
         new CreateNewProfileAsyncTask(view, artist).execute();
     }
 
-    public void readArtistTags(){
+    public void readArtistTags() {
 
         new ReadArtistTagsAsyncTask(view).execute();
 

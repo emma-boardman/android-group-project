@@ -6,18 +6,23 @@ import java.util.List;
 
 public interface IArtistProfileCreationContract {
 
-    interface Presenter{
+    interface Presenter {
         void validateArtistObject(Artist artist);
+
         void readArtistTags();
     }
 
-    interface View{
+    interface View {
         void buildArtistObject();
 
         void showExperienceSpinner(List<String> tagList);
+
         void showGenreSpinner(List<String> tagList);
+
         void showInstrumentsSpinner(List<String> tagList);
+
         void showGroupTypeSpinner(List<String> tagList);
+
         void showLookingForSpinner(List<String> tagList);
     }
 }

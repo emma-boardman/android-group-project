@@ -13,7 +13,7 @@ public class Review {
     private String venueComment;
     private String gigDate;
 
-    public Review(String venueName, String venueComment, String gigDate){
+    public Review(String venueName, String venueComment, String gigDate) {
         this.venueName = venueName;
         this.venueComment = venueComment;
         this.gigDate = gigDate;
@@ -47,8 +47,8 @@ public class Review {
     public static ArrayList<Review> fromJson(@Nullable JSONArray jsonArray) throws JSONException {
 
         ArrayList<Review> reviews = new ArrayList<>();
-        if (jsonArray != null){
-            for (int i = 0; i < jsonArray.length(); i++){
+        if (jsonArray != null) {
+            for (int i = 0; i < jsonArray.length(); i++) {
                 Review review = new Review(
                         jsonArray.getJSONObject(i).getString("Reviewer"),
                         jsonArray.getJSONObject(i).getString("Comment"),
@@ -58,8 +58,6 @@ public class Review {
         }
         return reviews;
     }
-
-
 
 
 }
