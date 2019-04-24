@@ -34,6 +34,8 @@ public class RegisterFragmentVOrA extends Fragment {
 
                 Bundle bundle = new Bundle();
                 bundle.putString("USER_ID", userId);
+                bundle.putString("USER_EMAIL", userEmail);
+                bundle.putString("USER_NAME", userName);
                 venueProfile.setArguments(bundle);
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
                         venueProfile).commit();
