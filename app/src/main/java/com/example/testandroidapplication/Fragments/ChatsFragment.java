@@ -1,7 +1,5 @@
 package com.example.testandroidapplication.Fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -12,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.testandroidapplication.Adapter.UserAdapter;
-import com.example.testandroidapplication.Model.Chat;
 import com.example.testandroidapplication.Model.Chatlist;
 import com.example.testandroidapplication.Model.User;
 import com.example.testandroidapplication.Notifications.Token;
