@@ -1,7 +1,5 @@
 package com.example.testandroidapplication.View.registerUser;
 
-import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -15,7 +13,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.testandroidapplication.LoginFragment;
-import com.example.testandroidapplication.MainActivity;
 import com.example.testandroidapplication.Presenter.registerUser.IRegisterUserContract;
 import com.example.testandroidapplication.Presenter.registerUser.RegisterUserPresenter;
 import com.example.testandroidapplication.R;
@@ -28,8 +25,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import org.json.JSONObject;
 
 import java.util.HashMap;
 

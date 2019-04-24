@@ -9,11 +9,10 @@ import com.example.testandroidapplication.utils.WebClientMethods;
 public class RegisterUserPresenter implements IRegisterUserContract.Presenter {
 
 
-        private final IRegisterUserContract.View view;
-        public User user;
+    public User user;
 
         public RegisterUserPresenter(IRegisterUserContract.View view){
-            this.view = view;
+            IRegisterUserContract.View view1 = view;
         }
 
         public void validateUserObject(User user) {
@@ -29,11 +28,6 @@ public class RegisterUserPresenter implements IRegisterUserContract.Presenter {
             }
 
             @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-            }
-
-            @Override
             protected String doInBackground(String... params) {
                 return WebClientMethods.createUserAccount(user.getUserID(), user.getName(), user.getEmail());
             }
@@ -45,5 +39,5 @@ public class RegisterUserPresenter implements IRegisterUserContract.Presenter {
                     Log.i("Tag for remote DB user", "Error adding user");
                 }
             }
-        };
-    }
+        }
+}

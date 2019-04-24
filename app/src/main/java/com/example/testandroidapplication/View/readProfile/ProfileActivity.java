@@ -1,17 +1,13 @@
 package com.example.testandroidapplication.View.readProfile;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.testandroidapplication.R;
-import com.example.testandroidapplication.utils.ArtistResult;
 import com.example.testandroidapplication.utils.CheckNetworkStatus;
-import com.example.testandroidapplication.utils.WebClientMethods;
 
 public class ProfileActivity extends AppCompatActivity {
 

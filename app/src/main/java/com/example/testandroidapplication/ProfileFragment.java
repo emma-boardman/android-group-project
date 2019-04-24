@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.testandroidapplication.objects.Artist;
 import com.example.testandroidapplication.objects.ProfileInformation;
+import com.example.testandroidapplication.objects.Review;
 import com.example.testandroidapplication.objects.Venue;
 import com.example.testandroidapplication.utils.ArtistResult;
 import com.example.testandroidapplication.utils.VenueResult;
@@ -27,6 +28,8 @@ import com.google.android.gms.common.util.Strings;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class ProfileFragment extends Fragment {
 
@@ -43,6 +46,9 @@ public class ProfileFragment extends Fragment {
     private ImageButton userTwitter;
     private ImageButton userSoundcloud;
     private ImageButton userWebsite;
+    private TextView userReviewOne;
+    private TextView userReviewDate;
+    private TextView userTags;
 
     @Nullable
     @Override
@@ -62,6 +68,9 @@ public class ProfileFragment extends Fragment {
         userSoundcloud = v.findViewById(R.id.profile_soundcloud);
         // image should be changed from email to website - want to encourage contact within app messaging, not email
         userWebsite = v.findViewById(R.id.profile_email);
+        userReviewOne = v.findViewById(R.id.comment_1);
+        userReviewDate = v.findViewById(R.id.comment_1_reviewer_and_date);
+        userTags = v.findViewById(R.id.profile_tags);
 
         return v;
     }
@@ -79,10 +88,6 @@ public class ProfileFragment extends Fragment {
 
 
     private class ReadArtistProfileAsyncTask extends AsyncTask<String, String, Artist> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
 
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override
@@ -102,10 +107,6 @@ public class ProfileFragment extends Fragment {
 
 
     private class ReadVenueProfileAsyncTask extends AsyncTask<String, String, Venue> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
 
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override
@@ -156,6 +157,10 @@ public class ProfileFragment extends Fragment {
         setTextIfExists(userDescription, profile.getDescription());
         setTextIfExists(userDescription, profile.getDescription());
 
+        String listOfTags = String.valueOf(profile.getSearchTags().getTag("Genre"));
+        listOfTags = listOfTags.replaceAll("\\[", "").replaceAll("]","");
+        setTextIfExists(userTags, listOfTags);
+
         String rating = profile.getOverallRatingNum();
         if (!rating.equals("null")){
             userRating.setRating(Float.parseFloat(rating));
@@ -171,6 +176,15 @@ public class ProfileFragment extends Fragment {
         setImageIfExists(userSoundcloud, "https://www.soundcloud.com/", artist.getSoundCloudLink());
         setImageIfExists(userWebsite, "", profile.getWebPageLink());
 
+        ArrayList<Review> reviews;
+        if (profile.getReviews() != null){
+            reviews = profile.getReviews();
+            for (Review review : reviews) {
+                setTextIfExists(userReviewOne, review.getVenueComment());
+                setTextIfExists(userReviewDate, review.getVenueName() + ", "  + review.getGigDate());
+            }
+        }
+
     }
 
     private void populateVenueUI(final Venue venue) {
@@ -182,6 +196,10 @@ public class ProfileFragment extends Fragment {
         setTextIfExists(userTagline, profile.getTagLine());
         setTextIfExists(userDescription, profile.getDescription());
         setTextIfExists(userDescription, profile.getDescription());
+
+        String listOfTags = String.valueOf(profile.getSearchTags().getTag("Genre"));
+        listOfTags = listOfTags.replaceAll("\\[", "").replaceAll("]","");
+        setTextIfExists(userTags, listOfTags);
 
         String rating = profile.getOverallRatingNum();
         if (!rating.equals("null")){
@@ -195,6 +213,8 @@ public class ProfileFragment extends Fragment {
         setImageIfExists(userInstagram, "https://www.instagram.com/", profile.getInstagramLink());
         setImageIfExists(userTwitter, "https://www.twitter.com/", profile.getTwitterLink());
         setImageIfExists(userWebsite, "", profile.getWebPageLink());
+
+        setTextIfExists(userReviewOne, String.valueOf(profile.getReviews()));
 
     }
 

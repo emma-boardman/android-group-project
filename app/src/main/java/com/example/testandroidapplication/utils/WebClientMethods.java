@@ -19,7 +19,6 @@ import com.example.testandroidapplication.objects.Venue;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -176,7 +175,7 @@ public class WebClientMethods {
 
             JSONObject jsonObject = httpJsonParser.makeHttpRequestUsingFormParams(
                     BASE_URL + "readUserList.php", "GET", httpParams);
-            JSONArray resultsArray = null;
+            JSONArray resultsArray;
             resultsArray = jsonObject.getJSONArray(KEY_DATA);
 
             if (resultsArray != null) {

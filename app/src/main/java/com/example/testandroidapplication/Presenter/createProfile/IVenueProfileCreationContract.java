@@ -13,8 +13,7 @@ public interface IVenueProfileCreationContract {
 
     interface View{
         void buildVenueObject();
-        void showToast(String msg);
-        void showError(String error);
+
         void showGenreSpinner(List<String> tagList);
         void showGroupTypeSpinner(List<String> tagList);
         void showLookingForSpinner(List<String> tagList);

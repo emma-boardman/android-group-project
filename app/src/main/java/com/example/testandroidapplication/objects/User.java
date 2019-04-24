@@ -2,7 +2,6 @@ package com.example.testandroidapplication.objects;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Property;
 
 import org.json.JSONException;
 import org.json.JSONObject;

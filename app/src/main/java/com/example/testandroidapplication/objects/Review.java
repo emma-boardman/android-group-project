@@ -4,9 +4,7 @@ import android.support.annotation.Nullable;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Review {

@@ -18,7 +18,6 @@ public class Venue implements Entity, JsonWritable {
     private String address1;
     private String postcode;
     private String phoneNumber;
-    private ArrayList<Faq> faqs;
 
     public Venue(VenueBuilder builder) {
         this.user = builder.user;
@@ -26,7 +25,7 @@ public class Venue implements Entity, JsonWritable {
         this.address1 = builder.address1;
         this.postcode = builder.postcode;
         this.phoneNumber = builder.phoneNumber;
-        this.faqs = builder.faqs;
+        ArrayList<Faq> faqs = builder.faqs;
     }
 
     public static Venue fromJson(JSONObject jsonObject) {

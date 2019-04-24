@@ -34,10 +34,6 @@ public class VenueProfileCreationPresenter implements IVenueProfileCreationContr
     }
 
     public class CreateNewProfileAsyncTask extends AsyncTask<String, String, String> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
 
         @Override
         protected String doInBackground(String... params) {

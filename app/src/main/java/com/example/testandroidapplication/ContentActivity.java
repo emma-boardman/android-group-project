@@ -16,8 +16,6 @@ import com.example.testandroidapplication.utils.WebClientMethods;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.List;
-
 public class ContentActivity extends AppCompatActivity {
 
     private ProfileFragment profileView = new ProfileFragment();

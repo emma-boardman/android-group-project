@@ -18,16 +18,11 @@ import com.example.testandroidapplication.Model.HomeItemList;
 import com.example.testandroidapplication.objects.Entity;
 import com.example.testandroidapplication.utils.WebClientMethods;
 
-import org.json.JSONException;
-
 import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    private RecyclerView recyclerView;
-
     private ContentUserAdapter contentUserAdapter;
-    private java.util.List<Entity> mUsers;
 
     private List<HomeItemList> homeItems;
 
@@ -36,7 +31,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container,false);
 
-        recyclerView = v.findViewById(R.id.home_recycler_view);
+        RecyclerView recyclerView = v.findViewById(R.id.home_recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -58,7 +53,7 @@ public class HomeFragment extends Fragment {
         @Override
         protected List<Entity> doInBackground(String... params) {
             new WebClientMethods();
-            mUsers = WebClientMethods.readUserIds();
+            List<Entity> mUsers = WebClientMethods.readUserIds();
             return mUsers;
         }
 
