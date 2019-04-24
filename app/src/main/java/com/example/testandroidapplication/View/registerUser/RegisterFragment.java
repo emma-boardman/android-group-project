@@ -152,7 +152,9 @@ public class RegisterFragment extends Fragment implements IRegisterUserContract.
                                         RegisterFragmentVOrA registerFragmentVOrA = new RegisterFragmentVOrA();
 
                                         Bundle bundle = new Bundle();
-                                        bundle.putString("my_key", "My String");
+                                        bundle.putString("USER_EMAIL", email);
+                                        bundle.putString("USER_ID", userid);
+                                        bundle.putString("USER_NAME", username);
                                         registerFragmentVOrA.setArguments(bundle);
 
                                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,

@@ -19,7 +19,7 @@ public class WelcomeFragement extends Fragment {
 
         Button getStarted = v.findViewById(R.id.get_started);
 
-        final ProfileFragment profileFragment = new ProfileFragment();
+        final String userEmail = getArguments().getString("USER_EMAIL");
 
         getStarted.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -27,6 +27,7 @@ public class WelcomeFragement extends Fragment {
 
                 Intent i = new Intent(getActivity().getApplicationContext(),
                         ContentActivity.class);
+                i.putExtra("userEmail", userEmail);
                 startActivity(i);
 
                 getActivity().finish();

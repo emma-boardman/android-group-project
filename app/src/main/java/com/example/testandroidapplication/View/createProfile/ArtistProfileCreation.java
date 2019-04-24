@@ -68,8 +68,11 @@ public class ArtistProfileCreation extends Fragment implements IArtistProfileCre
         View v = inflater.inflate(R.layout.artist_profile_creation, container, false);
 
         presenter = new ArtistProfileCreationPresenter(this);
-
         presenter.readArtistTags();
+
+        final String userId = getArguments().getString("USER_ID");
+        final String userEmail = getArguments().getString("USER_EMAIL");
+        final String userName = getArguments().getString("USER_NAME");
 
         artistNameEditText = v.findViewById(R.id.artist_name);
         artistTaglineEditText = v.findViewById(R.id.artist_tagline);
@@ -94,9 +97,9 @@ public class ArtistProfileCreation extends Fragment implements IArtistProfileCre
 
                 if (CheckNetworkStatus.isNetworkAvailable(getActivity().getApplicationContext())) {
 
-                    user = new User("Ud0ZuQMdhoaNHGOUktI6BTjLzWS2", "TestArtist", "oasistest@gmail.com");
+                    user = new User(userId, userName, userEmail);
 
-
+                    artistNameEditText.setText(userName);
                     artistNameInput = artistNameEditText.getText().toString();
                     artistTaglineInput = artistTaglineEditText.getText().toString();
                     artistLocationInput = artistLocationEditText.getText().toString();
@@ -125,6 +128,12 @@ public class ArtistProfileCreation extends Fragment implements IArtistProfileCre
                 }
                 WelcomeFragement welcomeFragement = new WelcomeFragement();
 
+                Bundle bundle = new Bundle();
+                bundle.putString("USER_ID", userId);
+                bundle.putString("USER_EMAIL", userEmail);
+                bundle.putString("USER_NAME", userName);
+                welcomeFragement.setArguments(bundle);
+
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
                         welcomeFragement).commit();
 
@@ -141,8 +150,6 @@ public class ArtistProfileCreation extends Fragment implements IArtistProfileCre
     }
 
     public void buildArtistObject(){
-
-        user.setName(artistNameInput);
 
         profileInformation = new ProfileInformation
                 .ProfileBuilder()

@@ -24,13 +24,17 @@ public class RegisterFragmentVOrA extends Fragment {
 
         Button venueBtn = v.findViewById(R.id.user_venue);
         Button artistBtn = v.findViewById(R.id.user_artist);
+        final String userId = getArguments().getString("USER_ID");
+        final String userEmail = getArguments().getString("USER_EMAIL");
+        final String userName = getArguments().getString("USER_NAME");
 
-        String myStr = getArguments().getString("my_key");
-        Log.i("Arg: ", myStr);
         venueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                Bundle bundle = new Bundle();
+                bundle.putString("USER_ID", userId);
+                venueProfile.setArguments(bundle);
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
                         venueProfile).commit();
 
@@ -40,6 +44,12 @@ public class RegisterFragmentVOrA extends Fragment {
         artistBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Bundle bundle = new Bundle();
+                bundle.putString("USER_ID", userId);
+                bundle.putString("USER_EMAIL", userEmail);
+                bundle.putString("USER_NAME", userName);
+                artistProfile.setArguments(bundle);
 
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
                         artistProfile).commit();
