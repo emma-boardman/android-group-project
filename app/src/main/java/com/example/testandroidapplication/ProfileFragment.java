@@ -53,7 +53,7 @@ public class ProfileFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_main_profile, container, false);
+        View v = inflater.inflate(R.layout.fragment_main_profile,container,false);
 
         webView = v.findViewById(R.id.profile_web_view);
 
@@ -76,30 +76,24 @@ public class ProfileFragment extends Fragment {
     }
 
     public void accessUserIdForDB(JSONObject user) throws JSONException {
-        Log.i("user", String.valueOf(user));
-        userId = user.getString("User_Id");
-        if (user.getString("User_type").equals("Artist")) {
-            new ReadArtistProfileAsyncTask(this).execute(userId);
-        } else {
-            new ReadVenueProfileAsyncTask(this).execute(userId);
-        }
+           Log.i("user", String.valueOf(user));
+           userId = user.getString("User_Id");
+           if (user.getString("User_type").equals("Artist")){
+               new ReadArtistProfileAsyncTask().execute(userId);
+           } else {
+               new ReadVenueProfileAsyncTask().execute(userId);
+           }
 
     }
 
 
-    private static class ReadArtistProfileAsyncTask extends AsyncTask<String, String, Artist> {
-
-        final ProfileFragment profileFragment;
-
-        private ReadArtistProfileAsyncTask(ProfileFragment profileFragment) {
-            this.profileFragment = profileFragment;
-        }
+    private class ReadArtistProfileAsyncTask extends AsyncTask<String, String, Artist> {
 
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override
         protected Artist doInBackground(String... params) {
 
-            ArtistResult artistResult = WebClientMethods.readArtistProfile(profileFragment.userId);
+            ArtistResult artistResult = WebClientMethods.readArtistProfile(userId);
             return artistResult.getArtist();
         }
 
@@ -108,63 +102,17 @@ public class ProfileFragment extends Fragment {
 
             populateArtistUI(artist);
 
-        }
-
-        private void populateArtistUI(final Artist artist) {
-
-            profileFragment.userName.setText(artist.getUser().getName());
-
-            final ProfileInformation profile = artist.getProfileInformation();
-            setTextIfExists(profileFragment.userName, artist.getUser().getName());
-            setTextIfExists(profileFragment.userTagline, profile.getTagLine());
-            setTextIfExists(profileFragment.userDescription, profile.getDescription());
-            setTextIfExists(profileFragment.userDescription, profile.getDescription());
-
-            String listOfTags = String.valueOf(profile.getSearchTags().getTag("Genre"));
-            listOfTags = listOfTags.replaceAll("\\[", "").replaceAll("]", "");
-            setTextIfExists(profileFragment.userTags, listOfTags);
-
-            String rating = profile.getOverallRatingNum();
-            if (!rating.equals("null")) {
-                profileFragment.userRating.setRating(Float.parseFloat(rating));
-            } else {
-                profileFragment.userRating.setVisibility(View.GONE);
-                profileFragment.userRatingLabel.setVisibility(View.GONE);
-            }
-
-
-            setImageIfExists(profileFragment.webView, profileFragment.userFacebook, "https://www.facebook.com/", profile.getFacebookLink());
-            setImageIfExists(profileFragment.webView, profileFragment.userInstagram, "https://www.instagram.com/", profile.getInstagramLink());
-            setImageIfExists(profileFragment.webView, profileFragment.userTwitter, "https://www.twitter.com/", profile.getTwitterLink());
-            setImageIfExists(profileFragment.webView, profileFragment.userSoundcloud, "https://www.soundcloud.com/", artist.getSoundCloudLink());
-            setImageIfExists(profileFragment.webView, profileFragment.userWebsite, "", profile.getWebPageLink());
-
-            ArrayList<Review> reviews;
-            if (profile.getReviews() != null) {
-                reviews = profile.getReviews();
-                for (Review review : reviews) {
-                    setTextIfExists(profileFragment.userReviewOne, review.getVenueComment());
-                    setTextIfExists(profileFragment.userReviewDate, review.getVenueName() + ", " + review.getGigDate());
                 }
             }
 
-        }
-    }
 
-
-    private static class ReadVenueProfileAsyncTask extends AsyncTask<String, String, Venue> {
-
-        final ProfileFragment profileFragment;
-
-        private ReadVenueProfileAsyncTask(ProfileFragment profileFragment) {
-            this.profileFragment = profileFragment;
-        }
+    private class ReadVenueProfileAsyncTask extends AsyncTask<String, String, Venue> {
 
         @RequiresApi(api = Build.VERSION_CODES.KITKAT)
         @Override
         protected Venue doInBackground(String... params) {
 
-            VenueResult venueResult = WebClientMethods.readVenueProfile(profileFragment.userId);
+            VenueResult venueResult = WebClientMethods.readVenueProfile(userId);
             return venueResult.getVenue();
         }
 
@@ -174,58 +122,100 @@ public class ProfileFragment extends Fragment {
             populateVenueUI(venue);
 
         }
+    }
 
-        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-        private void populateVenueUI(final Venue venue) {
-
-            profileFragment.userName.setText(venue.getUser().getName());
-
-            final ProfileInformation profile = venue.getProfileInformation();
-            setTextIfExists(profileFragment.userName, venue.getUser().getName());
-            setTextIfExists(profileFragment.userTagline, profile.getTagLine());
-            setTextIfExists(profileFragment.userDescription, profile.getDescription());
-            setTextIfExists(profileFragment.userDescription, profile.getDescription());
-
-            String listOfTags = String.valueOf(profile.getSearchTags().getTag("Genre"));
-            listOfTags = listOfTags.replaceAll("\\[", "").replaceAll("]", "");
-            setTextIfExists(profileFragment.userTags, listOfTags);
-
-            String rating = profile.getOverallRatingNum();
-            if (!rating.equals("null")) {
-                profileFragment.userRating.setRating(Float.parseFloat(rating));
-            } else {
-                profileFragment.userRating.setVisibility(View.GONE);
-                profileFragment.userRatingLabel.setVisibility(View.GONE);
+            private void setTextIfExists(TextView textView, @Nullable String text) {
+                if (!Strings.isEmptyOrWhitespace(text)) {
+                    textView.setText(text);
+                } else {
+                    textView.setVisibility(View.GONE);
+                }
             }
 
-            setImageIfExists(profileFragment.webView, profileFragment.userFacebook, "https://www.facebook.com/", profile.getFacebookLink());
-            setImageIfExists(profileFragment.webView, profileFragment.userInstagram, "https://www.instagram.com/", profile.getInstagramLink());
-            setImageIfExists(profileFragment.webView, profileFragment.userTwitter, "https://www.twitter.com/", profile.getTwitterLink());
-            setImageIfExists(profileFragment.webView, profileFragment.userWebsite, "", profile.getWebPageLink());
-
-            setTextIfExists(profileFragment.userReviewOne, String.valueOf(profile.getReviews()));
-
-        }
-    }
-
-    private static void setTextIfExists(TextView textView, @Nullable String text) {
-        if (!Strings.isEmptyOrWhitespace(text)) {
-            textView.setText(text);
-        } else {
-            textView.setVisibility(View.GONE);
-        }
-    }
-
-    private static void setImageIfExists(final WebView webView, ImageButton imageButton, final String baseUrl, final @Nullable String text) {
-        if (!Strings.isEmptyOrWhitespace(text)) {
-            imageButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    webView.loadUrl(baseUrl + text);
+            private void setImageIfExists(ImageButton imageButton, final String baseUrl, final @Nullable String text) {
+                if (!Strings.isEmptyOrWhitespace(text)) {
+                    imageButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            webView.loadUrl(baseUrl + text);
+                        }
+                    });
+                } else {
+                    imageButton.setVisibility(View.GONE);
                 }
-            });
+            }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+
+    private void populateArtistUI(final Artist artist) {
+
+        userName.setText(artist.getUser().getName());
+
+        final ProfileInformation profile = artist.getProfileInformation();
+        setTextIfExists(userName, artist.getUser().getName());
+        setTextIfExists(userTagline, profile.getTagLine());
+        setTextIfExists(userDescription, profile.getDescription());
+        setTextIfExists(userDescription, profile.getDescription());
+
+        String listOfTags = String.valueOf(profile.getSearchTags().getTag("Genre"));
+        listOfTags = listOfTags.replaceAll("\\[", "").replaceAll("]","");
+        setTextIfExists(userTags, listOfTags);
+
+        String rating = profile.getOverallRatingNum();
+        if (!rating.equals("null")){
+            userRating.setRating(Float.parseFloat(rating));
         } else {
-            imageButton.setVisibility(View.GONE);
+            userRating.setVisibility(View.GONE);
+            userRatingLabel.setVisibility(View.GONE);
         }
+
+
+        setImageIfExists(userFacebook, "https://www.facebook.com/", profile.getFacebookLink());
+        setImageIfExists(userInstagram, "https://www.instagram.com/", profile.getInstagramLink());
+        setImageIfExists(userTwitter, "https://www.twitter.com/", profile.getTwitterLink());
+        setImageIfExists(userSoundcloud, "https://www.soundcloud.com/", artist.getSoundCloudLink());
+        setImageIfExists(userWebsite, "", profile.getWebPageLink());
+
+        ArrayList<Review> reviews;
+        if (profile.getReviews() != null){
+            reviews = profile.getReviews();
+            for (Review review : reviews) {
+                setTextIfExists(userReviewOne, review.getVenueComment());
+                setTextIfExists(userReviewDate, review.getVenueName() + ", "  + review.getGigDate());
+            }
+        }
+
     }
+
+    private void populateVenueUI(final Venue venue) {
+
+        userName.setText(venue.getUser().getName());
+
+        final ProfileInformation profile = venue.getProfileInformation();
+        setTextIfExists(userName, venue.getUser().getName());
+        setTextIfExists(userTagline, profile.getTagLine());
+        setTextIfExists(userDescription, profile.getDescription());
+        setTextIfExists(userDescription, profile.getDescription());
+
+        String listOfTags = String.valueOf(profile.getSearchTags().getTag("Genre"));
+        listOfTags = listOfTags.replaceAll("\\[", "").replaceAll("]","");
+        setTextIfExists(userTags, listOfTags);
+
+        String rating = profile.getOverallRatingNum();
+        if (!rating.equals("null")){
+        userRating.setRating(Float.parseFloat(rating));
+        } else {
+            userRating.setVisibility(View.GONE);
+            userRatingLabel.setVisibility(View.GONE);
+        }
+
+        setImageIfExists(userFacebook, "https://www.facebook.com/", profile.getFacebookLink());
+        setImageIfExists(userInstagram, "https://www.instagram.com/", profile.getInstagramLink());
+        setImageIfExists(userTwitter, "https://www.twitter.com/", profile.getTwitterLink());
+        setImageIfExists(userWebsite, "", profile.getWebPageLink());
+
+        setTextIfExists(userReviewOne, String.valueOf(profile.getReviews()));
+
+    }
+
 }
