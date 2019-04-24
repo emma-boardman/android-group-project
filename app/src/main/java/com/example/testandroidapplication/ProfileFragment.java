@@ -35,6 +35,7 @@ public class ProfileFragment extends Fragment {
     private TextView userName;
     private TextView userTagline;
     private TextView userDescription;
+    private TextView userRatingLabel;
     private RatingBar userRating;
     private WebView webView;
     private ImageButton userFacebook;
@@ -54,6 +55,7 @@ public class ProfileFragment extends Fragment {
         userTagline = v.findViewById(R.id.profile_tagline);
         userDescription = v.findViewById(R.id.profile_bio);
         userRating = v.findViewById(R.id.profile_rating);
+        userRatingLabel = v.findViewById(R.id.profile_rating_text);
         userFacebook = v.findViewById(R.id.profile_facebook);
         userInstagram = v.findViewById(R.id.profile_instagram);
         userTwitter = v.findViewById(R.id.profile_twitter);
@@ -154,7 +156,14 @@ public class ProfileFragment extends Fragment {
         setTextIfExists(userDescription, profile.getDescription());
         setTextIfExists(userDescription, profile.getDescription());
 
-//        userRating.setRating(Float.parseFloat(profile.getOverallRatingNum()));
+        String rating = profile.getOverallRatingNum();
+        if (!rating.equals("null")){
+            userRating.setRating(Float.parseFloat(rating));
+        } else {
+            userRating.setVisibility(View.GONE);
+            userRatingLabel.setVisibility(View.GONE);
+        }
+
 
         setImageIfExists(userFacebook, "https://www.facebook.com/", profile.getFacebookLink());
         setImageIfExists(userInstagram, "https://www.instagram.com/", profile.getInstagramLink());
@@ -174,7 +183,13 @@ public class ProfileFragment extends Fragment {
         setTextIfExists(userDescription, profile.getDescription());
         setTextIfExists(userDescription, profile.getDescription());
 
-//        userRating.setRating(Float.parseFloat(profile.getOverallRatingNum()));
+        String rating = profile.getOverallRatingNum();
+        if (!rating.equals("null")){
+        userRating.setRating(Float.parseFloat(rating));
+        } else {
+            userRating.setVisibility(View.GONE);
+            userRatingLabel.setVisibility(View.GONE);
+        }
 
         setImageIfExists(userFacebook, "https://www.facebook.com/", profile.getFacebookLink());
         setImageIfExists(userInstagram, "https://www.instagram.com/", profile.getInstagramLink());
