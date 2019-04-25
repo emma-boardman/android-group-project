@@ -31,10 +31,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_home, container,false);
 
-        RecyclerView recyclerView = v.findViewById(R.id.home_recycler_view);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
         // populate mUsers with Artist objects (to be refactored to populate artist or venue dependent on logged in user
         new ReadUserListAsyncTask().execute();
 

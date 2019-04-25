@@ -44,9 +44,6 @@ public class LoginFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         Button loginBtn =  v.findViewById(R.id.loginBtn);
         Button addNewBtn = v.findViewById(R.id.addNewBtn);
-        Button btn_messaging = v.findViewById(R.id.btn_messaging);
-        Button btn_calender = v.findViewById(R.id.btn_calender);
-        Button btn_test = v.findViewById(R.id.btn_test);
 
 //        btn_test.setOnClickListener(new View.OnClickListener(){
 //            @Override
@@ -134,16 +131,6 @@ public class LoginFragment extends Fragment {
                             Toast.LENGTH_LONG).show();
 
                 }
-            }
-        });
-
-        btn_calender.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent i = new Intent(getActivity(), CalendarFragment.class);
-                startActivity(i);
-
             }
         });
 
