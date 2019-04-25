@@ -32,10 +32,8 @@ public class RegisterFragment extends Fragment implements IRegisterUserContract.
 
     private RegisterUserPresenter presenter;
     TextInputEditText username, email, password, confirm_password;
-    Button btn_register, userCancel, btn_bypass;
+    Button btn_register, userCancel;
     String userid;
-
-    RegisterFragmentVOrA registerFragmentVOrA = new RegisterFragmentVOrA();
 
     FirebaseAuth auth;
     DatabaseReference reference;
@@ -53,7 +51,6 @@ public class RegisterFragment extends Fragment implements IRegisterUserContract.
         confirm_password = v.findViewById(R.id.user_confirm_password);
         btn_register = v.findViewById(R.id.btn_register);
         userCancel = v.findViewById(R.id.user_cancel);
-        btn_bypass = v.findViewById(R.id.register_bypass);
 
 
         auth = FirebaseAuth.getInstance();
@@ -69,10 +66,10 @@ public class RegisterFragment extends Fragment implements IRegisterUserContract.
                 if (TextUtils.isEmpty(txt_username) || TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password)) {
                     Toast.makeText(getActivity(), "All fields are required to be filled.", Toast.LENGTH_SHORT).show();
                 } else {
-                    if(txt_password.length() < 6){
+                    if (txt_password.length() < 6) {
                         Toast.makeText(getActivity(), "Password must be at least 6 characters.", Toast.LENGTH_SHORT).show();
                     } else {
-                        if(txt_password.equals(txt_confirm_password)){
+                        if (txt_password.equals(txt_confirm_password)) {
                             register(txt_username, txt_email, txt_password);
                         } else {
                             Toast.makeText(getActivity(), "Passwords do not match", Toast.LENGTH_SHORT).show();
@@ -94,25 +91,6 @@ public class RegisterFragment extends Fragment implements IRegisterUserContract.
             }
         });
 
-        ///
-        ///TEMPORARY BYPASS
-        ///
-
-        btn_bypass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Bundle bundle = new Bundle();
-                bundle.putString("my_key", "My String");
-                registerFragmentVOrA.setArguments(bundle);
-
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
-                        registerFragmentVOrA).commit();
-
-
-            }
-        });
-
         return v;
     }
 
@@ -122,7 +100,7 @@ public class RegisterFragment extends Fragment implements IRegisterUserContract.
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             FirebaseUser firebaseUser = auth.getCurrentUser();
                             assert firebaseUser != null;
                             userid = firebaseUser.getUid();
@@ -140,7 +118,7 @@ public class RegisterFragment extends Fragment implements IRegisterUserContract.
                             reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
+                                    if (task.isSuccessful()) {
 
                                         User user = new User(userid, username, email);
                                         presenter.validateUserObject(user);
@@ -155,11 +133,6 @@ public class RegisterFragment extends Fragment implements IRegisterUserContract.
                                         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragement_container,
                                                 registerFragmentVOrA).commit();
 
-
-                                        /*Intent intent = new Intent(getActivity(), Messaging.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        startActivity(intent);
-                                        getActivity().finish();*/
                                     }
                                 }
                             });
