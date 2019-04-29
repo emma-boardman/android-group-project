@@ -12,11 +12,13 @@
     <item
         android:id="@+id/nav_calender"
         android:icon="@drawable/ic_calender_white_24dp"
-        android:title="Calender"/>
+        android:title="Calendar"
+        />
 
     <item
         android:id="@+id/nav_message"
         android:icon="@drawable/ic_message_white_24dp"
-        android:title="Messaging"/>
+        android:title="Messaging"
+        />
 
 </menu>
